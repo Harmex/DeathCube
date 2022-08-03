@@ -1,6 +1,7 @@
 package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.entity.galterius.GalteriusEntity;
 //import com.harmex.deathcube.event.loot.EnderDragonScaleFromEnderDragonAdditionModifier;
@@ -8,30 +9,37 @@ import com.harmex.deathcube.entity.galterius.GalteriusEntity;
 import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.recipe.UpgradingStationRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
-@Mod.EventBusSubscriber(modid = DeathCube.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModEventBusEvents {
+import java.util.Objects;
 
-    // TODO : registration des loot modifiers
+@Mod.EventBusSubscriber(modid = DeathCube.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class ModBusEvents {
+
     @SubscribeEvent
     public static void registerEvent(RegisterEvent event) {
-        /*event.register(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, helper -> {
-            helper.register(new ResourceLocation(DeathCube.MODID, "ender_dragon_scale_from_ender_dragon"),
-                    new EnderDragonScaleFromEnderDragonAdditionModifier.Serializer());
-            helper.register(new ResourceLocation(DeathCube.MODID, "warden_heart_from_warden"),
-                    new WardenHeartFromWardenAdditionModifier.Serializer());
-        });*/
-
-        event.register(ForgeRegistries.Keys.RECIPE_TYPES, helper -> {
-            helper.register(new ResourceLocation(DeathCube.MODID, ShapedMatterManipulationRecipe.Type.ID),
+        event.register(ForgeRegistries.Keys.RECIPE_TYPES, recipeTypeRegisterHelper -> {
+            recipeTypeRegisterHelper.register(new ResourceLocation(DeathCube.MODID, ShapedMatterManipulationRecipe.Type.ID),
                     ShapedMatterManipulationRecipe.Type.INSTANCE);
-            helper.register(new ResourceLocation(DeathCube.MODID, UpgradingStationRecipe.Type.ID),
+            recipeTypeRegisterHelper.register(new ResourceLocation(DeathCube.MODID, UpgradingStationRecipe.Type.ID),
                     UpgradingStationRecipe.Type.INSTANCE);
+        });
+
+        event.register(ForgeRegistries.Keys.ITEMS, itemRegisterHelper -> {
+            itemRegisterHelper.register(new ResourceLocation("minecraft:golden_carrot"),
+                    new ItemNameBlockItem(ModBlocks.GOLDEN_CARROTS.get(),
+                            new Item.Properties()
+                                    .tab(CreativeModeTab.TAB_FOOD)
+                                    .food(Foods.GOLDEN_CARROT)
+                    ));
         });
     }
 

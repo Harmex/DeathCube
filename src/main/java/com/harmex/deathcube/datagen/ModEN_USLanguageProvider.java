@@ -23,6 +23,13 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add("container." + DeathCube.MODID + ".matter_manipulator", "Matter Manipulator");
         add("container." + DeathCube.MODID + ".resurrection_altar", "Resurrection Altar");
 
+        add("itemTooltip." + DeathCube.MODID + ".rarity.common", "Common");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.uncommon", "Uncommon");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.rare", "Rare");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.epic", "Epic");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.legendary", "Legendary");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.mythic", "Mythic");
+
         add(ModItems.GALTERIUS_SPAWN_EGG.get(), "Galterius Spawn Egg");
 
         add(ModBlocks.CHERRY_PLANKS.get(), "Cherry Planks");

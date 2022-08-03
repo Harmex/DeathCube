@@ -8,9 +8,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Standing Signs. Hello :D
- */
 public class ModStandingSignBlock extends StandingSignBlock {
     public ModStandingSignBlock(Properties pProperties, WoodType pWoodType) {
         super(pProperties, pWoodType);

@@ -23,6 +23,13 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add("container." + DeathCube.MODID + ".matter_manipulator", "Manipulateur de matière");
         add("container." + DeathCube.MODID + ".resurrection_altar", "Autel de résurrection");
 
+        add("itemTooltip." + DeathCube.MODID + ".rarity.common", "Commun");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.uncommon", "Peu commun");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.rare", "Rare");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.epic", "Épique");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.legendary", "Légendaire");
+        add("itemTooltip." + DeathCube.MODID + ".rarity.mythic", "Mythique");
+
         add(ModItems.GALTERIUS_SPAWN_EGG.get(), "Oeuf d'apparition de Galterius");
 
         add(ModBlocks.CHERRY_PLANKS.get(), "Planches de cerisier");

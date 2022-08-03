@@ -19,10 +19,6 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * May be replaced later.
- * Doesn't work for now.
- */
 public class ResurrectionAltarBlock extends BaseEntityBlock {
     public ResurrectionAltarBlock(Properties pProperties) {
         super(pProperties);

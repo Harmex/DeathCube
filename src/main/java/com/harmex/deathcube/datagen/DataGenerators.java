@@ -20,6 +20,8 @@ public class DataGenerators {
         generator.addProvider(true, new ModLootTableProvider(generator));
         generator.addProvider(true, new ModBlockStateProvider(generator, existingFileHelper));
         generator.addProvider(true, new ModItemModelProvider(generator, existingFileHelper));
+        //generator.addProvider(true, new ModBlockTagProvider(generator, existingFileHelper));
+        //generator.addProvider(true, new ModItemTagProvider(generator, existingFileHelper));
         generator.addProvider(true, new ModEN_USLanguageProvider(generator, "en_us"));
         generator.addProvider(true, new ModFR_FRLanguageProvider(generator, "fr_fr"));
     }

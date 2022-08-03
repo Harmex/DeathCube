@@ -4,14 +4,14 @@ import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.block.entity.ModBlockEntities;
 import com.harmex.deathcube.block.entity.ModWoodTypes;
-import com.harmex.deathcube.screen.UpgradingStationScreen;
-import com.harmex.deathcube.thirst.ThirstHudOverlay;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.entity.galterius.GalteriusModel;
 import com.harmex.deathcube.entity.galterius.GalteriusRenderer;
 import com.harmex.deathcube.screen.MatterManipulatorScreen;
 import com.harmex.deathcube.screen.ModMenuTypes;
 import com.harmex.deathcube.screen.ResurrectionAltarScreen;
+import com.harmex.deathcube.screen.UpgradingStationScreen;
+import com.harmex.deathcube.thirst.ThirstHudOverlay;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -59,6 +59,5 @@ public class ClientModBusEvents {
     public static void registerGuiOverlay(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("thirst", ThirstHudOverlay.HUD_THIRST);
     }
-
 }
 

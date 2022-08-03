@@ -121,5 +121,11 @@
   "itemGroup.deathcube.blocks": "DeathCube | Blocks",
   "itemGroup.deathcube.foods": "DeathCube | Foods",
   "itemGroup.deathcube.misc": "DeathCube | Misc.",
-  "itemGroup.deathcube.tools": "DeathCube | Tools"
+  "itemGroup.deathcube.tools": "DeathCube | Tools",
+  "itemTooltip.deathcube.rarity.common": "Common",
+  "itemTooltip.deathcube.rarity.epic": "Epic",
+  "itemTooltip.deathcube.rarity.legendary": "Legendary",
+  "itemTooltip.deathcube.rarity.mythic": "Mythic",
+  "itemTooltip.deathcube.rarity.rare": "Rare",
+  "itemTooltip.deathcube.rarity.uncommon": "Uncommon"
 }
