@@ -1,4 +1,4 @@
-package com.harmex.deathcube.entity.galterius;
+package com.harmex.deathcube.entity.boss;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerBossEvent;
@@ -22,11 +22,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class GalteriusEntity extends Monster {
+public class Naervus extends Monster {
     private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(),
-            BossEvent.BossBarColor.WHITE, BossEvent.BossBarOverlay.PROGRESS);
+            BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
 
-    public GalteriusEntity(EntityType<? extends Monster> pType, Level pLevel) {
+    public Naervus(EntityType<? extends Monster> pType, Level pLevel) {
         super(pType, pLevel);
     }
 
@@ -39,7 +39,7 @@ public class GalteriusEntity extends Monster {
 
     protected void addBehaviourGoals() {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(ZombifiedPiglin.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -67,7 +67,7 @@ public class GalteriusEntity extends Monster {
 
     public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 25.0D)
+                .add(Attributes.MAX_HEALTH, 2.0D)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
@@ -75,19 +75,19 @@ public class GalteriusEntity extends Monster {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ZOMBIE_AMBIENT;
+        return SoundEvents.PIGLIN_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
-        return SoundEvents.ZOMBIE_HURT;
+        return SoundEvents.PIGLIN_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ZOMBIE_DEATH;
+        return SoundEvents.PIGLIN_DEATH;
     }
 
     protected SoundEvent getStepSound() {
-        return SoundEvents.ZOMBIE_STEP;
+        return SoundEvents.PIGLIN_STEP;
     }
 
     protected void playStepSound(@NotNull BlockPos pPos, @NotNull BlockState pBlock) {

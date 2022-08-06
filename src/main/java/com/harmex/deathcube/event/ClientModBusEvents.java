@@ -5,13 +5,15 @@ import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.block.entity.ModBlockEntities;
 import com.harmex.deathcube.block.entity.ModWoodTypes;
 import com.harmex.deathcube.entity.ModEntityTypes;
-import com.harmex.deathcube.entity.galterius.GalteriusModel;
-import com.harmex.deathcube.entity.galterius.GalteriusRenderer;
+import com.harmex.deathcube.entity.model.GalteriusModel;
+import com.harmex.deathcube.entity.renderer.GalteriusRenderer;
+import com.harmex.deathcube.entity.model.NaervusModel;
+import com.harmex.deathcube.entity.renderer.NaervusRenderer;
 import com.harmex.deathcube.screen.MatterManipulatorScreen;
 import com.harmex.deathcube.screen.ModMenuTypes;
 import com.harmex.deathcube.screen.ResurrectionAltarScreen;
 import com.harmex.deathcube.screen.UpgradingStationScreen;
-import com.harmex.deathcube.thirst.ThirstHudOverlay;
+import com.harmex.deathcube.client.gui.ModGuiOverlay;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -48,16 +50,19 @@ public class ClientModBusEvents {
     @SubscribeEvent
     public static void onRegister(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(GalteriusModel.GALTERIUS_LAYER, GalteriusModel::createBodyLayer);
+        event.registerLayerDefinition(NaervusModel.NAERVUS_LAYER, NaervusModel::createBodyLayer);
     }
 
     @SubscribeEvent
     public static void onRegister(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.GALTERIUS.get(), GalteriusRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.NAERVUS.get(), NaervusRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerGuiOverlay(RegisterGuiOverlaysEvent event) {
-        event.registerAboveAll("thirst", ThirstHudOverlay.HUD_THIRST);
+        event.registerAboveAll("thirst_level", ModGuiOverlay.THIRST_LEVEL);
+        event.registerAboveAll("replaced_air_level", ModGuiOverlay.REPLACED_AIR_LEVEL);
     }
 }
 

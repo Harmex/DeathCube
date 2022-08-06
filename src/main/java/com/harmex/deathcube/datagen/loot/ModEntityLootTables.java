@@ -11,6 +11,7 @@ public class ModEntityLootTables extends EntityLoot {
     @Override
     protected void addTables() {
         this.add(ModEntityTypes.GALTERIUS.get(), LootTable.lootTable());
+        this.add(ModEntityTypes.NAERVUS.get(), LootTable.lootTable());
     }
 
     @Override

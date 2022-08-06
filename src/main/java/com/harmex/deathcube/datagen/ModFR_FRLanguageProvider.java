@@ -2,6 +2,7 @@ package com.harmex.deathcube.datagen;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
+import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.item.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -13,24 +14,29 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add("itemGroup." + DeathCube.MODID + ".misc", "DeathCube | Divers");
-        add("itemGroup." + DeathCube.MODID + ".blocks", "DeathCube | Blocs");
-        add("itemGroup." + DeathCube.MODID + ".tools", "DeathCube | Outils");
-        add("itemGroup." + DeathCube.MODID + ".armors", "DeathCube | Armures");
-        add("itemGroup." + DeathCube.MODID + ".foods", "DeathCube | Nourritures");
+        addItemGroup("misc", "DeathCube | Divers");
+        addItemGroup("blocks", "DeathCube | Blocs");
+        addItemGroup("tools", "DeathCube | Outils");
+        addItemGroup("armors", "DeathCube | Armures");
+        addItemGroup("foods", "DeathCube | Nourritures");
 
-        add("container." + DeathCube.MODID + ".upgrading_station", "Station d'amélioration");
-        add("container." + DeathCube.MODID + ".matter_manipulator", "Manipulateur de matière");
-        add("container." + DeathCube.MODID + ".resurrection_altar", "Autel de résurrection");
+        addContainer("upgrading_station", "Station d'amélioration");
+        addContainer("matter_manipulator", "Manipulateur de matière");
+        addContainer("resurrection_altar", "Autel de résurrection");
 
-        add("itemTooltip." + DeathCube.MODID + ".rarity.common", "Commun");
-        add("itemTooltip." + DeathCube.MODID + ".rarity.uncommon", "Peu commun");
-        add("itemTooltip." + DeathCube.MODID + ".rarity.rare", "Rare");
-        add("itemTooltip." + DeathCube.MODID + ".rarity.epic", "Épique");
-        add("itemTooltip." + DeathCube.MODID + ".rarity.legendary", "Légendaire");
-        add("itemTooltip." + DeathCube.MODID + ".rarity.mythic", "Mythique");
+        addItemTooltip("rarity.common", "Commun");
+        addItemTooltip("rarity.uncommon", "Peu commun");
+        addItemTooltip("rarity.rare", "Rare");
+        addItemTooltip("rarity.epic", "Épique");
+        addItemTooltip("rarity.legendary", "Légendaire");
+        addItemTooltip("rarity.hellish", "Infernal");
+        addItemTooltip("rarity.mythic", "Mythique");
+
+        add(ModEntityTypes.GALTERIUS.get().getDescriptionId(), "Galterius");
+        add(ModEntityTypes.NAERVUS.get().getDescriptionId(), "Naervus");
 
         add(ModItems.GALTERIUS_SPAWN_EGG.get(), "Oeuf d'apparition de Galterius");
+        add(ModItems.NAERVUS_SPAWN_EGG.get(), "Oeuf d'apparition de Naervus");
 
         add(ModBlocks.CHERRY_PLANKS.get(), "Planches de cerisier");
         add(ModBlocks.CHERRY_SAPLING.get(), "Pousse de cerisier");
@@ -150,5 +156,15 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModItems.OBSIDIAN_AXE.get(), "Hache en obsidienne");
         add(ModItems.OBSIDIAN_SHOVEL.get(), "Pelle en obsidienne");
         add(ModItems.OBSIDIAN_HOE.get(), "Houe en obsidienne");
+    }
+
+    private void addItemGroup(String pId, String pName) {
+        add("itemGroup." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addItemTooltip(String pId, String pName) {
+        add("itemTooltip." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addContainer(String pId, String pName) {
+        add("container." + DeathCube.MODID + "." + pId, pName);
     }
 }

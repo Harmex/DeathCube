@@ -1,9 +1,12 @@
 package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,5 +24,12 @@ public class ClientForgeBusEvents {
         rarityColor = rarityColor | 0xFF000000 & event.getBorderStart();
         event.setBorderStart(rarityColor);
         event.setBorderEnd(rarityColor);
+    }
+
+    @SubscribeEvent
+    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Pre event) {
+        if (Objects.equals(event.getOverlay().id(), new ResourceLocation("minecraft:air_level"))) {
+            event.setCanceled(true);
+        }
     }
 }

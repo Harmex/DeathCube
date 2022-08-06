@@ -1,6 +1,7 @@
 package com.harmex.deathcube.item.custom;
 
 import com.harmex.deathcube.item.ModCreativeModeTab;
+import com.harmex.deathcube.item.ModRarities;
 import com.harmex.deathcube.thirst.ThirstDataProvider;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;

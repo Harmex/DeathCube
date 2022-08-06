@@ -426,7 +426,15 @@ public class ModItems {
                             0xffffff, 0x000000,
                             new Item.Properties()
                                     .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
-                                    .rarity(Rarity.EPIC)
+                                    .rarity(ModRarities.EPIC)
+                    ));
+    public static final RegistryObject<Item> NAERVUS_SPAWN_EGG =
+            ITEMS.register("naervus_spawn_egg",
+                    () -> new ForgeSpawnEggItem(ModEntityTypes.NAERVUS,
+                            0xffffff, 0x000000,
+                            new Item.Properties()
+                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
+                                    .rarity(ModRarities.HELLISH)
                     ));
     //endregion
 
