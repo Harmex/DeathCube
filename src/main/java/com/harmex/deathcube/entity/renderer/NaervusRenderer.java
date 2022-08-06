@@ -13,7 +13,7 @@ public class NaervusRenderer extends HumanoidMobRenderer<Naervus, NaervusModel> 
             new ResourceLocation(DeathCube.MODID, "textures/entity/naervus.png");
 
     public NaervusRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new NaervusModel(pContext.bakeLayer(NaervusModel.NAERVUS_LAYER)), 0.5F /* Shadow Radius */);
+        super(pContext, new NaervusModel(pContext.bakeLayer(NaervusModel.NAERVUS_LAYER)), 0.5F);
     }
 
     @Override

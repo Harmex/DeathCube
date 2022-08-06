@@ -5,7 +5,11 @@ import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.block.entity.ModBlockEntities;
 import com.harmex.deathcube.block.entity.ModWoodTypes;
 import com.harmex.deathcube.entity.ModEntityTypes;
+import com.harmex.deathcube.entity.model.AzrathalModel;
+import com.harmex.deathcube.entity.model.BorzadonModel;
 import com.harmex.deathcube.entity.model.GalteriusModel;
+import com.harmex.deathcube.entity.renderer.AzrathalRenderer;
+import com.harmex.deathcube.entity.renderer.BorzadonRenderer;
 import com.harmex.deathcube.entity.renderer.GalteriusRenderer;
 import com.harmex.deathcube.entity.model.NaervusModel;
 import com.harmex.deathcube.entity.renderer.NaervusRenderer;
@@ -49,12 +53,16 @@ public class ClientModBusEvents {
 
     @SubscribeEvent
     public static void onRegister(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(AzrathalModel.AZRATHAL_LAYER, AzrathalModel::createBodyLayer);
+        event.registerLayerDefinition(BorzadonModel.BORZADON_LAYER, BorzadonModel::createBodyLayer);
         event.registerLayerDefinition(GalteriusModel.GALTERIUS_LAYER, GalteriusModel::createBodyLayer);
         event.registerLayerDefinition(NaervusModel.NAERVUS_LAYER, NaervusModel::createBodyLayer);
     }
 
     @SubscribeEvent
     public static void onRegister(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntityTypes.AZRATHAL.get(), AzrathalRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.BORZADON.get(), BorzadonRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.GALTERIUS.get(), GalteriusRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.NAERVUS.get(), NaervusRenderer::new);
     }

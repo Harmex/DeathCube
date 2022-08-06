@@ -1,6 +1,8 @@
 package com.harmex.deathcube.entity;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.entity.boss.Azrathal;
+import com.harmex.deathcube.entity.boss.Borzadon;
 import com.harmex.deathcube.entity.boss.Galterius;
 import com.harmex.deathcube.entity.boss.Naervus;
 import net.minecraft.world.entity.EntityType;
@@ -14,6 +16,22 @@ public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DeathCube.MODID);
 
+    public static final RegistryObject<EntityType<Azrathal>> AZRATHAL =
+            ENTITY_TYPES.register("azrathal",
+                    () -> EntityType.Builder.of(Azrathal::new, MobCategory.MONSTER)
+                            .sized(0.6F, 1.95F)
+                            .clientTrackingRange(8)
+                            .fireImmune()
+                            .build("azrathal")
+            );
+    public static final RegistryObject<EntityType<Borzadon>> BORZADON =
+            ENTITY_TYPES.register("borzadon",
+                    () -> EntityType.Builder.of(Borzadon::new, MobCategory.MONSTER)
+                            .sized(0.6F, 1.95F)
+                            .clientTrackingRange(8)
+                            .fireImmune()
+                            .build("borzadon")
+            );
     public static final RegistryObject<EntityType<Galterius>> GALTERIUS =
             ENTITY_TYPES.register("galterius",
                     () -> EntityType.Builder.of(Galterius::new, MobCategory.MONSTER)

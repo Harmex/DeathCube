@@ -3,6 +3,8 @@ package com.harmex.deathcube.event;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.entity.ModEntityTypes;
+import com.harmex.deathcube.entity.boss.Azrathal;
+import com.harmex.deathcube.entity.boss.Borzadon;
 import com.harmex.deathcube.entity.boss.Galterius;
 //import com.harmex.deathcube.event.loot.EnderDragonScaleFromEnderDragonAdditionModifier;
 //import com.harmex.deathcube.event.loot.WardenHeartFromWardenAdditionModifier;
@@ -44,6 +46,8 @@ public class ModBusEvents {
 
     @SubscribeEvent
     public static void onCreateAttribute(EntityAttributeCreationEvent event) {
+        event.put(ModEntityTypes.AZRATHAL.get(), Azrathal.createAttributes().build());
+        event.put(ModEntityTypes.BORZADON.get(), Borzadon.createAttributes().build());
         event.put(ModEntityTypes.GALTERIUS.get(), Galterius.createAttributes().build());
         event.put(ModEntityTypes.NAERVUS.get(), Naervus.createAttributes().build());
     }

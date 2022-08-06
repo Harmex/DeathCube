@@ -32,9 +32,13 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         addItemTooltip("rarity.hellish", "Hellish");
         addItemTooltip("rarity.mythic", "Mythic");
 
+        add(ModEntityTypes.AZRATHAL.get().getDescriptionId(), "Azrathal");
+        add(ModEntityTypes.BORZADON.get().getDescriptionId(), "Borzadon");
         add(ModEntityTypes.GALTERIUS.get().getDescriptionId(), "Galterius");
         add(ModEntityTypes.NAERVUS.get().getDescriptionId(), "Naervus");
 
+        add(ModItems.AZRATHAL_SPAWN_EGG.get(), "Azrathal Spawn Egg");
+        add(ModItems.BORZADON_SPAWN_EGG.get(), "Borzadon Spawn Egg");
         add(ModItems.GALTERIUS_SPAWN_EGG.get(), "Galterius Spawn Egg");
         add(ModItems.NAERVUS_SPAWN_EGG.get(), "Naervus Spawn Egg");
 

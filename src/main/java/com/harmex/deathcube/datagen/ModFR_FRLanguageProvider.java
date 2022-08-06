@@ -32,9 +32,13 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         addItemTooltip("rarity.hellish", "Infernal");
         addItemTooltip("rarity.mythic", "Mythique");
 
+        add(ModEntityTypes.AZRATHAL.get().getDescriptionId(), "Azrathal");
+        add(ModEntityTypes.BORZADON.get().getDescriptionId(), "Borzadon");
         add(ModEntityTypes.GALTERIUS.get().getDescriptionId(), "Galterius");
         add(ModEntityTypes.NAERVUS.get().getDescriptionId(), "Naervus");
 
+        add(ModItems.AZRATHAL_SPAWN_EGG.get(), "Oeuf d'apparition d'Azrathal");
+        add(ModItems.BORZADON_SPAWN_EGG.get(), "Oeuf d'apparition de Borzadon");
         add(ModItems.GALTERIUS_SPAWN_EGG.get(), "Oeuf d'apparition de Galterius");
         add(ModItems.NAERVUS_SPAWN_EGG.get(), "Oeuf d'apparition de Naervus");
 

@@ -4,6 +4,7 @@ import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.entity.boss.Galterius;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -30,7 +31,7 @@ public class GalteriusModel extends HumanoidModel<Galterius> {
     }
 
     public static LayerDefinition createBodyLayer() {
-        MeshDefinition meshDefinition = createMesh(CubeDeformation.NONE, 0.0F);
+        MeshDefinition meshDefinition = ZombieModel.createMesh(CubeDeformation.NONE, 0.0F);
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 }

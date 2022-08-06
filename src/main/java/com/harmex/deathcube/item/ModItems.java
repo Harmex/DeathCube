@@ -420,10 +420,26 @@ public class ModItems {
             ITEMS.register("small_bag", SmallBagItem::new);
     //endregion
     //region Spawn Eggs
+    public static final RegistryObject<Item> AZRATHAL_SPAWN_EGG =
+            ITEMS.register("azrathal_spawn_egg",
+                    () -> new ForgeSpawnEggItem(ModEntityTypes.AZRATHAL,
+                            0xE67973, 0x698E45,
+                            new Item.Properties()
+                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
+                                    .rarity(ModRarities.HELLISH)
+                    ));
+    public static final RegistryObject<Item> BORZADON_SPAWN_EGG =
+            ITEMS.register("borzadon_spawn_egg",
+                    () -> new ForgeSpawnEggItem(ModEntityTypes.BORZADON,
+                            0x151515, 0x4B4B4B,
+                            new Item.Properties()
+                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
+                                    .rarity(ModRarities.HELLISH)
+                    ));
     public static final RegistryObject<Item> GALTERIUS_SPAWN_EGG =
             ITEMS.register("galterius_spawn_egg",
                     () -> new ForgeSpawnEggItem(ModEntityTypes.GALTERIUS,
-                            0xffffff, 0x000000,
+                            0x497135, 0x00AFAF,
                             new Item.Properties()
                                     .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.EPIC)
@@ -431,7 +447,7 @@ public class ModItems {
     public static final RegistryObject<Item> NAERVUS_SPAWN_EGG =
             ITEMS.register("naervus_spawn_egg",
                     () -> new ForgeSpawnEggItem(ModEntityTypes.NAERVUS,
-                            0xffffff, 0x000000,
+                            0xE8A074, 0x6B3924,
                             new Item.Properties()
                                     .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.HELLISH)

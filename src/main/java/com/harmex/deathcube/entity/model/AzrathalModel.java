@@ -1,6 +1,7 @@
 package com.harmex.deathcube.entity.model;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.entity.boss.Azrathal;
 import com.harmex.deathcube.entity.boss.Naervus;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PiglinModel;
@@ -12,11 +13,11 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.resources.ResourceLocation;
 
-public class NaervusModel extends HumanoidModel<Naervus> {
-    public static ModelLayerLocation NAERVUS_LAYER =
-            new ModelLayerLocation(new ResourceLocation(DeathCube.MODID, "naervus"), "body");
+public class AzrathalModel extends HumanoidModel<Azrathal> {
+    public static ModelLayerLocation AZRATHAL_LAYER =
+            new ModelLayerLocation(new ResourceLocation(DeathCube.MODID, "azrathal"), "body");
 
-    public NaervusModel(ModelPart pRoot) {
+    public AzrathalModel(ModelPart pRoot) {
         super(pRoot);
     }
 

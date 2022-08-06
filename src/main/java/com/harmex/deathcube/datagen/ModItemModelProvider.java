@@ -64,6 +64,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.TIME_GEM.get());
         handheldItem(ModItems.TIME_WAND.get());
         basicItem(ModItems.ENDER_BAG.get());
+        spawnEggItem(ModItems.AZRATHAL_SPAWN_EGG.get());
+        spawnEggItem(ModItems.BORZADON_SPAWN_EGG.get());
         spawnEggItem(ModItems.GALTERIUS_SPAWN_EGG.get());
         spawnEggItem(ModItems.NAERVUS_SPAWN_EGG.get());
         //endregion

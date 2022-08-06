@@ -32,15 +32,15 @@ public class Naervus extends Monster {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.addBehaviourGoals();
+        //this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        //this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        //this.addBehaviourGoals();
     }
 
     protected void addBehaviourGoals() {
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(ZombifiedPiglin.class));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        //this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        //this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(ZombifiedPiglin.class));
+        //this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
