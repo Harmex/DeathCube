@@ -32,16 +32,6 @@ public class EmeraldArmorItem extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        if (DeathCubeCommonConfigs.OBSIDIAN_ARMOR_EFFECT.get()) {
-            pTooltipComponents.add(Component.translatable("tooltip.deathcube.full_armor")
-                    .withStyle(ChatFormatting.GRAY));
-            pTooltipComponents.add(Component.translatable("tooltip.deathcube.full_armor.emerald")
-                    .withStyle(ChatFormatting.DARK_GREEN));
-        }
-    }
-
-    @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         if (hasFullSuitOn(player)) {
             if (DeathCubeCommonConfigs.EMERALD_ARMOR_EFFECT.get()) {

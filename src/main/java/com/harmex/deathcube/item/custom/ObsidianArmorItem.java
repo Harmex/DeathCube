@@ -34,17 +34,6 @@ public class ObsidianArmorItem extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        if (DeathCubeCommonConfigs.OBSIDIAN_ARMOR_EFFECT.get()) {
-            pTooltipComponents.add(Component.empty());
-            pTooltipComponents.add(Component.translatable("tooltip.deathcube.full_armor")
-                    .withStyle(ChatFormatting.GRAY));
-            pTooltipComponents.add(Component.translatable("tooltip.deathcube.full_armor.obsidian")
-                    .withStyle(ChatFormatting.DARK_GREEN));
-        }
-    }
-
-    @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         if (hasFullSuitOn(player)) {
             if (DeathCubeCommonConfigs.OBSIDIAN_ARMOR_EFFECT.get()) {

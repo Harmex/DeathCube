@@ -30,15 +30,6 @@ public class TotemOfResurrectionItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        if (!Screen.hasShiftDown()){
-            pTooltipComponents.add(Component.translatable("tooltip.deathcube.shift").withStyle(ChatFormatting.GRAY));
-        } else {
-            pTooltipComponents.add(Component.translatable("tooltip.deathcube.totem_of_resurrection").withStyle(ChatFormatting.GRAY));
-        }
-    }
-
-    @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         Objects.requireNonNull(pPlayer.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(20.0);
         pPlayer.setHealth(20.0f);
