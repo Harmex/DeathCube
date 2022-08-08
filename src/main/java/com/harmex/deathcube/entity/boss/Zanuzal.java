@@ -8,39 +8,25 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class Naervus extends Monster {
+public class Zanuzal extends FlyingMob implements Enemy {
     private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
 
-    public Naervus(EntityType<? extends Monster> pEntityType, Level pLevel) {
+    public Zanuzal(EntityType<? extends FlyingMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     @Override
     protected void registerGoals() {
-        //this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        //this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        //this.addBehaviourGoals();
-    }
-
-    protected void addBehaviourGoals() {
-        //this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        //this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(ZombifiedPiglin.class));
-        //this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
@@ -75,22 +61,14 @@ public class Naervus extends Monster {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PIGLIN_AMBIENT;
+        return SoundEvents.PHANTOM_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
-        return SoundEvents.PIGLIN_HURT;
+        return SoundEvents.PHANTOM_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PIGLIN_DEATH;
-    }
-
-    protected SoundEvent getStepSound() {
-        return SoundEvents.PIGLIN_STEP;
-    }
-
-    protected void playStepSound(@NotNull BlockPos pPos, @NotNull BlockState pBlock) {
-        this.playSound(this.getStepSound(), 0.15F, 1.0F);
+        return SoundEvents.PHANTOM_DEATH;
     }
 }

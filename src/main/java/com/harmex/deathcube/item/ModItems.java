@@ -452,6 +452,14 @@ public class ModItems {
                                     .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.HELLISH)
                     ));
+    public static final RegistryObject<Item> ZANUZAL_SPAWN_EGG =
+            ITEMS.register("zanuzal_spawn_egg",
+                    () -> new ForgeSpawnEggItem(ModEntityTypes.ZANUZAL,
+                            0xE8A074, 0x6B3924,
+                            new Item.Properties()
+                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
+                                    .rarity(ModRarities.EPIC)
+                    ));
     //endregion
 
     public static void register(IEventBus eventBus) {

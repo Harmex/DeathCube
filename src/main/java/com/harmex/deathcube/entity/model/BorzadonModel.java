@@ -11,7 +11,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class BorzadonModel extends HumanoidModel<Borzadon> {
     public static ModelLayerLocation BORZADON_LAYER =
             new ModelLayerLocation(new ResourceLocation(DeathCube.MODID, "borzadon"), "body");

@@ -29,8 +29,8 @@ public class Galterius extends Monster {
     private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.WHITE, BossEvent.BossBarOverlay.NOTCHED_6);
 
-    public Galterius(EntityType<? extends Monster> pType, Level pLevel) {
-        super(pType, pLevel);
+    public Galterius(EntityType<? extends Monster> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
     }
 
     @Override

@@ -36,11 +36,13 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModEntityTypes.BORZADON.get().getDescriptionId(), "Borzadon");
         add(ModEntityTypes.GALTERIUS.get().getDescriptionId(), "Galterius");
         add(ModEntityTypes.NAERVUS.get().getDescriptionId(), "Naervus");
+        add(ModEntityTypes.ZANUZAL.get().getDescriptionId(), "Zanuzal");
 
         add(ModItems.AZRATHAL_SPAWN_EGG.get(), "Oeuf d'apparition d'Azrathal");
         add(ModItems.BORZADON_SPAWN_EGG.get(), "Oeuf d'apparition de Borzadon");
         add(ModItems.GALTERIUS_SPAWN_EGG.get(), "Oeuf d'apparition de Galterius");
         add(ModItems.NAERVUS_SPAWN_EGG.get(), "Oeuf d'apparition de Naervus");
+        add(ModItems.ZANUZAL_SPAWN_EGG.get(), "Oeuf d'apparition de Zanuzal");
 
         add(ModBlocks.CHERRY_PLANKS.get(), "Planches de cerisier");
         add(ModBlocks.CHERRY_SAPLING.get(), "Pousse de cerisier");

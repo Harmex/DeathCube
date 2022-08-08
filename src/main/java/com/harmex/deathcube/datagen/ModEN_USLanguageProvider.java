@@ -36,11 +36,13 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add(ModEntityTypes.BORZADON.get().getDescriptionId(), "Borzadon");
         add(ModEntityTypes.GALTERIUS.get().getDescriptionId(), "Galterius");
         add(ModEntityTypes.NAERVUS.get().getDescriptionId(), "Naervus");
+        add(ModEntityTypes.ZANUZAL.get().getDescriptionId(), "Zanuzal");
 
         add(ModItems.AZRATHAL_SPAWN_EGG.get(), "Azrathal Spawn Egg");
         add(ModItems.BORZADON_SPAWN_EGG.get(), "Borzadon Spawn Egg");
         add(ModItems.GALTERIUS_SPAWN_EGG.get(), "Galterius Spawn Egg");
         add(ModItems.NAERVUS_SPAWN_EGG.get(), "Naervus Spawn Egg");
+        add(ModItems.ZANUZAL_SPAWN_EGG.get(), "Zanuzal Spawn Egg");
 
         add(ModBlocks.CHERRY_PLANKS.get(), "Cherry Planks");
         add(ModBlocks.CHERRY_SAPLING.get(), "Cherry Sapling");

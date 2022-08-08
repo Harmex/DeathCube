@@ -11,7 +11,10 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class GalteriusModel extends HumanoidModel<Galterius> {
     public static ModelLayerLocation GALTERIUS_LAYER =
             new ModelLayerLocation(new ResourceLocation(DeathCube.MODID, "galterius"), "body");

@@ -19,8 +19,8 @@ public class Azrathal extends Monster {
     private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
 
-    public Azrathal(EntityType<? extends Monster> pType, Level pLevel) {
-        super(pType, pLevel);
+    public Azrathal(EntityType<? extends Monster> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
     }
 
     @Override

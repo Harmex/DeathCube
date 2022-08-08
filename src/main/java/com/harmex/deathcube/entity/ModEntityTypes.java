@@ -1,10 +1,7 @@
 package com.harmex.deathcube.entity;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.entity.boss.Azrathal;
-import com.harmex.deathcube.entity.boss.Borzadon;
-import com.harmex.deathcube.entity.boss.Galterius;
-import com.harmex.deathcube.entity.boss.Naervus;
+import com.harmex.deathcube.entity.boss.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,7 +24,7 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<Borzadon>> BORZADON =
             ENTITY_TYPES.register("borzadon",
                     () -> EntityType.Builder.of(Borzadon::new, MobCategory.MONSTER)
-                            .sized(0.6F, 1.95F)
+                            .sized(0.7F, 2.4F)
                             .clientTrackingRange(8)
                             .fireImmune()
                             .build("borzadon")
@@ -47,6 +44,14 @@ public class ModEntityTypes {
                             .clientTrackingRange(8)
                             .fireImmune()
                             .build("naervus")
+            );
+    public static final RegistryObject<EntityType<Zanuzal>> ZANUZAL =
+            ENTITY_TYPES.register("zanuzal",
+                    () -> EntityType.Builder.of(Zanuzal::new, MobCategory.MONSTER)
+                            .sized(0.9F, 0.5F)
+                            .clientTrackingRange(8)
+                            .fireImmune()
+                            .build("zanuzal")
             );
 
     public static void register(IEventBus eventBus) {

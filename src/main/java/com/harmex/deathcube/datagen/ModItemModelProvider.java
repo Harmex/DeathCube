@@ -68,6 +68,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         spawnEggItem(ModItems.BORZADON_SPAWN_EGG.get());
         spawnEggItem(ModItems.GALTERIUS_SPAWN_EGG.get());
         spawnEggItem(ModItems.NAERVUS_SPAWN_EGG.get());
+        spawnEggItem(ModItems.ZANUZAL_SPAWN_EGG.get());
         //endregion
         //region Wooden Armors
         basicItem(ModItems.OAK_HELMET.get());

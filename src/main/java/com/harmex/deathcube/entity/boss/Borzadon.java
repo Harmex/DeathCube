@@ -19,8 +19,8 @@ public class Borzadon extends Monster {
     private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
 
-    public Borzadon(EntityType<? extends Monster> pType, Level pLevel) {
-        super(pType, pLevel);
+    public Borzadon(EntityType<? extends Monster> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
     }
 
     @Override
