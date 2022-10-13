@@ -2,7 +2,6 @@ package com.harmex.deathcube.entity.goal;
 
 import com.harmex.deathcube.entity.boss.Galterius;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.monster.Zombie;
 
 public class GalteriusAttackGoal extends MeleeAttackGoal {
     private final Galterius galterius;

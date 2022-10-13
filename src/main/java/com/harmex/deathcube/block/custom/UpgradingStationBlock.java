@@ -1,7 +1,6 @@
 package com.harmex.deathcube.block.custom;
 
 import com.harmex.deathcube.block.entity.ModBlockEntities;
-import com.harmex.deathcube.block.entity.custom.MatterManipulatorBlockEntity;
 import com.harmex.deathcube.block.entity.custom.UpgradingStationBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;

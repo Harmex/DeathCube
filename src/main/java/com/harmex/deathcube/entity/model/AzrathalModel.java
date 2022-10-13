@@ -2,12 +2,10 @@ package com.harmex.deathcube.entity.model;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.entity.boss.Azrathal;
-import com.harmex.deathcube.entity.boss.Naervus;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PiglinModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;

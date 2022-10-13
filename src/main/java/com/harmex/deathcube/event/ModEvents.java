@@ -5,15 +5,11 @@ import com.harmex.deathcube.networking.ModMessages;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
 import com.harmex.deathcube.thirst.ThirstData;
 import com.harmex.deathcube.thirst.ThirstDataProvider;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -24,10 +20,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = DeathCube.MODID)
 public class ModEvents {

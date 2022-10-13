@@ -3,8 +3,6 @@ package com.harmex.deathcube.datagen;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.DataGenerator;

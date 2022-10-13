@@ -3,7 +3,6 @@ package com.harmex.deathcube.datagen;
 import com.google.common.collect.ImmutableList;
 import com.harmex.deathcube.datagen.loot.ModBlockLootTables;
 import com.harmex.deathcube.datagen.loot.ModChestLootTables;
-import com.harmex.deathcube.datagen.loot.ModEntityLootTables;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.LootTableProvider;

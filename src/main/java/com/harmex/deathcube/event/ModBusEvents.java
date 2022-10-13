@@ -4,8 +4,6 @@ import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.entity.boss.*;
-//import com.harmex.deathcube.event.loot.EnderDragonScaleFromEnderDragonAdditionModifier;
-//import com.harmex.deathcube.event.loot.WardenHeartFromWardenAdditionModifier;
 import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.recipe.UpgradingStationRecipe;
 import net.minecraft.resources.ResourceLocation;

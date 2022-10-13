@@ -2,9 +2,7 @@ package com.harmex.deathcube.entity.renderer;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.entity.boss.Azrathal;
-import com.harmex.deathcube.entity.boss.Naervus;
 import com.harmex.deathcube.entity.model.AzrathalModel;
-import com.harmex.deathcube.entity.model.NaervusModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.resources.ResourceLocation;

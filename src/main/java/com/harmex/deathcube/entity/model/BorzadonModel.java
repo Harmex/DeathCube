@@ -2,8 +2,6 @@ package com.harmex.deathcube.entity.model;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.entity.boss.Borzadon;
-import com.harmex.deathcube.entity.boss.Galterius;
-import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;

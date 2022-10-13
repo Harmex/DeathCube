@@ -2,9 +2,7 @@ package com.harmex.deathcube.entity.renderer;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.entity.boss.Borzadon;
-import com.harmex.deathcube.entity.boss.Galterius;
 import com.harmex.deathcube.entity.model.BorzadonModel;
-import com.harmex.deathcube.entity.model.GalteriusModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.resources.ResourceLocation;
