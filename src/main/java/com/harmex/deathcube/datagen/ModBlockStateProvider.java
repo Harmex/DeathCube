@@ -2,7 +2,7 @@ package com.harmex.deathcube.datagen;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -13,8 +13,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Objects;
 
 public class ModBlockStateProvider extends BlockStateProvider {
-    public ModBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, DeathCube.MODID, exFileHelper);
+
+    public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
+        super(output, DeathCube.MODID, exFileHelper);
     }
 
     @Override

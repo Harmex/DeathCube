@@ -1,10 +1,9 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -30,7 +29,6 @@ import java.util.List;
 public class TimeWandItem extends Item {
     public TimeWandItem() {
         super(new Properties()
-                .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                 .stacksTo(1)
                 .rarity(Rarity.UNCOMMON)
         );
@@ -69,7 +67,7 @@ public class TimeWandItem extends Item {
                         String savedDim = itemStack.getTag().getString("deathcube.saved_dim");
 
                         ResourceLocation location = new ResourceLocation(savedDim);
-                        ResourceKey<Level> resourceKey = ResourceKey.create(Registry.DIMENSION_REGISTRY, location);
+                        ResourceKey<Level> resourceKey = ResourceKey.create(Registries.DIMENSION, location);
                         MinecraftServer minecraftServer = pLevel.getServer();
 
                         if (minecraftServer == null) {

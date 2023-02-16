@@ -1,6 +1,5 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import com.harmex.deathcube.thirst.ThirstDataProvider;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,9 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FreshWaterBottleItem extends Item {
     public FreshWaterBottleItem() {
-        super(new Item.Properties()
-                .tab(ModCreativeModeTab.DEATHCUBE_FOODS_TAB)
-        );
+        super(new Item.Properties());
     }
 
     @Override

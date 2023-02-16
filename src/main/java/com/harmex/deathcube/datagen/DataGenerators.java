@@ -2,6 +2,7 @@ package com.harmex.deathcube.datagen;
 
 import com.harmex.deathcube.DeathCube;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,16 +14,17 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-        generator.addProvider(true, new ModRecipeProvider(generator));
-        generator.addProvider(true, new ModAdvancementProvider(generator, existingFileHelper));
-        generator.addProvider(true, new ModLootTableProvider(generator));
-        generator.addProvider(true, new ModBlockStateProvider(generator, existingFileHelper));
-        generator.addProvider(true, new ModItemModelProvider(generator, existingFileHelper));
-        //generator.addProvider(true, new ModBlockTagProvider(generator, existingFileHelper));
-        //generator.addProvider(true, new ModItemTagProvider(generator, existingFileHelper));
-        generator.addProvider(true, new ModEN_USLanguageProvider(generator, "en_us"));
-        generator.addProvider(true, new ModFR_FRLanguageProvider(generator, "fr_fr"));
+        generator.addProvider(event.includeServer(), new ModRecipeProvider(output));
+        generator.addProvider(event.includeServer(), new ModAdvancementProvider(output, event.getLookupProvider(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
+        generator.addProvider(event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
+        //generator.addProvider(true, new ModBlockTagProvider(output, event.getLookupProvider(), existingFileHelper));
+        //generator.addProvider(true, new ModItemTagProvider(output, event.getLookupProvider(), new ModBlockTagProvider(output, event.getLookupProvider(), existingFileHelper), existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModEN_USLanguageProvider(output, "en_us"));
+        generator.addProvider(event.includeClient(), new ModFR_FRLanguageProvider(output, "fr_fr"));
     }
 }

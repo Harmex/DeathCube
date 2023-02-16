@@ -1,6 +1,5 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -16,7 +15,6 @@ import java.util.Objects;
 public class TotemOfResurrectionItem extends Item {
     public TotemOfResurrectionItem() {
         super(new Properties()
-                .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                 .stacksTo(1)
                 .rarity(Rarity.UNCOMMON)
                 .fireResistant()

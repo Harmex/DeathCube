@@ -3,7 +3,7 @@ package com.harmex.deathcube.datagen;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.item.ModItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -16,8 +16,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Objects;
 
 public class ModItemModelProvider extends ItemModelProvider {
-    public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, DeathCube.MODID, existingFileHelper);
+
+    public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, DeathCube.MODID, existingFileHelper);
     }
 
     @Override

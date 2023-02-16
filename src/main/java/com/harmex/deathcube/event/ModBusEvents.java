@@ -8,7 +8,6 @@ import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.recipe.UpgradingStationRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -33,7 +32,6 @@ public class ModBusEvents {
             itemRegisterHelper.register(new ResourceLocation("minecraft:golden_carrot"),
                     new ItemNameBlockItem(ModBlocks.GOLDEN_CARROTS.get(),
                             new Item.Properties()
-                                    .tab(CreativeModeTab.TAB_FOOD)
                                     .food(Foods.GOLDEN_CARROT)
                     ));
         });

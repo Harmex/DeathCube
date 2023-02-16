@@ -1,7 +1,7 @@
 package com.harmex.deathcube.datagen.loot;
 
 import com.harmex.deathcube.DeathCube;
-import net.minecraft.data.loot.ChestLoot;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -14,13 +14,13 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.function.BiConsumer;
 
-public class ModChestLootTables extends ChestLoot {
+public class ModChestLootSubProvider implements LootTableSubProvider {
 
     private static final ResourceLocation WARRIOR_DUNGEON_SECRET =
             new ResourceLocation(DeathCube.MODID, "chests/warrior_dungeon_secret");
 
     @Override
-    public void accept(BiConsumer<ResourceLocation, LootTable.Builder> p_124363_) {
+    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> p_124363_) {
         p_124363_.accept(WARRIOR_DUNGEON_SECRET, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 3.0F))
                         .add(LootItem.lootTableItem(Items.SADDLE).setWeight(20))

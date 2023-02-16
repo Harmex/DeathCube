@@ -2,7 +2,6 @@ package com.harmex.deathcube.item.custom;
 
 import com.harmex.deathcube.config.DeathCubeCommonConfigs;
 import com.harmex.deathcube.item.ModArmorMaterials;
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import com.harmex.deathcube.item.ModRarities;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,7 +21,6 @@ public class ObsidianArmorItem extends ArmorItem {
 
     public ObsidianArmorItem(EquipmentSlot pSlot) {
         super(ModArmorMaterials.OBSIDIAN, pSlot, new Properties()
-                .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                 .rarity(ModRarities.EPIC)
         );
     }

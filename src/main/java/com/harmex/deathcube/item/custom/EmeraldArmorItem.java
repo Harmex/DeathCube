@@ -2,7 +2,6 @@ package com.harmex.deathcube.item.custom;
 
 import com.harmex.deathcube.config.DeathCubeCommonConfigs;
 import com.harmex.deathcube.item.ModArmorMaterials;
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import com.harmex.deathcube.item.ModRarities;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,7 +22,6 @@ public class EmeraldArmorItem extends ArmorItem {
 
     public EmeraldArmorItem(EquipmentSlot pSlot) {
         super(ModArmorMaterials.EMERALD, pSlot, new Item.Properties()
-                .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                 .rarity(ModRarities.RARE)
         );
     }

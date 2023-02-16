@@ -3,7 +3,7 @@ package com.harmex.deathcube.datagen;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.item.ModItems;
 import com.harmex.deathcube.util.ModTags;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -15,12 +15,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public ModRecipeProvider(DataGenerator pGenerator) {
-        super(pGenerator);
+
+    public ModRecipeProvider(PackOutput pOutput) {
+        super(pOutput);
     }
 
     @Override
-    protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
         //region Apples
         applesRecipes(pFinishedRecipeConsumer,
                 ModItems.DIAMOND_APPLE.get(),
@@ -142,157 +143,157 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         cookingRecipes(pFinishedRecipeConsumer);
     }
 
-    private void applesRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer,
+    private void applesRecipes(Consumer<FinishedRecipe> pWriter,
                                Item result, Item ingredient, String unlockCondition) {
-        ShapedRecipeBuilder.shaped(result)
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, result)
                 .define('#', ingredient)
                 .define('X', Items.APPLE)
                 .pattern("###")
                 .pattern("#X#")
                 .pattern("###")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
+                .save(pWriter);
     }
 
-    private void toolAndArmorRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer,
+    private void toolAndArmorRecipes(Consumer<FinishedRecipe> pWriter,
                                      Item helmet, Item chestplate, Item leggings, Item boots, Item sword, Item pickaxe,
                                      Item axe, Item shovel, Item hoe, Item ingredient, String unlockCondition) {
-        ShapedRecipeBuilder.shaped(helmet)
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)
                 .define('X', ingredient)
                 .pattern("XXX")
                 .pattern("X X")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(chestplate)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate)
                 .define('X', ingredient)
                 .pattern("X X")
                 .pattern("XXX")
                 .pattern("XXX")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(leggings)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings)
                 .define('X', ingredient)
                 .pattern("XXX")
                 .pattern("X X")
                 .pattern("X X")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(boots)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots)
                 .define('X', ingredient)
                 .pattern("X X")
                 .pattern("X X")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(sword)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, sword)
                 .define('#', Items.STICK)
                 .define('X', ingredient)
                 .pattern("X")
                 .pattern("X")
                 .pattern("#")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(pickaxe)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe)
                 .define('#', Items.STICK)
                 .define('X', ingredient)
                 .pattern("XXX")
                 .pattern(" # ")
                 .pattern(" # ")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(axe)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, axe)
                 .define('#', Items.STICK)
                 .define('X', ingredient)
                 .pattern("XX")
                 .pattern("X#")
                 .pattern(" #")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(shovel)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shovel)
                 .define('#', Items.STICK)
                 .define('X', ingredient)
                 .pattern("X")
                 .pattern("#")
                 .pattern("#")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(hoe)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe)
                 .define('#', Items.STICK)
                 .define('X', ingredient)
                 .pattern("XX")
                 .pattern(" #")
                 .pattern(" #")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
+                .save(pWriter);
 
     }
 
 
-    private void armorRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer,
-                                     Item helmet, Item chestplate, Item leggings, Item boots,
-                                     Item ingredient, String unlockCondition) {
-        ShapedRecipeBuilder.shaped(helmet)
+    private void armorRecipes(Consumer<FinishedRecipe> pWriter,
+                              Item helmet, Item chestplate, Item leggings, Item boots,
+                              Item ingredient, String unlockCondition) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)
                 .define('X', ingredient)
                 .pattern("XXX")
                 .pattern("X X")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(chestplate)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate)
                 .define('X', ingredient)
                 .pattern("X X")
                 .pattern("XXX")
                 .pattern("XXX")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(leggings)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings)
                 .define('X', ingredient)
                 .pattern("XXX")
                 .pattern("X X")
                 .pattern("X X")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(boots)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots)
                 .define('X', ingredient)
                 .pattern("X X")
                 .pattern("X X")
                 .unlockedBy(unlockCondition, has(ingredient))
-                .save(pFinishedRecipeConsumer);
+                .save(pWriter);
 
     }
 
-    private void shapedRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
+    private void shapedRecipes(Consumer<FinishedRecipe> pWriter) {
 
         //region Cherry Furniture
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_DOOR.get(), 3)
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_DOOR.get(), 3)
                 .define('#', ModBlocks.CHERRY_PLANKS.get())
                 .pattern("##")
                 .pattern("##")
                 .pattern("##")
                 .group("wooden_door")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_FENCE.get(), 3)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_FENCE.get(), 3)
                 .define('#', Items.STICK)
                 .define('W', ModBlocks.CHERRY_PLANKS.get())
                 .pattern("W#W")
                 .pattern("W#W")
                 .group("wooden_fence")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_FENCE_GATE.get())
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_FENCE_GATE.get())
                 .define('#', Items.STICK)
                 .define('W', ModBlocks.CHERRY_PLANKS.get())
                 .pattern("#W#")
                 .pattern("#W#")
                 .group("wooden_fence_gate")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_PRESSURE_PLATE.get())
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModBlocks.CHERRY_PRESSURE_PLATE.get())
                 .define('#', ModBlocks.CHERRY_PLANKS.get())
                 .pattern("##")
                 .group("wooden_pressure_plate")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModItems.CHERRY_SIGN.get(), 3)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.CHERRY_SIGN.get(), 3)
                 .define('#', ModBlocks.CHERRY_PLANKS.get())
                 .define('X', Items.STICK)
                 .pattern("###")
@@ -300,47 +301,47 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern(" X ")
                 .group("wooden_sign")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_SLAB.get(), 6)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_SLAB.get(), 6)
                 .define('#', ModBlocks.CHERRY_PLANKS.get())
                 .pattern("###")
                 .group("wooden_slab")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_STAIRS.get(), 4)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_STAIRS.get(), 4)
                 .define('#', ModBlocks.CHERRY_PLANKS.get())
                 .pattern("#  ")
                 .pattern("## ")
                 .pattern("###")
                 .group("wooden_stairs")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_TRAPDOOR.get(), 2)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_TRAPDOOR.get(), 2)
                 .define('#', ModBlocks.CHERRY_PLANKS.get())
                 .pattern("###")
                 .pattern("###")
                 .group("wooden_trapdoor")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
+                .save(pWriter);
         //endregion
 
         //region Echo Amethyst
-        ShapedRecipeBuilder.shaped(ModItems.ECHO_AMETHYST_SHARD.get(), 8)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ECHO_AMETHYST_SHARD.get(), 8)
                 .define('#', Items.ECHO_SHARD)
                 .define('X', Items.AMETHYST_SHARD)
                 .pattern("XXX")
                 .pattern("X#X")
                 .pattern("XXX")
                 .unlockedBy("has_echo_shard", has(Items.ECHO_SHARD))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.ECHO_AMETHYST_BLOCK.get(), 1)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ECHO_AMETHYST_BLOCK.get(), 1)
                 .define('#', ModItems.ECHO_AMETHYST_INGOT.get())
                 .pattern("###")
                 .pattern("###")
                 .pattern("###")
                 .unlockedBy("has_echo_amethyst_ingot", has(ModItems.ECHO_AMETHYST_INGOT.get()))
-                .save(pFinishedRecipeConsumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.MATTER_MANIPULATOR.get(), 1)
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MATTER_MANIPULATOR.get(), 1)
                 .define('X', ModBlocks.ECHO_AMETHYST_BLOCK.get())
                 .define('#', ModItems.ECHO_AMETHYST_INGOT.get())
                 .define('B', Blocks.BLUE_ICE)
@@ -349,27 +350,27 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("#B#")
                 .pattern("#M#")
                 .unlockedBy("has_echo_amethyst_block", has(ModBlocks.ECHO_AMETHYST_BLOCK.get()))
-                .save(pFinishedRecipeConsumer);
+                .save(pWriter);
         //endregion
 
     }
-    private void shapelessRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
+    private void shapelessRecipes(Consumer<FinishedRecipe> pWriter) {
         //Cherry Furniture
-        ShapelessRecipeBuilder.shapeless(ModBlocks.CHERRY_PLANKS.get(), 4)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_PLANKS.get(), 4)
                 .requires(ModTags.Items.CHERRY_LOGS)
                 .group("planks")
                 .unlockedBy("has_cherry_logs", has(ModTags.Items.CHERRY_LOGS))
-                .save(pFinishedRecipeConsumer);
-        ShapelessRecipeBuilder.shapeless(ModBlocks.CHERRY_BUTTON.get())
+                .save(pWriter);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, ModBlocks.CHERRY_BUTTON.get())
                 .requires(ModBlocks.CHERRY_PLANKS.get())
                 .group("wooden_button")
                 .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pFinishedRecipeConsumer);
+                .save(pWriter);
     }
-    private void cookingRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
+    private void cookingRecipes(Consumer<FinishedRecipe> pWriter) {
         SimpleCookingRecipeBuilder.blasting(Ingredient.of(ModItems.ECHO_AMETHYST_SHARD.get()),
-                ModItems.ECHO_AMETHYST_INGOT.get(), 0.8F, 200)
+                        RecipeCategory.MISC, ModItems.ECHO_AMETHYST_INGOT.get(), 0.8F, 200)
                 .unlockedBy("has_echo_shard", has(Items.ECHO_SHARD))
-                .save(pFinishedRecipeConsumer);
+                .save(pWriter);
     }
 }

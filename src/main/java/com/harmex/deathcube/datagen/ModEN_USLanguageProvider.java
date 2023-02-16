@@ -4,21 +4,27 @@ import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.item.ModItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ModEN_USLanguageProvider extends LanguageProvider {
-    public ModEN_USLanguageProvider(DataGenerator gen, String locale) {
-        super(gen, DeathCube.MODID, locale);
+
+    public ModEN_USLanguageProvider(PackOutput output, String locale) {
+        super(output, DeathCube.MODID, locale);
     }
 
     @Override
     protected void addTranslations() {
-        addItemGroup("misc", "DeathCube | Misc.");
-        addItemGroup("blocks", "DeathCube | Blocks");
-        addItemGroup("tools", "DeathCube | Tools");
-        addItemGroup("armors", "DeathCube | Armors");
-        addItemGroup("foods", "DeathCube | Foods");
+        add("itemGroup." + DeathCube.MODID + ".buildingBlocks", "DeathCube | Building Blocks");
+        add("itemGroup." + DeathCube.MODID + ".coloredBlocks", "DeathCube | Colored Blocks");
+        add("itemGroup." + DeathCube.MODID + ".naturalBlocks", "DeathCube | Natural Blocks");
+        add("itemGroup." + DeathCube.MODID + ".functionalBlocks", "DeathCube | Functional Blocks");
+        add("itemGroup." + DeathCube.MODID + ".redstone", "DeathCube | Redstone");
+        add("itemGroup." + DeathCube.MODID + ".tools", "DeathCube | Tools & Utilities");
+        add("itemGroup." + DeathCube.MODID + ".combat", "DeathCube | Combat");
+        add("itemGroup." + DeathCube.MODID + ".foodAndDrinks", "DeathCube | Food & Drinks");
+        add("itemGroup." + DeathCube.MODID + ".ingredients", "DeathCube | Ingredients");
+        add("itemGroup." + DeathCube.MODID + ".spawnEggs", "DeathCube | Spawn Eggs");
 
         addContainer("upgrading_station", "Upgrading Station");
         addContainer("matter_manipulator", "Matter Manipulator");

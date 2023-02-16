@@ -3,25 +3,32 @@ package com.harmex.deathcube.datagen;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.item.ModItems;
 import com.harmex.deathcube.util.ModTags;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagEntry;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends ItemTagsProvider {
-    public ModItemTagProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, new ModBlockTagProvider(generator, existingFileHelper), DeathCube.MODID, existingFileHelper);
+
+    public ModItemTagProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, TagsProvider<Block> p_256467_, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pOutput, pLookupProvider, p_256467_, DeathCube.MODID, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider pProvider) {
         copy(ModTags.Blocks.CHERRY_LOGS, ModTags.Items.CHERRY_LOGS);
         copy(ModTags.Blocks.ZANTHINE_ORES, ModTags.Items.ZANTHINE_ORES);
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
-        copy(BlockTags.OVERWORLD_NATURAL_LOGS, ItemTags.OVERWORLD_NATURAL_LOGS);
         copy(BlockTags.PLANKS, ItemTags.PLANKS);
         copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         copy(BlockTags.SIGNS, ItemTags.SIGNS);

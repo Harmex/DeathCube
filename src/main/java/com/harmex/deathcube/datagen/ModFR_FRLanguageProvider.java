@@ -4,21 +4,27 @@ import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.item.ModItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ModFR_FRLanguageProvider extends LanguageProvider {
-    public ModFR_FRLanguageProvider(DataGenerator gen, String locale) {
-        super(gen, DeathCube.MODID, locale);
+
+    public ModFR_FRLanguageProvider(PackOutput output, String locale) {
+        super(output, DeathCube.MODID, locale);
     }
 
     @Override
     protected void addTranslations() {
-        addItemGroup("misc", "DeathCube | Divers");
-        addItemGroup("blocks", "DeathCube | Blocs");
-        addItemGroup("tools", "DeathCube | Outils");
-        addItemGroup("armors", "DeathCube | Armures");
-        addItemGroup("foods", "DeathCube | Nourritures");
+        add("itemGroup." + DeathCube.MODID + ".buildingBlocks", "DeathCube | Blocs de construction");
+        add("itemGroup." + DeathCube.MODID + ".coloredBlocks", "DeathCube | Blocs colorés");
+        add("itemGroup." + DeathCube.MODID + ".naturalBlocks", "DeathCube | Blocs naturels");
+        add("itemGroup." + DeathCube.MODID + ".functionalBlocks", "DeathCube | Blocs fonctionnels");
+        add("itemGroup." + DeathCube.MODID + ".redstone", "DeathCube | Redstone");
+        add("itemGroup." + DeathCube.MODID + ".tools", "DeathCube | Outils");
+        add("itemGroup." + DeathCube.MODID + ".combat", "DeathCube | Combat");
+        add("itemGroup." + DeathCube.MODID + ".foodAndDrinks", "DeathCube | Nourritures & Boissons");
+        add("itemGroup." + DeathCube.MODID + ".ingredients", "DeathCube | Ingrédients");
+        add("itemGroup." + DeathCube.MODID + ".spawnEggs", "DeathCube | Œufs d'apparition");
 
         addContainer("upgrading_station", "Station d'amélioration");
         addContainer("matter_manipulator", "Manipulateur de matière");

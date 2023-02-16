@@ -23,14 +23,12 @@ public class ModItems {
     public static final RegistryObject<Item> CHERRY =
             ITEMS.register("cherry",
                     () -> new Item(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_FOODS_TAB)
                             .food(ModFoods.CHERRY)
                             .rarity(ModRarities.COMMON)
                     ));
     public static final RegistryObject<Item> TIME_GEM_APPLE =
             ITEMS.register("time_gem_apple",
                     () -> new ChorusFruitItem(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_FOODS_TAB)
                             .food(ModFoods.TIME_GEM_APPLE)
                             .rarity(Rarity.UNCOMMON)
                     ) {
@@ -77,7 +75,6 @@ public class ModItems {
     public static final RegistryObject<Item> CHERRY_SIGN =
             ITEMS.register("cherry_sign",
                     () -> new SignItem(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_BLOCKS_TAB)
                             .stacksTo(16)
                             .rarity(ModRarities.COMMON),
                             ModBlocks.CHERRY_SIGN.get(),
@@ -88,41 +85,35 @@ public class ModItems {
     public static final RegistryObject<Item> TIME_GEM =
             ITEMS.register("time_gem",
                     () -> new Item(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                             .rarity(Rarity.UNCOMMON)
                     ));
     public static final RegistryObject<Item> ECHO_AMETHYST_SHARD =
             ITEMS.register("echo_amethyst_shard",
                     () -> new Item(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                             .fireResistant()
                             .rarity(ModRarities.EPIC)
                     ));
     public static final RegistryObject<Item> ECHO_AMETHYST_INGOT =
             ITEMS.register("echo_amethyst_ingot",
                     () -> new Item(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                             .fireResistant()
                             .rarity(ModRarities.EPIC)
                     ));
     public static final RegistryObject<Item> ENDER_DRAGON_SCALE =
             ITEMS.register("ender_dragon_scale",
                     () -> new Item(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                             .fireResistant()
                             .rarity(Rarity.UNCOMMON)
                     ));
     public static final RegistryObject<Item> WARDEN_HEART =
             ITEMS.register("warden_heart",
                     () -> new Item(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                             .fireResistant()
                             .rarity(ModRarities.EPIC)
                     ));
     public static final RegistryObject<Item> ZANTHINE =
             ITEMS.register("zanthine",
                     () -> new Item(new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                             .fireResistant()
                             .rarity(Rarity.UNCOMMON)
                     ));
@@ -136,213 +127,155 @@ public class ModItems {
     //region Log Armors
     //Oak
     public static final RegistryObject<Item> OAK_HELMET = ITEMS.register("oak_helmet",
-            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> OAK_CHESTPLATE = ITEMS.register("oak_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> OAK_LEGGINGS = ITEMS.register("oak_leggings",
-            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> OAK_BOOTS = ITEMS.register("oak_boots",
-            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.OAK, EquipmentSlot.FEET, new Item.Properties()));
     //Spruce
     public static final RegistryObject<Item> SPRUCE_HELMET = ITEMS.register("spruce_helmet",
-            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> SPRUCE_CHESTPLATE = ITEMS.register("spruce_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> SPRUCE_LEGGINGS = ITEMS.register("spruce_leggings",
-            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> SPRUCE_BOOTS = ITEMS.register("spruce_boots",
-            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.SPRUCE, EquipmentSlot.FEET, new Item.Properties()));
     //Birch
     public static final RegistryObject<Item> BIRCH_HELMET = ITEMS.register("birch_helmet",
-            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> BIRCH_CHESTPLATE = ITEMS.register("birch_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> BIRCH_LEGGINGS = ITEMS.register("birch_leggings",
-            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> BIRCH_BOOTS = ITEMS.register("birch_boots",
-            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.BIRCH, EquipmentSlot.FEET, new Item.Properties()));
     //Jungle
     public static final RegistryObject<Item> JUNGLE_HELMET = ITEMS.register("jungle_helmet",
-            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> JUNGLE_CHESTPLATE = ITEMS.register("jungle_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> JUNGLE_LEGGINGS = ITEMS.register("jungle_leggings",
-            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> JUNGLE_BOOTS = ITEMS.register("jungle_boots",
-            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.JUNGLE, EquipmentSlot.FEET, new Item.Properties()));
     //Acacia
     public static final RegistryObject<Item> ACACIA_HELMET = ITEMS.register("acacia_helmet",
-            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> ACACIA_CHESTPLATE = ITEMS.register("acacia_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> ACACIA_LEGGINGS = ITEMS.register("acacia_leggings",
-            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> ACACIA_BOOTS = ITEMS.register("acacia_boots",
-            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.ACACIA, EquipmentSlot.FEET, new Item.Properties()));
     //Dark Oak
     public static final RegistryObject<Item> DARK_OAK_HELMET = ITEMS.register("dark_oak_helmet",
-            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> DARK_OAK_CHESTPLATE = ITEMS.register("dark_oak_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> DARK_OAK_LEGGINGS = ITEMS.register("dark_oak_leggings",
-            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> DARK_OAK_BOOTS = ITEMS.register("dark_oak_boots",
-            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.DARK_OAK, EquipmentSlot.FEET, new Item.Properties()));
     //Mangrove
     public static final RegistryObject<Item> MANGROVE_HELMET = ITEMS.register("mangrove_helmet",
-            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> MANGROVE_CHESTPLATE = ITEMS.register("mangrove_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> MANGROVE_LEGGINGS = ITEMS.register("mangrove_leggings",
-            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> MANGROVE_BOOTS = ITEMS.register("mangrove_boots",
-            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.MANGROVE, EquipmentSlot.FEET, new Item.Properties()));
     //Cherry
     public static final RegistryObject<Item> CHERRY_HELMET = ITEMS.register("cherry_helmet",
-            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> CHERRY_CHESTPLATE = ITEMS.register("cherry_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> CHERRY_LEGGINGS = ITEMS.register("cherry_leggings",
-            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> CHERRY_BOOTS = ITEMS.register("cherry_boots",
-            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CHERRY, EquipmentSlot.FEET, new Item.Properties()));
     //Crimson
     public static final RegistryObject<Item> CRIMSON_HELMET = ITEMS.register("crimson_helmet",
-            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> CRIMSON_CHESTPLATE = ITEMS.register("crimson_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> CRIMSON_LEGGINGS = ITEMS.register("crimson_leggings",
-            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> CRIMSON_BOOTS = ITEMS.register("crimson_boots",
-            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.CRIMSON, EquipmentSlot.FEET, new Item.Properties()));
     //Warped
     public static final RegistryObject<Item> WARPED_HELMET = ITEMS.register("warped_helmet",
-            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.HEAD, new Item.Properties()));
     public static final RegistryObject<Item> WARPED_CHESTPLATE = ITEMS.register("warped_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> WARPED_LEGGINGS = ITEMS.register("warped_leggings",
-            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> WARPED_BOOTS = ITEMS.register("warped_boots",
-            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)));
+            () -> new ArmorItem(ModArmorMaterials.WARPED, EquipmentSlot.FEET, new Item.Properties()));
     //endregion
     //region Bone
     //Bone Armor
     public static final RegistryObject<Item> BONE_HELMET = ITEMS.register("bone_helmet",
             () -> new ArmorItem(ModArmorMaterials.BONE, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> BONE_CHESTPLATE = ITEMS.register("bone_chestplate",
             () -> new ArmorItem(ModArmorMaterials.BONE, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> BONE_LEGGINGS = ITEMS.register("bone_leggings",
             () -> new ArmorItem(ModArmorMaterials.BONE, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> BONE_BOOTS = ITEMS.register("bone_boots",
             () -> new ArmorItem(ModArmorMaterials.BONE, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     //Bone Tools
     public static final RegistryObject<Item> BONE_SWORD = ITEMS.register("bone_sword",
             () -> new SwordItem(ModTiers.BONE, 3, -2.4f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> BONE_PICKAXE = ITEMS.register("bone_pickaxe",
             () -> new PickaxeItem(ModTiers.BONE, 1, -2.8f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> BONE_AXE = ITEMS.register("bone_axe",
             () -> new AxeItem(ModTiers.BONE, 6.5f, -3.2f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> BONE_SHOVEL = ITEMS.register("bone_shovel",
             () -> new ShovelItem(ModTiers.BONE, 1.5f, -3.0f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> BONE_HOE = ITEMS.register("bone_hoe",
             () -> new HoeItem(ModTiers.BONE, -1, -2.5f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.COMMON)));
     //endregion
     //region Copper
     //Copper Armor
     public static final RegistryObject<Item> COPPER_HELMET = ITEMS.register("copper_helmet",
             () -> new ArmorItem(ModArmorMaterials.COPPER, EquipmentSlot.HEAD, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> COPPER_CHESTPLATE = ITEMS.register("copper_chestplate",
             () -> new ArmorItem(ModArmorMaterials.COPPER, EquipmentSlot.CHEST, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> COPPER_LEGGINGS = ITEMS.register("copper_leggings",
             () -> new ArmorItem(ModArmorMaterials.COPPER, EquipmentSlot.LEGS, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
             () -> new ArmorItem(ModArmorMaterials.COPPER, EquipmentSlot.FEET, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_ARMORS_TAB)
                     .rarity(ModRarities.COMMON)));
     //Copper Tools
     public static final RegistryObject<Item> COPPER_SWORD = ITEMS.register("copper_sword",
                     () -> new SwordItem(ModTiers.COPPER, 3, -2.4f, new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                             .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> COPPER_PICKAXE = ITEMS.register("copper_pickaxe",
                     () -> new PickaxeItem(ModTiers.COPPER, 1, -2.8f, new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                             .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> COPPER_AXE = ITEMS.register("copper_axe",
                     () -> new AxeItem(ModTiers.COPPER, 6, -3.1f, new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                             .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> COPPER_SHOVEL = ITEMS.register("copper_shovel",
                     () -> new ShovelItem(ModTiers.COPPER, 1.5f, -3.0f, new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                             .rarity(ModRarities.COMMON)));
     public static final RegistryObject<Item> COPPER_HOE = ITEMS.register("copper_hoe",
                     () -> new HoeItem(ModTiers.COPPER, -2, -1.0f, new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                             .rarity(ModRarities.COMMON)));
     //endregion
     //region Emerald
@@ -358,23 +291,18 @@ public class ModItems {
     //Emerald Tools
     public static final RegistryObject<Item> EMERALD_SWORD = ITEMS.register("emerald_sword",
             () -> new SwordItem(ModTiers.EMERALD, 3, -2.4f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.UNCOMMON)));
     public static final RegistryObject<Item> EMERALD_PICKAXE = ITEMS.register("emerald_pickaxe",
             () -> new PickaxeItem(ModTiers.EMERALD, 1, -2.8f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.UNCOMMON)));
     public static final RegistryObject<Item> EMERALD_AXE = ITEMS.register("emerald_axe",
             () -> new AxeItem(ModTiers.EMERALD, 5, -3.0f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.UNCOMMON)));
     public static final RegistryObject<Item> EMERALD_SHOVEL = ITEMS.register("emerald_shovel",
             () -> new ShovelItem(ModTiers.EMERALD, 1.5f, -3.0f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.UNCOMMON)));
     public static final RegistryObject<Item> EMERALD_HOE = ITEMS.register("emerald_hoe",
             () -> new HoeItem(ModTiers.EMERALD, -3, 0.0f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.UNCOMMON)));
     //endregion
     //region Obsidian
@@ -390,23 +318,18 @@ public class ModItems {
     //Obsidian Tools
     public static final RegistryObject<Item> OBSIDIAN_SWORD = ITEMS.register("obsidian_sword",
             () -> new SwordItem(ModTiers.OBSIDIAN, 3, -2.4f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.RARE)));
     public static final RegistryObject<Item> OBSIDIAN_PICKAXE = ITEMS.register("obsidian_pickaxe",
             () -> new PickaxeItem(ModTiers.OBSIDIAN, 1, -2.8f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.RARE)));
     public static final RegistryObject<Item> OBSIDIAN_AXE = ITEMS.register("obsidian_axe",
             () -> new AxeItem(ModTiers.OBSIDIAN, 5, -3.0f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.RARE)));
     public static final RegistryObject<Item> OBSIDIAN_SHOVEL = ITEMS.register("obsidian_shovel",
             () -> new ShovelItem(ModTiers.OBSIDIAN, 1.5f, -3.0f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.RARE)));
     public static final RegistryObject<Item> OBSIDIAN_HOE = ITEMS.register("obsidian_hoe",
             () -> new HoeItem(ModTiers.OBSIDIAN, -3, 0.0f, new Item.Properties()
-                    .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                     .rarity(ModRarities.RARE)));
     //endregion
     //region Wands
@@ -425,7 +348,6 @@ public class ModItems {
                     () -> new ForgeSpawnEggItem(ModEntityTypes.AZRATHAL,
                             0xE67973, 0x698E45,
                             new Item.Properties()
-                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.HELLISH)
                     ));
     public static final RegistryObject<Item> BORZADON_SPAWN_EGG =
@@ -433,7 +355,6 @@ public class ModItems {
                     () -> new ForgeSpawnEggItem(ModEntityTypes.BORZADON,
                             0x151515, 0x4B4B4B,
                             new Item.Properties()
-                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.HELLISH)
                     ));
     public static final RegistryObject<Item> GALTERIUS_SPAWN_EGG =
@@ -441,7 +362,6 @@ public class ModItems {
                     () -> new ForgeSpawnEggItem(ModEntityTypes.GALTERIUS,
                             0x497135, 0x00AFAF,
                             new Item.Properties()
-                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.EPIC)
                     ));
     public static final RegistryObject<Item> NAERVUS_SPAWN_EGG =
@@ -449,7 +369,6 @@ public class ModItems {
                     () -> new ForgeSpawnEggItem(ModEntityTypes.NAERVUS,
                             0xE8A074, 0x6B3924,
                             new Item.Properties()
-                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.HELLISH)
                     ));
     public static final RegistryObject<Item> ZANUZAL_SPAWN_EGG =
@@ -457,7 +376,6 @@ public class ModItems {
                     () -> new ForgeSpawnEggItem(ModEntityTypes.ZANUZAL,
                             0xE8A074, 0x6B3924,
                             new Item.Properties()
-                                    .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
                                     .rarity(ModRarities.EPIC)
                     ));
     //endregion

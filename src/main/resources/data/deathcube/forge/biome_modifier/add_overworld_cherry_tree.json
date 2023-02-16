@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "minecraft:plains",
-  "features": "deathcube:cherry_placed",
+  "features": "deathcube:trees_cherry_tree",
   "step": "vegetal_decoration"
 }

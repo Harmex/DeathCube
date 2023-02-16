@@ -1,6 +1,5 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import com.harmex.deathcube.item.ModRarities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -19,7 +18,6 @@ public class EnderBagItem extends Item {
 
     public EnderBagItem() {
         super(new Properties()
-                .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                 .stacksTo(1)
                 .rarity(ModRarities.EPIC)
         );

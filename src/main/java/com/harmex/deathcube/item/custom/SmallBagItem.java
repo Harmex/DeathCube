@@ -1,6 +1,5 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,7 +27,6 @@ public class SmallBagItem extends Item {
 
     public SmallBagItem() {
         super(new Properties()
-                .tab(ModCreativeModeTab.DEATHCUBE_TOOLS_TAB)
                 .stacksTo(1)
         );
     }

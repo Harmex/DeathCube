@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "deathcube:zanthine_ore_placed",
+  "features": "deathcube:ore_zanthine",
   "step": "underground_ores"
 }

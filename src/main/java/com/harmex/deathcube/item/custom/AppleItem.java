@@ -1,7 +1,6 @@
 package com.harmex.deathcube.item.custom;
 
 import com.harmex.deathcube.config.DeathCubeCommonConfigs;
-import com.harmex.deathcube.item.ModCreativeModeTab;
 import com.harmex.deathcube.item.ModItems;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AppleItem extends Item {
     public AppleItem(Properties pProperties) {
-        super(pProperties.tab(ModCreativeModeTab.DEATHCUBE_FOODS_TAB));
+        super(pProperties);
     }
 
     @Override
