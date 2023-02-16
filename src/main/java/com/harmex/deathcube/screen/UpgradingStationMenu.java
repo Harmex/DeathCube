@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,19 +35,19 @@ public class UpgradingStationMenu extends AbstractContainerMenu {
         addPlayerInventory(pPlayerInventory);
         addPlayerHotbar(pPlayerInventory);
 
-        pBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 26, 36) {
-                @Override
-                public boolean mayPlace(@NotNull ItemStack stack) {
-                    return stack.is(ModTags.Items.UPGRADEABLE);
-                }
+        pBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler ->
+                this.addSlot(new SlotItemHandler(iItemHandler, 0, 26, 36) {
+                    @Override
+                    public boolean mayPlace(@NotNull ItemStack stack) {
+                        return stack.is(ModTags.Items.UPGRADEABLE);
+                    }
 
-                @Override
-                public int getMaxStackSize() {
-                    return 1;
-                }
-            });
-        });
+                    @Override
+                    public int getMaxStackSize() {
+                        return 1;
+                    }
+                })
+        );
     }
 
     @Override

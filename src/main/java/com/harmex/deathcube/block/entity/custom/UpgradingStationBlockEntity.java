@@ -21,8 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -30,13 +30,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class UpgradingStationBlockEntity extends BlockEntity implements MenuProvider {
     /* Capability */
-    public final ItemStackHandler itemHandler = new ItemStackHandler(1) {
+    public final ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
         }
     };
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private LazyOptional<IItemHandler> inventoryHandlerLazyOptional = LazyOptional.empty();
 
 
     protected final ContainerData dataAccess = new ContainerData() {
@@ -72,28 +72,24 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
     //region Capability
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return lazyItemHandler.cast();
-        }
-
-        return super.getCapability(cap);
+        return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, inventoryHandlerLazyOptional);
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        inventoryHandlerLazyOptional = LazyOptional.of(() -> inventory);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        lazyItemHandler.invalidate();
+        inventoryHandlerLazyOptional.invalidate();
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.put("inventory", inventory.serializeNBT());
         pTag.putBoolean("hasBaseIngredient", hasBaseIngredient != 0);
         super.saveAdditional(pTag);
     }
@@ -101,15 +97,15 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        inventory.deserializeNBT(pTag.getCompound("inventory"));
         hasBaseIngredient = pTag.getBoolean("hasBaseIngredient") ? 1 : 0;
     }
     //endregion
 
     public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(this.inventory.getSlots());
+        for (int i = 0; i < this.inventory.getSlots(); i++) {
+            inventory.setItem(i, this.inventory.getStackInSlot(i));
         }
 
         if (this.level != null) {
@@ -118,7 +114,7 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
     }
 
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, UpgradingStationBlockEntity pBlockEntity) {
-        ItemStack item = pBlockEntity.itemHandler.getStackInSlot(0);
+        ItemStack item = pBlockEntity.inventory.getStackInSlot(0);
         SimpleContainer container = new SimpleContainer(item);
 
         ItemStack result = pBlockEntity.quickCheck.getRecipeFor(container, pLevel)
@@ -130,7 +126,7 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
             pBlockEntity.hasBaseIngredient = 0;
         } else {
             pBlockEntity.hasBaseIngredient = 1;
-            pBlockEntity.itemHandler.setStackInSlot(0, result);
+            pBlockEntity.inventory.setStackInSlot(0, result);
         }
     }
 

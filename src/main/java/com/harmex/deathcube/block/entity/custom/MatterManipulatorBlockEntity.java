@@ -19,8 +19,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -29,13 +29,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class MatterManipulatorBlockEntity extends BlockEntity implements MenuProvider {
-    public final ItemStackHandler itemHandler = new ItemStackHandler(11) {
+    public final ItemStackHandler inventory = new ItemStackHandler(11) {
         @Override
         protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
             setChanged();
         }
     };
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private LazyOptional<IItemHandler> inventoryHandlerLazyOptional = LazyOptional.empty();
 
     protected final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -81,28 +82,24 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return lazyItemHandler.cast();
-        }
-
-        return super.getCapability(cap, side);
+        return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, inventoryHandlerLazyOptional);
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        inventoryHandlerLazyOptional = LazyOptional.of(() -> inventory);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        lazyItemHandler.invalidate();
+        inventoryHandlerLazyOptional.invalidate();
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.put("inventory", inventory.serializeNBT());
         pTag.putInt("ManipulationTime", this.manipulationProgress);
         pTag.putInt("ManipulationTimeTotal", this.manipulationTimeTotal);
         super.saveAdditional(pTag);
@@ -111,15 +108,15 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
     @Override
     public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        inventory.deserializeNBT(pTag.getCompound("inventory"));
         manipulationProgress = pTag.getInt("ManipulationTime");
         manipulationTimeTotal = pTag.getInt("ManipulationTimeTotal");
     }
 
     public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(this.inventory.getSlots());
+        for (int i = 0; i < this.inventory.getSlots(); i++) {
+            inventory.setItem(i, this.inventory.getStackInSlot(i));
         }
 
         if (this.level != null) {
@@ -142,9 +139,9 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
 
     private static boolean hasRecipe(MatterManipulatorBlockEntity pBlockEntity) {
         Level level = pBlockEntity.level;
-        SimpleContainer inventory = new SimpleContainer(pBlockEntity.itemHandler.getSlots());
-        for (int i = 0; i < pBlockEntity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, pBlockEntity.itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(pBlockEntity.inventory.getSlots());
+        for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
+            inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
         }
 
         Optional<ShapedMatterManipulationRecipe> match = level.getRecipeManager()
@@ -161,20 +158,20 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
 
     private static void craftItem(MatterManipulatorBlockEntity pBlockEntity) {
         Level level = pBlockEntity.level;
-        SimpleContainer inventory = new SimpleContainer(pBlockEntity.itemHandler.getSlots());
-        for (int i = 0; i < pBlockEntity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, pBlockEntity.itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(pBlockEntity.inventory.getSlots());
+        for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
+            inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
         }
 
         Optional<ShapedMatterManipulationRecipe> match = level.getRecipeManager()
                 .getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
 
         if(match.isPresent()) {
-            for (int i = 0; i < pBlockEntity.itemHandler.getSlots(); i++) {
-                pBlockEntity.itemHandler.extractItem(i, 8, false);
+            for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
+                pBlockEntity.inventory.extractItem(i, 8, false);
             }
 
-            pBlockEntity.itemHandler.insertItem(10, match.get().getResultItem(), false);
+            pBlockEntity.inventory.insertItem(10, match.get().getResultItem(), false);
 
             pBlockEntity.resetProgress();
         }
