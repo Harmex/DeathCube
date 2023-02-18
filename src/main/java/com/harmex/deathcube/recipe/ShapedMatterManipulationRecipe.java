@@ -15,15 +15,16 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
     static int MAX_WIDTH = 3;
@@ -31,7 +32,7 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
 
     private final ResourceLocation id;
     private final ItemStack result;
-    private final NonNullList<ItemStack> recipeItems;
+    private final NonNullList<Ingredient> recipeItems;
     private final ItemStack extraItem;
     private CompoundTag extraItemTag = new CompoundTag();
     private final int width;
@@ -39,7 +40,7 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
     private final int manipulationTime;
 
     public ShapedMatterManipulationRecipe(ResourceLocation id, int width, int height, int manipulationTime,
-                                          NonNullList<ItemStack> recipeItems,
+                                          NonNullList<Ingredient> recipeItems,
                                           ItemStack extraItem, ItemStack result) {
         this.id = id;
         this.result = result;
@@ -76,10 +77,10 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
         return resultWithTag;
     }
 
-    public NonNullList<ItemStack> getRecipeItemStacks() {
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
         return this.recipeItems;
     }
-
     public ItemStack getExtraItem() {
         return this.extraItem;
     }
@@ -97,20 +98,20 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(@NotNull SimpleContainer pContainer, Level pLevel) {
+    public boolean matches(SimpleContainer pInv, Level pLevel) {
         if (pLevel.isClientSide()) {
             return false;
         }
 
         for(int i = 0; i <= 3 - this.width; ++i) {
             for (int j = 0; j <= 3 - this.height; ++j) {
-                if (this.matches(pContainer, i, j, true)) {
-                    this.extraItemTag = pContainer.getItem(9).getTag();
+                if (this.matches(pInv, i, j, true)) {
+                    this.extraItemTag = pInv.getItem(9).getTag();
                     return true;
                 }
 
-                if (this.matches(pContainer, i, j, false)) {
-                    this.extraItemTag = pContainer.getItem(9).getTag();
+                if (this.matches(pInv, i, j, false)) {
+                    this.extraItemTag = pInv.getItem(9).getTag();
                     return true;
                 }
             }
@@ -124,18 +125,26 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
             for(int j = 0; j < 3; ++j) {
                 int k = i - pWidth;
                 int l = j - pHeight;
-                ItemStack recipeItem = ItemStack.EMPTY;
+                Ingredient ingredient = Ingredient.EMPTY;
+                int ingredientCount = 1;
                 if (k >= 0 && l >= 0 && k < this.width && l < this.height) {
+                    int index;
                     if (pMirrored) {
-                        recipeItem = this.recipeItems.get(this.width - k - 1 + l * this.width);
+                        index = this.width - k - 1 + l * this.width;
                     } else {
-                        recipeItem = this.recipeItems.get(k + l * this.width);
+                        index = k + l * this.width;
                     }
+                    ingredient = this.recipeItems.get(index);
+                    ingredientCount = this.recipeItems.get(index).getItems().length > 0 ?
+                            this.recipeItems.get(index).getItems()[0].getCount() : 1;
                 }
 
-                if (!recipeItem.getItem().equals(pContainer.getItem(i + j * 3).getItem())
-                        || pContainer.getItem(i + j * 3).getCount() != 0
-                        && recipeItem.getCount() > pContainer.getItem(i + j * 3).getCount()) {
+                ItemStack itemStack = pContainer.getItem(i + j * 3);
+
+                if (!ingredient.test(itemStack)
+                        || ingredient.test(itemStack)
+                        && !itemStack.is(Items.AIR)
+                        && ingredientCount > itemStack.getCount()) {
                     return false;
                 }
             }
@@ -149,21 +158,21 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
         return this.result.copy();
     }
 
-    static NonNullList<ItemStack> dissolvePattern(String[] pPattern, Map<String, ItemStack> pKeys, int pPatternWidth, int pPatternHeight) {
-        NonNullList<ItemStack> pattern = NonNullList.withSize(pPatternWidth * pPatternHeight, ItemStack.EMPTY);
+    static NonNullList<Ingredient> dissolvePattern(String[] pPattern, Map<String, Ingredient> pKeys, int pPatternWidth, int pPatternHeight) {
+        NonNullList<Ingredient> pattern = NonNullList.withSize(pPatternWidth * pPatternHeight, Ingredient.EMPTY);
         Set<String> set = Sets.newHashSet(pKeys.keySet());
         set.remove(" ");
 
         for(int i = 0; i < pPattern.length; ++i) {
             for(int j = 0; j < pPattern[i].length(); ++j) {
                 String s = pPattern[i].substring(j, j + 1);
-                ItemStack itemStack = pKeys.get(s);
-                if (itemStack == null) {
+                Ingredient ingredient = pKeys.get(s);
+                if (ingredient == null) {
                     throw new JsonSyntaxException("Pattern references symbol '" + s + "' but it's not defined in the key");
                 }
 
                 set.remove(s);
-                pattern.set(j + pPatternWidth * i, itemStack);
+                pattern.set(j + pPatternWidth * i, ingredient);
             }
         }
 
@@ -213,9 +222,7 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
         NonNullList<Ingredient> nonnulllist = this.getIngredients();
         return nonnulllist.isEmpty() || nonnulllist.stream().filter((p_151277_) -> {
             return !p_151277_.isEmpty();
-        }).anyMatch((p_151273_) -> {
-            return net.minecraftforge.common.ForgeHooks.hasNoElements(p_151273_);
-        });
+        }).anyMatch(ForgeHooks::hasNoElements);
     }
 
     private static int firstNonSpace(String pEntry) {
@@ -258,9 +265,9 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
         }
     }
 
-    static Map<String, ItemStack> keyFromJson(JsonObject pKeyEntry) {
-        Map<String, ItemStack> map = Maps.newHashMap();
-
+    static Map<String, Ingredient> keyFromJson(JsonObject pKeyEntry) {
+        Map<String, Ingredient> map = Maps.newHashMap();
+        int count = 1;
         for(Map.Entry<String, JsonElement> entry : pKeyEntry.entrySet()) {
             if (entry.getKey().length() != 1) {
                 throw new JsonSyntaxException("Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only).");
@@ -270,13 +277,20 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
                 throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
             }
 
-            map.put(entry.getKey(), itemStackFromJson(GsonHelper.getAsJsonObject(pKeyEntry, entry.getKey())));
+            if (entry.getValue().getAsJsonObject().has("count")) {
+                count = GsonHelper.getAsInt(entry.getValue().getAsJsonObject(), "count");
+            }
+
+            Ingredient ingredient = Ingredient.fromJson(entry.getValue());
+            for (ItemStack itemStack : ingredient.getItems()) {
+                itemStack.setCount(count);
+            }
+            map.put(entry.getKey(), ingredient);
         }
 
-        map.put(" ", ItemStack.EMPTY);
+        map.put(" ", Ingredient.EMPTY);
         return map;
     }
-
 
     public static ItemStack itemStackFromJson(JsonObject pStackObject) {
         return net.minecraftforge.common.crafting.CraftingHelper.getItemStack(pStackObject, true, true);
@@ -296,7 +310,7 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
         @Override
         public @NotNull ShapedMatterManipulationRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pJson) {
             //Get the ingredients linked to a key character
-            Map<String, ItemStack> ingredientFromKey = ShapedMatterManipulationRecipe
+            Map<String, Ingredient> ingredientFromKey = ShapedMatterManipulationRecipe
                     .keyFromJson(GsonHelper.getAsJsonObject(pJson, "key"));
 
             //Get the shrunk pattern for the craft
@@ -308,7 +322,7 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
             int height = pattern.length;
 
             //Get the list of the ingredients
-            NonNullList<ItemStack> recipeItems = ShapedMatterManipulationRecipe
+            NonNullList<Ingredient> recipeItems = ShapedMatterManipulationRecipe
                     .dissolvePattern(pattern, ingredientFromKey, width, height);
 
             //Get the extra item
@@ -332,10 +346,10 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
             int height = pBuffer.readVarInt();
 
             //Create a list for the ingredients
-            NonNullList<ItemStack> recipeItems = NonNullList.withSize(width * height, ItemStack.EMPTY);
+            NonNullList<Ingredient> recipeItems = NonNullList.withSize(width * height, Ingredient.EMPTY);
 
             //Put the ingredients in the list
-            recipeItems.replaceAll(ignored -> pBuffer.readItem());
+            recipeItems.replaceAll(ignored -> Ingredient.fromNetwork(pBuffer));
 
             //get the extra item
             ItemStack extraItem = pBuffer.readItem();
@@ -358,8 +372,8 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
             pBuffer.writeVarInt(pRecipe.height);
 
             //Send the ingredients
-            for(ItemStack itemStack : pRecipe.recipeItems) {
-                pBuffer.writeItem(itemStack);
+            for(Ingredient itemStack : pRecipe.recipeItems) {
+                itemStack.toNetwork(pBuffer);
             }
 
             //Send the extra item

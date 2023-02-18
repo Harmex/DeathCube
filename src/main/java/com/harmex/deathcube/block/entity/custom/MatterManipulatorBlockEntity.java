@@ -5,6 +5,7 @@ import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.screen.MatterManipulatorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
@@ -14,7 +15,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,7 +29,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MatterManipulatorBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler inventory = new ItemStackHandler(11) {
@@ -166,9 +170,19 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
         Optional<ShapedMatterManipulationRecipe> match = level.getRecipeManager()
                 .getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
 
+
         if(match.isPresent()) {
+            NonNullList<Ingredient> ingredients = match.get().getIngredients();
+            Map<Item, Integer> itemCount = new HashMap<>();
+            for (Ingredient ingredient : ingredients) {
+                for (ItemStack itemStack : ingredient.getItems()) {
+                    itemCount.put(itemStack.getItem(), itemStack.getCount());
+                }
+            }
             for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
-                pBlockEntity.inventory.extractItem(i, 8, false);
+                    pBlockEntity.inventory.extractItem(i,
+                            itemCount.getOrDefault(pBlockEntity.inventory.getStackInSlot(i).getItem(), 1),
+                            false);
             }
 
             pBlockEntity.inventory.insertItem(10, match.get().getResultItem(), false);

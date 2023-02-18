@@ -9,8 +9,10 @@ import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -21,10 +23,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMatterManipulationRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(DeathCube.MODID, "matter_manipulation_shaped");
@@ -35,20 +43,23 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
     private final IDrawable icon;
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
     private final int regularManipulationTime;
+    private final ICraftingGridHelper craftingGridHelper;
 
-    public MatterManipulatorRecipeCategory(IGuiHelper helper, int regularManipulationTime) {
-        this.background = helper.createDrawable(TEXTURE, 0, 0, 148, 54);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MATTER_MANIPULATOR.get()));
+
+    public MatterManipulatorRecipeCategory(IGuiHelper guiHelper, int regularManipulationTime) {
+        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 148, 54);
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MATTER_MANIPULATOR.get()));
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(23)
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer manipulationTime) {
-                        return helper.drawableBuilder(TEXTURE, 0, 148, 22, 16)
+                        return guiHelper.drawableBuilder(TEXTURE, 0, 148, 22, 16)
                                 .buildAnimated(manipulationTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
         this.regularManipulationTime = regularManipulationTime;
+        craftingGridHelper = guiHelper.createCraftingGridHelper();
     }
 
     @Override
@@ -91,8 +102,8 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
     protected void drawManipulationTime(ShapedMatterManipulationRecipe recipe, PoseStack poseStack, int y) {
         int manipulationTime = recipe.getManipulationTime();
         if (manipulationTime > 0) {
-            int ManipulationTimeSeconds = manipulationTime / 20;
-            Component timeString = Component.translatable("gui.jei.deathcube.category.matter_manipulation_shaped.time.seconds", ManipulationTimeSeconds);
+            int manipulationTimeSeconds = manipulationTime / 20;
+            Component timeString = Component.literal( manipulationTimeSeconds + "s");
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
@@ -102,26 +113,13 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ShapedMatterManipulationRecipe recipe, @Nonnull IFocusGroup focuses) {
-        for(int i = 0; i <= 3 - recipe.getWidth(); ++i) {
-            for (int j = 0; j <= 3 - recipe.getHeight(); ++j) {
-                this.addSlots(recipe, builder, i, j);
-            }
-        }
+        List<List<ItemStack>> inputs = recipe.getIngredients().stream()
+                        .map(ingredient -> List.of(ingredient.getItems()))
+                                .toList();
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 73, 19).addItemStack(recipe.getExtraItem());
+        craftingGridHelper.createAndSetInputs(builder, inputs, recipe.getWidth(), recipe.getHeight());
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 73, 19).addItemStack(recipe.getExtraItem());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 127, 19).addItemStack(recipe.getResultItem());
-    }
-
-    private void addSlots(ShapedMatterManipulationRecipe pRecipe, IRecipeLayoutBuilder pBuilder, int pWidth, int pHeight) {
-        for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < 3; ++j) {
-                int k = i - pWidth;
-                int l = j - pHeight;
-                if (k >= 0 && l >= 0 && k < pRecipe.getWidth() && l < pRecipe.getHeight()) {
-                    pBuilder.addSlot(RecipeIngredientRole.INPUT, 1 + k * 18, 1 + l * 18)
-                            .addItemStack(pRecipe.getRecipeItemStacks().get(k + l * pRecipe.getWidth()));
-                }
-            }
-        }
     }
 }
