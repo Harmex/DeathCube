@@ -19,6 +19,7 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+// TODO : Deprecated Methods
 public class ResurrectionAltarBlock extends BaseEntityBlock {
     public ResurrectionAltarBlock(Properties pProperties) {
         super(pProperties);

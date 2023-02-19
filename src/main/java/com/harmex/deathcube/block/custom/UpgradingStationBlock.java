@@ -18,6 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
+// TODO : Deprecated Methods
 public class UpgradingStationBlock extends BaseEntityBlock {
     public UpgradingStationBlock(Properties pProperties) {
         super(pProperties);

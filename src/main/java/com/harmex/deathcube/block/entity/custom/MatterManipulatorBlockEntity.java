@@ -29,8 +29,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public class MatterManipulatorBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler inventory = new ItemStackHandler(11) {
@@ -148,7 +150,7 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
             inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
         }
 
-        Optional<ShapedMatterManipulationRecipe> match = level.getRecipeManager()
+        Optional<ShapedMatterManipulationRecipe> match = Objects.requireNonNull(level).getRecipeManager()
                 .getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
 
         if (match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
@@ -167,7 +169,7 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
             inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
         }
 
-        Optional<ShapedMatterManipulationRecipe> match = level.getRecipeManager()
+        Optional<ShapedMatterManipulationRecipe> match = Objects.requireNonNull(level).getRecipeManager()
                 .getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
 
 

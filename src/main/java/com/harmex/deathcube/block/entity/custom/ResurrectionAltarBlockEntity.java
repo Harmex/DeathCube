@@ -23,6 +23,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
@@ -44,7 +46,7 @@ public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuPro
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, @NotNull Player pPlayer) {
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, @NotNull Player pPlayer) {
         return new ResurrectionAltarMenu(pContainerId, pInventory, this);
     }
 
@@ -83,9 +85,10 @@ public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuPro
             inventory.setItem(i, this.inventory.getStackInSlot(i));
         }
 
-        Containers.dropContents(this.level, this.worldPosition, inventory);
+        Containers.dropContents(Objects.requireNonNull(this.level), this.worldPosition, inventory);
     }
 
     public static <E extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, E e) {
+
     }
 }

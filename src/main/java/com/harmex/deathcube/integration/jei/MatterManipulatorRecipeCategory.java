@@ -9,7 +9,6 @@ import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
@@ -23,16 +22,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMatterManipulationRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(DeathCube.MODID, "matter_manipulation_shaped");
@@ -70,7 +64,7 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
 
     @Override
     public @NotNull Component getTitle() {
-        return Component.translatable("gui.jei.deathcube.category.matter_manipulation_shaped");
+        return Component.translatable("gui.jei.deathcube.category.matter_manipulation");
     }
 
     @Override

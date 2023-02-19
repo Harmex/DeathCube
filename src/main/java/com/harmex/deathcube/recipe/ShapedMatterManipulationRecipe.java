@@ -24,7 +24,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 
 public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
     static int MAX_WIDTH = 3;

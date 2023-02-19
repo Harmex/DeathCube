@@ -25,9 +25,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * May be replaced in the future.
- */
+// TODO : Deprecated Methods
 public class MatterManipulatorBlock extends BaseEntityBlock {
     // The direction property of the block (the way it's facing)
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;

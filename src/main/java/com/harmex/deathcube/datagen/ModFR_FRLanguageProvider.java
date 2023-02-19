@@ -15,16 +15,18 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add("itemGroup." + DeathCube.MODID + ".buildingBlocks", "DeathCube | Blocs de construction");
-        add("itemGroup." + DeathCube.MODID + ".coloredBlocks", "DeathCube | Blocs colorés");
-        add("itemGroup." + DeathCube.MODID + ".naturalBlocks", "DeathCube | Blocs naturels");
-        add("itemGroup." + DeathCube.MODID + ".functionalBlocks", "DeathCube | Blocs fonctionnels");
-        add("itemGroup." + DeathCube.MODID + ".redstone", "DeathCube | Redstone");
-        add("itemGroup." + DeathCube.MODID + ".tools", "DeathCube | Outils");
-        add("itemGroup." + DeathCube.MODID + ".combat", "DeathCube | Combat");
-        add("itemGroup." + DeathCube.MODID + ".foodAndDrinks", "DeathCube | Nourritures & Boissons");
-        add("itemGroup." + DeathCube.MODID + ".ingredients", "DeathCube | Ingrédients");
-        add("itemGroup." + DeathCube.MODID + ".spawnEggs", "DeathCube | Œufs d'apparition");
+        addItemGroup("buildingBlocks", "DeathCube | Blocs de construction");
+        addItemGroup("coloredBlocks", "DeathCube | Blocs colorés");
+        addItemGroup("naturalBlocks", "DeathCube | Blocs naturels");
+        addItemGroup("functionalBlocks", "DeathCube | Blocs fonctionnels");
+        addItemGroup("redstone", "DeathCube | Redstone");
+        addItemGroup("tools", "DeathCube | Outils");
+        addItemGroup("combat", "DeathCube | Combat");
+        addItemGroup("foodAndDrinks", "DeathCube | Nourritures & Boissons");
+        addItemGroup("ingredients", "DeathCube | Ingrédients");
+        addItemGroup("spawnEggs", "DeathCube | Œufs d'apparition");
+
+        add("gui.jei.deathcube.category.matter_manipulation", "Manipulation de matière");
 
         addContainer("upgrading_station", "Station d'amélioration");
         addContainer("matter_manipulator", "Manipulateur de matière");
