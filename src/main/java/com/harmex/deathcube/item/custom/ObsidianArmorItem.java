@@ -14,49 +14,9 @@ import net.minecraft.world.level.Level;
 
 import java.util.Random;
 
-public class ObsidianArmorItem extends ArmorItem {
-    private static final MobEffectInstance fullSuitEffect =
-            new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20, 0,
-                    true, false, true);
-
+public class ObsidianArmorItem extends ArmorWithEffectItem {
     public ObsidianArmorItem(EquipmentSlot pSlot) {
         super(ModArmorMaterials.OBSIDIAN, pSlot, new Properties()
-                .rarity(ModRarities.EPIC)
-        );
-    }
-
-    @Override
-    public void onArmorTick(ItemStack stack, Level world, Player player) {
-        if (hasFullSuitOn(player)) {
-            if (DeathCubeCommonConfigs.OBSIDIAN_ARMOR_EFFECT.get()) {
-                fullSuitEffect(player);
-            }
-            if (DeathCubeCommonConfigs.OBSIDIAN_ARMOR_DECAY.get()) {
-                damageArmor(player);
-            }
-        }
-    }
-
-    private boolean hasFullSuitOn(Player player) {
-        for (int i = 0; i < 4; i++) {
-            if (!(player.getInventory().getArmor(i).getItem() instanceof ObsidianArmorItem)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void fullSuitEffect(Player player) {
-        if(!player.hasEffect(fullSuitEffect.getEffect())) {
-            player.addEffect(fullSuitEffect);
-        }
-    }
-
-    private void damageArmor(Player player) {
-        if (!player.isCreative() && !player.isSpectator()) {
-            if(new Random().nextFloat() < 0.01f) {
-                player.getInventory().hurtArmor(DamageSource.MAGIC, 1f, new int[]{0, 1, 2, 3});
-            }
-        }
+                .rarity(ModRarities.EPIC), ArmorSets.OBSIDIAN);
     }
 }

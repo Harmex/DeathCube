@@ -18,6 +18,11 @@ public class ThirstData {
         return thirstSaturation;
     }
 
+    public ThirstData() {
+        this.thirst = MAX_THIRST;
+        this.thirstSaturation = 3;
+    }
+
     public void addThirst(int add) {
         this.thirst = Math.min(this.thirst + add, MAX_THIRST);
         this.tickTimer = 0;
