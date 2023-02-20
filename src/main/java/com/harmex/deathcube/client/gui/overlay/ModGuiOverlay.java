@@ -58,11 +58,10 @@ public class ModGuiOverlay {
             }
 
             lastHealth = health;
-            int healthLast = displayHealth;
 
             AttributeInstance attrMaxHealth = player.getAttribute(Attributes.MAX_HEALTH);
             float maxHealth = (float) attrMaxHealth.getValue();
-            int absorb = Mth.ceil(player.getAbsorptionAmount());
+            int absorption = Mth.ceil(player.getAbsorptionAmount());
 
             random.setSeed(gui.getGuiTicks() * 312871L);
 
@@ -84,7 +83,11 @@ public class ModGuiOverlay {
             }
 
             int healthBarSize = Mth.ceil(health * 79 / maxHealth);
-            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 6 : 0, 81, 6, textureWidth, textureHeight);
+            int thirtyPercent = Mth.ceil((maxHealth * 30 / 100) * 79 / maxHealth);
+            int absorptionBarSize = Mth.ceil(absorption * 81 / maxHealth);
+
+            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 6 : healthBarSize >= thirtyPercent ? 0 : 12, 81, 6, textureWidth, textureHeight);
+            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 6 : 60, absorptionBarSize, 6, textureWidth, textureHeight);
             GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, healthBarSize, 6, textureWidth, textureHeight);
 
             RenderSystem.disableBlend();
@@ -157,6 +160,7 @@ public class ModGuiOverlay {
 
             FoodData stats = player.getFoodData();
             int foodLevel = Mth.ceil(stats.getFoodLevel() * 79 / (float) FoodConstants.MAX_FOOD);
+            int thirtyPercent = Mth.ceil(((float) FoodConstants.MAX_FOOD * 30 / 100) * 79 / (float) FoodConstants.MAX_FOOD);
             int foodSaturationLevel = Mth.ceil(stats.getSaturationLevel() * 81 / FoodConstants.MAX_SATURATION);
 
             int uOffset = 162;
@@ -167,6 +171,8 @@ public class ModGuiOverlay {
             if (player.hasEffect(MobEffects.HUNGER)) {
                 vOffsetContainer = 48;
                 vOffsetFood = 30;
+            } else if (foodLevel <= thirtyPercent) {
+                vOffsetContainer = 12;
             }
 
             GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, textureWidth, textureHeight);
@@ -194,6 +200,7 @@ public class ModGuiOverlay {
             gui.rightHeight += 7;
 
             int thirstLevel = Mth.ceil(ClientThirstData.getPlayerThirst() * 79 / (float) ThirstConstants.MAX_THIRST);
+            int thirtyPercent = Mth.ceil(((float) ThirstConstants.MAX_THIRST * 30 / 100) * 79 / (float) ThirstConstants.MAX_THIRST);
             int thirstSaturationLevel = Mth.ceil(ClientThirstData.getPlayerThirstSaturation() * 81 / (float) ThirstConstants.MAX_SATURATION);
 
             int uOffset = 162;
@@ -204,6 +211,8 @@ public class ModGuiOverlay {
             if (player.hasEffect(MobEffects.HUNGER)) {
                 vOffsetContainer = 48;
                 vOffsetThirst = 42;
+            } else if (thirstLevel <= thirtyPercent) {
+                vOffsetContainer = 12;
             }
 
             GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, textureWidth, textureHeight);
