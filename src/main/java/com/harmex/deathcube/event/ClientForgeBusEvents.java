@@ -27,7 +27,9 @@ public class ClientForgeBusEvents {
 
     @SubscribeEvent
     public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Pre event) {
-        if (Objects.equals(event.getOverlay().id(), new ResourceLocation("minecraft:player_health"))) {
+        if (Objects.equals(event.getOverlay().id(), new ResourceLocation("minecraft", "player_health"))
+                || Objects.equals(event.getOverlay().id(), new ResourceLocation("minecraft", "food_level"))
+                || Objects.equals(event.getOverlay().id(), new ResourceLocation("minecraft", "armor_level"))) {
             event.setCanceled(true);
         }
     }

@@ -69,8 +69,14 @@ public class ClientModBusEvents {
 
     @SubscribeEvent
     public static void registerGuiOverlay(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(new ResourceLocation("minecraft", "food_level"), "thirst_level", ModGuiOverlay.THIRST_LEVEL);
-        event.registerAbove(new ResourceLocation("minecraft", "boss_event_progress"), "player_health", ModGuiOverlay.PLAYER_HEALTH);
+        event.registerAbove(new ResourceLocation("minecraft", "boss_event_progress"),
+                "player_health", ModGuiOverlay.PLAYER_HEALTH);
+        event.registerAbove(new ResourceLocation(DeathCube.MODID, "player_health"),
+                "armor_level", ModGuiOverlay.ARMOR_LEVEL);
+        event.registerAbove(new ResourceLocation(DeathCube.MODID, "armor_level"),
+                "food_level", ModGuiOverlay.FOOD_LEVEL);
+        event.registerAbove(new ResourceLocation(DeathCube.MODID, "food_level"),
+                "thirst_level", ModGuiOverlay.THIRST_LEVEL);
     }
 
 
