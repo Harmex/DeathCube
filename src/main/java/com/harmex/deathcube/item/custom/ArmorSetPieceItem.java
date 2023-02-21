@@ -14,28 +14,29 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 import java.util.Random;
 
-public class ArmorWithEffectItem extends ArmorItem {
+public class ArmorSetPieceItem extends ArmorItem {
     private final ArmorSet armorSet;
     private final MobEffectInstance fullSetEffect;
     private final List<ResourceLocation> setPieces;
     private boolean isEffectActive;
-    private boolean isEffectEnabled;
-    private boolean isDecayEnabled;
+    protected boolean isEffectEnabled;
+    protected boolean isDecayEnabled;
 
-    public ArmorWithEffectItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties, ArmorSet pArmorSet) {
+    public ArmorSetPieceItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties, ArmorSet pArmorSet) {
         super(pMaterial, pSlot, pProperties);
         armorSet = pArmorSet;
         fullSetEffect = new MobEffectInstance(armorSet.getFullSetEffect(),
                 1200, armorSet.getEffectAmplifier(),
                 true, false, true);
         setPieces = armorSet.getSetPieces();
-        isEffectEnabled = true;
-        isDecayEnabled = true;
     }
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if (hasFullSetOn(player)) fullSetEffect(player);
+        else if (isEffectActive) {
+            if (player.removeEffect(fullSetEffect.getEffect())) isEffectActive = false;
+        }
     }
 
     private boolean hasFullSetOn(Player player) {
@@ -58,9 +59,6 @@ public class ArmorWithEffectItem extends ArmorItem {
                     }
                 }
             }
-        } else if (isEffectActive) {
-            player.removeEffect(fullSetEffect.getEffect());
-            isEffectActive = false;
         }
     }
 }
