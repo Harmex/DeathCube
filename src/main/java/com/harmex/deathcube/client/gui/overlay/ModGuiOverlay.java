@@ -135,11 +135,12 @@ public class ModGuiOverlay {
             int armorBarLevel = Mth.ceil(armorLevel * 79 / 20.0F);
             int armorBarSize = 79;
             int armorFullBarNumber = 0;
-            Color barColor = new Color(88, 88, 196);
-            Color prevBarColor = new Color(184, 185, 196);
+            int prevVOffset = 60;
+            int vOffset = 66;
+            int uOffset = 162;
 
             if (armorLevel > 0) {
-                GuiComponent.blit(poseStack, left, top, 162, 0, 81, 6, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left, top, uOffset, 0, 81, 6, textureWidth, textureHeight);
 
                 while (armorBarLevel > armorBarSize) {
                     armorBarLevel -= armorBarSize;
@@ -148,18 +149,14 @@ public class ModGuiOverlay {
 
                 if (armorFullBarNumber > 0) {
                     for (int i = 1; i < armorFullBarNumber; i++) {
-                        prevBarColor = barColor;
-                        if (i % 6 == 0) barColor = new Color(88, 88, 196);
-                        if (i % 6 == 1) barColor = new Color(88, 196, 196);
-                        if (i % 6 == 2) barColor = new Color(88, 196, 88);
-                        if (i % 6 == 3) barColor = new Color(196, 196, 88);
-                        if (i % 6 == 4) barColor = new Color(196, 88, 88);
-                        if (i % 6 == 5) barColor = new Color(196, 88, 196);
+                        prevVOffset = vOffset;
+                        vOffset = prevVOffset + 6 * i;
+
                     }
-                    GuiComponent.fill(poseStack, left + 1 + armorBarLevel, top + 1, left + 80, top + 5, prevBarColor.getRGB());
-                    GuiComponent.fill(poseStack, left + 1, top + 1, left + 1 + armorBarLevel, top + 5, barColor.getRGB());
+                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarSize, 6, textureWidth, textureHeight);
+                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, armorBarLevel, 6, textureWidth, textureHeight);
                 } else {
-                    GuiComponent.fill(poseStack, left + 1, top + 1, left + 1 + armorBarLevel, top + 5, 0xFFB8B9C4);
+                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarLevel, 6, textureWidth, textureHeight);
                 }
             }
 
