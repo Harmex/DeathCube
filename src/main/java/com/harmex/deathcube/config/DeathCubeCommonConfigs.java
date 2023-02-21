@@ -31,7 +31,7 @@ public class DeathCubeCommonConfigs {
     public static final ForgeConfigSpec.ConfigValue<Boolean> OBSIDIAN_ARMOR_DECAY;
 
     static {
-        BUILDER.push("Configs for DeathCube");
+        BUILDER.push("General Configs for DeathCube");
 
         APPLES_TEMP_HEALTH = BUILDER.comment("Should special apples give temporary health boost ?")
                 .define("Apples Temporary Health", true);

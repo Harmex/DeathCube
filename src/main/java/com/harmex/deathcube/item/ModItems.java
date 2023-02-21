@@ -41,8 +41,8 @@ public class ModItems {
             ITEMS.register("diamond_apple",
                     () -> new AppleItem(new Item.Properties()
                             .food(ModFoods.DIAMOND_APPLE)
-                            .rarity(Rarity.UNCOMMON)
-                    ) {
+                            .rarity(Rarity.UNCOMMON),
+                            Apples.DIAMOND) {
                         @Override
                         public boolean isFoil(@NotNull ItemStack pStack) {
                             return true;
@@ -52,8 +52,8 @@ public class ModItems {
             ITEMS.register("netherite_apple",
                     () -> new AppleItem(new Item.Properties()
                             .food(ModFoods.NETHERITE_APPLE)
-                            .rarity(Rarity.RARE)
-                    ) {
+                            .rarity(Rarity.RARE),
+                            Apples.NETHERITE) {
                         @Override
                         public boolean isFoil(@NotNull ItemStack pStack) {
                             return true;
@@ -63,8 +63,8 @@ public class ModItems {
             ITEMS.register("bedrock_apple",
                     () -> new AppleItem(new Item.Properties()
                             .food(ModFoods.BEDROCK_APPLE)
-                            .rarity(Rarity.EPIC)
-                    ) {
+                            .rarity(Rarity.EPIC),
+                            Apples.BEDROCK) {
                         @Override
                         public boolean isFoil(@NotNull ItemStack pStack) {
                             return true;

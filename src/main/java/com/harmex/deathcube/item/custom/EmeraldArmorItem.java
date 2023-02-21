@@ -1,5 +1,6 @@
 package com.harmex.deathcube.item.custom;
 
+import com.harmex.deathcube.config.DeathCubeCommonConfigs;
 import com.harmex.deathcube.item.ModArmorMaterials;
 import com.harmex.deathcube.item.ModRarities;
 import net.minecraft.world.entity.EquipmentSlot;

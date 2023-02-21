@@ -19,26 +19,23 @@ public class ArmorWithEffectItem extends ArmorItem {
     private final MobEffectInstance fullSetEffect;
     private final List<ResourceLocation> setPieces;
     private boolean isEffectActive;
+    private boolean isEffectEnabled;
+    private boolean isDecayEnabled;
 
     public ArmorWithEffectItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties, ArmorSet pArmorSet) {
         super(pMaterial, pSlot, pProperties);
-        this.armorSet = pArmorSet;
-        this.fullSetEffect = new MobEffectInstance(armorSet.getFullSetEffect(),
+        armorSet = pArmorSet;
+        fullSetEffect = new MobEffectInstance(armorSet.getFullSetEffect(),
                 1200, armorSet.getEffectAmplifier(),
                 true, false, true);
         setPieces = armorSet.getSetPieces();
+        isEffectEnabled = true;
+        isDecayEnabled = true;
     }
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (hasFullSetOn(player)) {
-            player.addEffect(fullSetEffect);
-            isEffectActive = true;
-            damageArmor(player);
-        } else if (isEffectActive) {
-            player.removeEffect(fullSetEffect.getEffect());
-            isEffectActive = false;
-        }
+        if (hasFullSetOn(player)) fullSetEffect(player);
     }
 
     private boolean hasFullSetOn(Player player) {
@@ -50,11 +47,20 @@ public class ArmorWithEffectItem extends ArmorItem {
         return true;
     }
 
-    private void damageArmor(Player player) {
-        if (!player.isCreative() && !player.isSpectator()) {
-            if(new Random().nextFloat() < 0.01f) {
-                player.getInventory().hurtArmor(DamageSource.MAGIC, 1f, new int[]{0, 1, 2, 3});
+    private void fullSetEffect(Player player) {
+        if (isEffectEnabled) {
+            player.addEffect(fullSetEffect);
+            isEffectActive = true;
+            if (isDecayEnabled) {
+                if (!player.isCreative() && !player.isSpectator()) {
+                    if(new Random().nextFloat() < 0.01f) {
+                        player.getInventory().hurtArmor(DamageSource.MAGIC, 1f, new int[]{0, 1, 2, 3});
+                    }
+                }
             }
+        } else if (isEffectActive) {
+            player.removeEffect(fullSetEffect.getEffect());
+            isEffectActive = false;
         }
     }
 }

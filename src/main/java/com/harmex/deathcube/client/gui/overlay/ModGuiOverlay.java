@@ -66,29 +66,54 @@ public class ModGuiOverlay {
             random.setSeed(gui.getGuiTicks() * 312871L);
 
             int left = screenWidth / 2 - 91;
-            int top = screenHeight - gui.leftHeight + 3;
-            gui.leftHeight += 7;
+            int top = screenHeight - gui.leftHeight - 4;
+            gui.leftHeight += 14;
 
+            Color textColor = new Color(128, 9, 9);
             int uOffset = player.level.getLevelData().isHardcore() ? 81 : 0;
-            int vOffset = 24;
-            if (highlight) vOffset = 30;
+            int vOffset = 52;
+            if (highlight) {
+                vOffset = 65;
+                textColor = new Color(128, 80, 80);
+            }
             if (player.hasEffect(MobEffects.POISON)) {
-                if (highlight) vOffset = 42;
-                else vOffset = 36;
+                if (highlight){
+                    vOffset = 91;
+                    textColor = new Color(82, 74, 47);
+                }
+                else {
+                    vOffset = 78;
+                    textColor = new Color(74, 59, 12);
+                }
             } else if (player.hasEffect(MobEffects.WITHER)) {
-                if (highlight) vOffset = 54;
-                else vOffset = 48;
+                if (highlight){
+                    vOffset = 117;
+                    textColor = new Color(128, 128, 128);
+                }
+                else {
+                    vOffset = 104;
+                    textColor = new Color(87, 87, 87);
+                }
             } else if (player.isFullyFrozen()) {
-                vOffset = 66;
+                vOffset = 143;
+                textColor = new Color(65, 115, 120);
             }
 
             int healthBarSize = Mth.ceil(health * 79 / maxHealth);
             int thirtyPercent = Mth.ceil((maxHealth * 30 / 100) * 79 / maxHealth);
-            int absorptionBarSize = Mth.ceil(absorption * 81 / maxHealth);
+            int absorptionBarSize = Mth.ceil(absorption * 79 / maxHealth);
 
-            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 6 : healthBarSize >= thirtyPercent ? 0 : 12, 81, 6, textureWidth, textureHeight);
-            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 6 : 60, absorptionBarSize, 6, textureWidth, textureHeight);
-            GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, healthBarSize, 6, textureWidth, textureHeight);
+            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 13 : healthBarSize >= thirtyPercent ? 0 : 26, 81, 13, textureWidth, textureHeight);
+            GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, healthBarSize, 13, textureWidth, textureHeight);
+            GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, 130, absorptionBarSize, 13, textureWidth, textureHeight);
+
+            String healthAmount = Mth.ceil(health + absorption) + " / " + Mth.ceil(maxHealth);
+
+            if (Mth.ceil(absorption) > 0) {
+                textColor = new Color(105, 86, 27);
+            }
+
+            gui.getFont().draw(poseStack, healthAmount, left + 2, top + 2, textColor.getRGB());
 
             RenderSystem.disableBlend();
             gui.getMinecraft().getProfiler().pop();
@@ -114,7 +139,7 @@ public class ModGuiOverlay {
             Color prevBarColor = new Color(184, 185, 196);
 
             if (armorLevel > 0) {
-                GuiComponent.blit(poseStack, left, top, 0, 0, 81, 6, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left, top, 162, 0, 81, 6, textureWidth, textureHeight);
 
                 while (armorBarLevel > armorBarSize) {
                     armorBarLevel -= armorBarSize;
