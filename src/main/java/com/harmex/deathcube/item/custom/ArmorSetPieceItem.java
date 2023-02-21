@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Random;
 
 public class ArmorSetPieceItem extends ArmorItem {
-    private final ArmorSet armorSet;
     private final MobEffectInstance fullSetEffect;
     private final List<ResourceLocation> setPieces;
     private boolean isEffectActive;
@@ -24,11 +23,10 @@ public class ArmorSetPieceItem extends ArmorItem {
 
     public ArmorSetPieceItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties, ArmorSet pArmorSet) {
         super(pMaterial, pSlot, pProperties);
-        armorSet = pArmorSet;
-        fullSetEffect = new MobEffectInstance(armorSet.getFullSetEffect(),
-                1200, armorSet.getEffectAmplifier(),
+        fullSetEffect = new MobEffectInstance(pArmorSet.getFullSetEffect(),
+                1200, pArmorSet.getEffectAmplifier(),
                 true, false, true);
-        setPieces = armorSet.getSetPieces();
+        setPieces = pArmorSet.getSetPieces();
     }
 
     @Override
