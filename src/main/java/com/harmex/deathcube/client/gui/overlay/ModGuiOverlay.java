@@ -221,9 +221,9 @@ public class ModGuiOverlay {
             int top = screenHeight - gui.rightHeight + 3;
             gui.rightHeight += 7;
 
-            int thirstLevel = Mth.ceil(ClientThirstData.getPlayerThirst() * 79 / (float) ThirstConstants.MAX_THIRST);
+            int thirstLevel = Mth.ceil(ClientThirstData.getThirstLevel() * 79 / (float) ThirstConstants.MAX_THIRST);
             int thirtyPercent = Mth.ceil(((float) ThirstConstants.MAX_THIRST * 30 / 100) * 79 / (float) ThirstConstants.MAX_THIRST);
-            int thirstSaturationLevel = Mth.ceil(ClientThirstData.getPlayerThirstSaturation() * 81 / (float) ThirstConstants.MAX_SATURATION);
+            int thirstSaturationLevel = Mth.ceil(ClientThirstData.getSaturationLevel() * 81 / (float) ThirstConstants.MAX_SATURATION);
 
             int uOffset = 162;
             int vOffsetContainer = 0;

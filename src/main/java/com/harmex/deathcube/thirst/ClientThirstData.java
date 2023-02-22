@@ -1,19 +1,25 @@
 package com.harmex.deathcube.thirst;
 
 public class ClientThirstData {
-    private static int playerThirst;
-    private static int playerThirstSaturation;
+    private static int thirstLevel;
+    private static float saturationLevel;
+    private static float exhaustionLevel;
 
-    public static void set(int thirst, int thirstSaturation) {
-        ClientThirstData.playerThirst = thirst;
-        ClientThirstData.playerThirstSaturation = thirstSaturation;
+    public static void set(int pThirst, float pSaturationLevel, float pExhaustionLevel) {
+        thirstLevel = pThirst;
+        saturationLevel = pSaturationLevel;
+        exhaustionLevel = pExhaustionLevel;
     }
 
-    public static int getPlayerThirst() {
-        return playerThirst;
+    public static int getThirstLevel() {
+        return thirstLevel;
     }
 
-    public static int getPlayerThirstSaturation() {
-        return playerThirstSaturation;
+    public static float getSaturationLevel() {
+        return saturationLevel;
+    }
+
+    public static float getExhaustionLevel() {
+        return exhaustionLevel;
     }
 }

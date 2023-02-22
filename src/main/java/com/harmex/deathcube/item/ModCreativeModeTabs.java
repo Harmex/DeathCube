@@ -32,7 +32,7 @@ public class ModCreativeModeTabs {
                         .title(Component.translatable("itemGroup." + DeathCube.MODID + ".buildingBlocks")).build());
 
         DEATHCUBE_COLORED_BLOCKS_TAB = event.registerCreativeModeTab(new ResourceLocation(DeathCube.MODID, "colored_blocks"),
-                builder -> builder.icon(() -> new ItemStack(Blocks.AIR))
+                builder -> builder.icon(() -> new ItemStack(ModBlocks.ECHO_AMETHYST_BLOCK.get()))
                         .title(Component.translatable("itemGroup." + DeathCube.MODID + ".coloredBlocks")).build());
 
         DEATHCUBE_NATURAL_BLOCKS_TAB = event.registerCreativeModeTab(new ResourceLocation(DeathCube.MODID, "natural_blocks"),

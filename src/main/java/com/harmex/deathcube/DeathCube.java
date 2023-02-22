@@ -12,6 +12,7 @@ import com.harmex.deathcube.painting.ModPaintings;
 import com.harmex.deathcube.potion.ModPotions;
 import com.harmex.deathcube.recipe.ModRecipes;
 import com.harmex.deathcube.screen.ModMenuTypes;
+import com.harmex.deathcube.world.effect.ModMobEffects;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.world.level.block.Blocks;
@@ -35,7 +36,7 @@ public class DeathCube {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 
-
+        ModMobEffects.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
         ModEntityTypes.register(modEventBus);

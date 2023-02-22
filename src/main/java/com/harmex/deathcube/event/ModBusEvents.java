@@ -4,8 +4,10 @@ import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.entity.boss.*;
+import com.harmex.deathcube.item.custom.ModPotionItem;
 import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.recipe.UpgradingStationRecipe;
+import com.harmex.deathcube.thirst.DrinkProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
@@ -33,6 +35,13 @@ public class ModBusEvents {
                     new ItemNameBlockItem(ModBlocks.GOLDEN_CARROTS.get(),
                             new Item.Properties()
                                     .food(Foods.GOLDEN_CARROT)
+                    ));
+            itemRegisterHelper.register(new ResourceLocation("minecraft:potion"),
+                    new ModPotionItem(new Item.Properties().stacksTo(64),
+                            new DrinkProperties.Builder()
+                                    .hydration(4)
+                                    .saturationModifier(1)
+                                    .build()
                     ));
         });
     }
