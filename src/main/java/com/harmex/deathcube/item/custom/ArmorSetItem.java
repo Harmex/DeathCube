@@ -14,14 +14,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 import java.util.Random;
 
-public class ArmorSetPieceItem extends ArmorItem {
+public class ArmorSetItem extends ArmorItem {
     private final MobEffectInstance fullSetEffect;
     private final List<ResourceLocation> setPieces;
     private boolean isEffectActive;
     protected boolean isEffectEnabled;
     protected boolean isDecayEnabled;
 
-    public ArmorSetPieceItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties, ArmorSet pArmorSet) {
+    public ArmorSetItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties, ArmorSet pArmorSet) {
         super(pMaterial, pSlot, pProperties);
         fullSetEffect = new MobEffectInstance(pArmorSet.getFullSetEffect(),
                 1200, pArmorSet.getEffectAmplifier(),

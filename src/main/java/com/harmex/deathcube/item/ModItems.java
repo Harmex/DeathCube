@@ -117,12 +117,6 @@ public class ModItems {
                             .fireResistant()
                             .rarity(Rarity.UNCOMMON)
                     ));
-    /*public static final RegistryObject<Item> CHERRY_BOAT =
-            ITEMS.register("cherry_boat",
-                    () -> new BoatItem(false, ModBoatEntity.Type.CHERRY, new Item.Properties()
-                            .tab(ModCreativeModeTab.DEATHCUBE_MISC_TAB)
-                            .stacksTo(1)
-                    ));*/
     //endregion
     //region Log Armors
     //Oak
@@ -339,8 +333,6 @@ public class ModItems {
     //region Bags
     public static final RegistryObject<Item> ENDER_BAG =
             ITEMS.register("ender_bag", EnderBagItem::new);
-    public static final RegistryObject<Item> SMALL_BAG =
-            ITEMS.register("small_bag", SmallBagItem::new);
     //endregion
     //region Spawn Eggs
     public static final RegistryObject<Item> AZRATHAL_SPAWN_EGG =

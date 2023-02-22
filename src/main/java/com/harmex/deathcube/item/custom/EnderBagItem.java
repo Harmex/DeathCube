@@ -31,8 +31,8 @@ public class EnderBagItem extends Item {
             if (pLevel.isClientSide) {
                 return InteractionResultHolder.success(itemStack);
             } else {
-                pPlayer.openMenu(new SimpleMenuProvider((Id, Player, BlockEntity) -> ChestMenu
-                        .threeRows(Id, Player, playerenderchestcontainer), CONTAINER_TITLE));
+                pPlayer.openMenu(new SimpleMenuProvider((pContainerId, pPlayerInventory, pPlayer1) -> ChestMenu
+                        .threeRows(pContainerId, pPlayerInventory, playerenderchestcontainer), CONTAINER_TITLE));
                 return InteractionResultHolder.consume(itemStack);
             }
         } else {

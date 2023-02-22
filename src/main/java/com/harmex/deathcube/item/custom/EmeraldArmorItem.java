@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class EmeraldArmorItem extends ArmorSetPieceItem {
+public class EmeraldArmorItem extends ArmorSetItem {
     private boolean isConfigLoaded = false;
 
     public EmeraldArmorItem(EquipmentSlot pSlot) {

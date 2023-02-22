@@ -1,6 +1,5 @@
 package com.harmex.deathcube.item.custom;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -38,9 +37,6 @@ public class TimeWandItem extends Item {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         if (pStack.hasTag()) {
             assert pStack.getTag() != null;
-            if (pStack.getTag().contains("deathcube.saved_dim") || pStack.getTag().contains("deathcube.saved_pos")) {
-                pTooltipComponents.add(Component.translatable("tooltip.deathcube.time_wand.saved_pos").withStyle(ChatFormatting.GRAY));
-            }
             if (pStack.getTag().contains("deathcube.saved_dim")) {
                 String  savedDim = pStack.getTag().getString("deathcube.saved_dim");
 
@@ -62,8 +58,7 @@ public class TimeWandItem extends Item {
         if (!pPlayer.isShiftKeyDown()) {
             if (itemStack.getItem() instanceof TimeWandItem) {
                 if (itemStack.hasTag()) {
-                    assert itemStack.getTag() != null;
-                    if (itemStack.getTag().contains("deathcube.saved_dim")) {
+                    if (itemStack.getTag() != null && itemStack.getTag().contains("deathcube.saved_dim")) {
                         String savedDim = itemStack.getTag().getString("deathcube.saved_dim");
 
                         ResourceLocation location = new ResourceLocation(savedDim);
@@ -84,7 +79,9 @@ public class TimeWandItem extends Item {
                         int[] savedPos = itemStack.getTag().getIntArray("deathcube.saved_pos");
 
                         pPlayer.teleportTo(savedPos[0] + 0.5, savedPos[1], savedPos[2] + 0.5);
-                        pPlayer.getCooldowns().addCooldown(this, 1200);
+                        if (!pPlayer.isCreative() && !pPlayer.isSpectator()) {
+                            pPlayer.getCooldowns().addCooldown(this, 1200);
+                        }
 
                         return InteractionResultHolder.success(itemStack);
                     } else {

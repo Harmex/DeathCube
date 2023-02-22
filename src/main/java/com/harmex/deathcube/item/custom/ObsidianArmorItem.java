@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class ObsidianArmorItem extends ArmorSetPieceItem {
+public class ObsidianArmorItem extends ArmorSetItem {
     private boolean isConfigLoaded = false;
 
     public ObsidianArmorItem(EquipmentSlot pSlot) {

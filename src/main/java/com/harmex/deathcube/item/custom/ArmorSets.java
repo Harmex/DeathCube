@@ -1,13 +1,9 @@
 package com.harmex.deathcube.item.custom;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.config.DeathCubeCommonConfigs;
-import com.harmex.deathcube.item.ModItems;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Item;
 
 import java.util.List;
 

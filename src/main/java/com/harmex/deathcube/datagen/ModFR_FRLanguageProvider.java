@@ -91,7 +91,6 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModItems.WARDEN_HEART.get(), "Coeur de Warden");
         add(ModItems.ENDER_DRAGON_SCALE.get(), "Écaille d'Ender Dragon");
         add(ModItems.TIME_WAND.get(), "Baguette du temps");
-        add(ModItems.SMALL_BAG.get(), "Petit sac");
         add(ModItems.ENDER_BAG.get(), "Sac de l'Ender");
         add(ModItems.TOTEM_OF_RESURRECTION.get(), "Totem de résurrection");
         add(ModItems.OAK_HELMET.get(), "Casque en chêne");

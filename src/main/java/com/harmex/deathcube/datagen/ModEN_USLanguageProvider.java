@@ -91,7 +91,6 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add(ModItems.WARDEN_HEART.get(), "Warden Heart");
         add(ModItems.ENDER_DRAGON_SCALE.get(), "Ender Dragon Scale");
         add(ModItems.TIME_WAND.get(), "Time Wand");
-        add(ModItems.SMALL_BAG.get(), "Small Bag");
         add(ModItems.ENDER_BAG.get(), "Ender Bag");
         add(ModItems.TOTEM_OF_RESURRECTION.get(), "Totem of Resurrection");
         add(ModItems.OAK_HELMET.get(), "Oak Helmet");

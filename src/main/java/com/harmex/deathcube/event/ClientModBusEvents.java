@@ -120,7 +120,6 @@ public class ClientModBusEvents {
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_TOOLS_AND_UTILITIES_TAB) {
             event.accept(ModItems.TOTEM_OF_RESURRECTION);
-            event.accept(ModItems.SMALL_BAG);
             event.accept(ModItems.ENDER_BAG);
             event.accept(ModItems.TIME_WAND);
         }
