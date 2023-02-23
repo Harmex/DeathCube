@@ -1,54 +1,56 @@
 package com.harmex.deathcube.item.custom;
 
-import net.minecraft.resources.ResourceLocation;
+import com.harmex.deathcube.item.ModArmorMaterials;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.List;
 import java.util.Random;
 
 public class ArmorSetItem extends ArmorItem {
-    private final MobEffectInstance fullSetEffect;
-    private final List<ResourceLocation> setPieces;
+    private final ArmorSet armorSet;
+    private final MobEffectInstance fullSetBonus;
     private boolean isEffectActive;
     protected boolean isEffectEnabled;
     protected boolean isDecayEnabled;
 
-    public ArmorSetItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties, ArmorSet pArmorSet) {
-        super(pMaterial, pSlot, pProperties);
-        fullSetEffect = new MobEffectInstance(pArmorSet.getFullSetEffect(),
-                1200, pArmorSet.getEffectAmplifier(),
-                true, false, true);
-        setPieces = pArmorSet.getSetPieces();
+    public ArmorSetItem(ArmorSet pArmorSet, EquipmentSlot pSlot, Properties pProperties) {
+        super(ModArmorMaterials.OAK, pSlot, pProperties);
+        armorSet = pArmorSet;
+        if (pArmorSet.getFullSetBonus() != null) {
+            fullSetBonus = new MobEffectInstance(pArmorSet.getFullSetBonus(),
+                    1200, pArmorSet.getEffectAmplifier(),
+                    true, false, true);
+        } else {
+            fullSetBonus = null;
+        }
     }
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (hasFullSetOn(player)) fullSetEffect(player);
-        else if (isEffectActive) {
-            if (player.removeEffect(fullSetEffect.getEffect())) isEffectActive = false;
+        if (fullSetBonus != null) {
+            if (hasFullSetOn(player)) fullSetEffect(player);
+            else if (isEffectActive) {
+                if (player.removeEffect(fullSetBonus.getEffect())) isEffectActive = false;
+            }
         }
     }
 
-    private boolean hasFullSetOn(Player player) {
+    private boolean hasFullSetOn(Player pPlayer) {
         for (int i = 0; i < 4; i++) {
-            if (!setPieces.contains(ForgeRegistries.ITEMS.getKey(player.getInventory().getArmor(i).getItem()))) {
-                return false;
-            }
+            if (pPlayer.getInventory().getArmor(i).getItem() instanceof ArmorSetItem armorSetItem) {
+                if (armorSetItem.armorSet != armorSet) return false;
+            } else return false;
         }
         return true;
     }
 
     private void fullSetEffect(Player player) {
         if (isEffectEnabled) {
-            player.addEffect(fullSetEffect);
+            player.addEffect(fullSetBonus);
             isEffectActive = true;
             if (isDecayEnabled) {
                 if (!player.isCreative() && !player.isSpectator()) {
@@ -59,4 +61,6 @@ public class ArmorSetItem extends ArmorItem {
             }
         }
     }
+
+
 }

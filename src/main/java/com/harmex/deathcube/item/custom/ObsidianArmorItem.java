@@ -12,8 +12,8 @@ public class ObsidianArmorItem extends ArmorSetItem {
     private boolean isConfigLoaded = false;
 
     public ObsidianArmorItem(EquipmentSlot pSlot) {
-        super(ModArmorMaterials.OBSIDIAN, pSlot, new Properties()
-                .rarity(ModRarities.EPIC), ArmorSets.OBSIDIAN);
+        super(ArmorSets.OBSIDIAN, pSlot, new Properties()
+                .rarity(ModRarities.EPIC));
     }
 
     @Override

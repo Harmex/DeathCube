@@ -1,34 +1,39 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.DeathCube;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
-public enum ArmorSets implements ArmorSet{
-    EMERALD("emerald", MobEffects.HERO_OF_THE_VILLAGE, 0,
-            List.of(new ResourceLocation(DeathCube.MODID, "emerald_helmet"),
-                    new ResourceLocation(DeathCube.MODID, "emerald_chestplate"),
-                    new ResourceLocation(DeathCube.MODID, "emerald_leggings"),
-                    new ResourceLocation(DeathCube.MODID, "emerald_boots"))),
-    OBSIDIAN("obsidian", MobEffects.FIRE_RESISTANCE, 0,
-            List.of(new ResourceLocation(DeathCube.MODID, "obsidian_helmet"),
-                    new ResourceLocation(DeathCube.MODID, "obsidian_chestplate"),
-                    new ResourceLocation(DeathCube.MODID, "obsidian_leggings"),
-                    new ResourceLocation(DeathCube.MODID, "obsidian_boots")));
+public enum ArmorSets implements ArmorSet {
+    OAK("oak", null, 0),
+    SPRUCE("spruce", null, 0),
+    BIRCH("birch", null, 0),
+    JUNGLE("jungle", null, 0),
+    ACACIA("acacia", null, 0),
+    DARK_OAK("dark_oak", null, 0),
+    MANGROVE("mangrove", null, 0),
+    CHERRY("cherry", null, 0),
+    CRIMSON("crimson", null, 0),
+    WARPED("warped", null, 0),
+    GOLD("gold", null, 0),
+    BONE("bone", null, 0),
+    STONE("stone", null, 0),
+    COPPER("copper", null, 0),
+    IRON("iron", null, 0),
+    EMERALD("emerald", MobEffects.HERO_OF_THE_VILLAGE, 0),
+    DIAMOND("diamond", null, 0),
+    OBSIDIAN("obsidian", MobEffects.FIRE_RESISTANCE, 0),
+    NETHERITE("netherite", null, 0);
 
     private final String name;
-    private final MobEffect fullSetEffect;
+    private final MobEffect fullSetBonus;
     private final int effectAmplifier;
-    private final List<ResourceLocation> setPieces;
 
-    ArmorSets(String pName, MobEffect fullSetEffect, int effectAmplifier, List<ResourceLocation> setPieces) {
-        this.name = pName;
-        this.fullSetEffect = fullSetEffect;
-        this.effectAmplifier = effectAmplifier;
-        this.setPieces = setPieces;
+    ArmorSets(String pName, @Nullable MobEffect pFullSetBonus, int pEffectAmplifier) {
+        name = pName;
+        fullSetBonus = pFullSetBonus;
+        effectAmplifier = pEffectAmplifier;
     }
 
     @Override
@@ -37,17 +42,12 @@ public enum ArmorSets implements ArmorSet{
     }
 
     @Override
-    public MobEffect getFullSetEffect() {
-        return fullSetEffect;
+    public @Nullable MobEffect getFullSetBonus() {
+        return fullSetBonus;
     }
 
     @Override
     public int getEffectAmplifier() {
         return effectAmplifier;
-    }
-
-    @Override
-    public List<ResourceLocation> getSetPieces() {
-        return setPieces;
     }
 }

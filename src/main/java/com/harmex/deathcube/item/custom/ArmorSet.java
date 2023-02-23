@@ -1,16 +1,13 @@
 package com.harmex.deathcube.item.custom;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
 public interface ArmorSet {
     String getName();
 
-    MobEffect getFullSetEffect();
+    @Nullable MobEffect getFullSetBonus();
 
     int getEffectAmplifier();
-
-    List<ResourceLocation> getSetPieces();
 }

@@ -1,18 +1,10 @@
 package com.harmex.deathcube.thirst;
 
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
 
 import static com.harmex.deathcube.thirst.ThirstConstants.*;
 
