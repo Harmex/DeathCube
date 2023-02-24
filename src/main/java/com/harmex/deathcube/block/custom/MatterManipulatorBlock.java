@@ -25,17 +25,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-// TODO : Deprecated Methods
 public class MatterManipulatorBlock extends BaseEntityBlock {
-    // The direction property of the block (the way it's facing)
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public MatterManipulatorBlock(Properties pProperties) {
         super(pProperties);
     }
-    
-    /* FACING */ 
-    
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -52,13 +48,13 @@ public class MatterManipulatorBlock extends BaseEntityBlock {
         pBuilder.add(FACING);
     }
 
-    /* BLOCK ENTITY */
-    
+    @SuppressWarnings("deprecation")
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
@@ -70,12 +66,13 @@ public class MatterManipulatorBlock extends BaseEntityBlock {
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof MatterManipulatorBlockEntity) {
-                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (MatterManipulatorBlockEntity)entity, pPos);
+            if (entity instanceof MatterManipulatorBlockEntity) {
+                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (MatterManipulatorBlockEntity) entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }

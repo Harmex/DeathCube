@@ -31,13 +31,12 @@ public class ModLogBlock extends RotatedPillarBlock {
     }
 
     @Override
-    public @org.jetbrains.annotations.Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context,
-                                                                               ToolAction toolAction, boolean simulate) {
-        if(context.getItemInHand().getItem() instanceof AxeItem) {
-            if(state.is(ModBlocks.CHERRY_LOG.get())) {
+    public @org.jetbrains.annotations.Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
+        if (context.getItemInHand().getItem() instanceof AxeItem) {
+            if (state.is(ModBlocks.CHERRY_LOG.get())) {
                 return ModBlocks.STRIPPED_CHERRY_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
-            if(state.is(ModBlocks.CHERRY_WOOD.get())) {
+            if (state.is(ModBlocks.CHERRY_WOOD.get())) {
                 return ModBlocks.STRIPPED_CHERRY_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
         }

@@ -18,7 +18,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-// TODO : Deprecated Methods
 public class UpgradingStationBlock extends BaseEntityBlock {
     public UpgradingStationBlock(Properties pProperties) {
         super(pProperties);
@@ -30,11 +29,13 @@ public class UpgradingStationBlock extends BaseEntityBlock {
         return new UpgradingStationBlockEntity(pPos, pState);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
@@ -46,12 +47,13 @@ public class UpgradingStationBlock extends BaseEntityBlock {
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof UpgradingStationBlockEntity) {
-                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (UpgradingStationBlockEntity)entity, pPos);
+            if (entity instanceof UpgradingStationBlockEntity) {
+                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (UpgradingStationBlockEntity) entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -63,7 +65,6 @@ public class UpgradingStationBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, ModBlockEntities.UPGRADING_STATION_BLOCK_ENTITY.get(),
-                UpgradingStationBlockEntity::tick);
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.UPGRADING_STATION_BLOCK_ENTITY.get(), UpgradingStationBlockEntity::tick);
     }
 }

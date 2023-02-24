@@ -19,19 +19,18 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-// TODO : Deprecated Methods
 public class ResurrectionAltarBlock extends BaseEntityBlock {
     public ResurrectionAltarBlock(Properties pProperties) {
         super(pProperties);
     }
 
-    /* BLOCK ENTITY */
-
+    @SuppressWarnings("deprecation")
     @Override
     public @NotNull RenderShape getRenderShape(@NotNull BlockState pState) {
         return RenderShape.MODEL;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onRemove(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
@@ -43,9 +42,9 @@ public class ResurrectionAltarBlock extends BaseEntityBlock {
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer,
-                                          @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
+    public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof ResurrectionAltarBlockEntity) {
@@ -54,7 +53,6 @@ public class ResurrectionAltarBlock extends BaseEntityBlock {
                 throw new IllegalStateException("Our container provider is missing !");
             }
         }
-
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 
@@ -67,7 +65,6 @@ public class ResurrectionAltarBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, ModBlockEntities.RESURRECTION_ALTAR_BLOCK_ENTITY.get(),
-                ResurrectionAltarBlockEntity::tick);
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.RESURRECTION_ALTAR_BLOCK_ENTITY.get(), ResurrectionAltarBlockEntity::tick);
     }
 }

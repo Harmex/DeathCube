@@ -39,6 +39,11 @@ public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuPro
         super(ModBlockEntities.RESURRECTION_ALTAR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
+    @SuppressWarnings("unused")
+    public static void tick(Level level, BlockPos blockPos, BlockState blockState, ResurrectionAltarBlockEntity e) {
+
+    }
+
     @Override
     public @NotNull Component getDisplayName() {
         return Component.translatable("container.deathcube.resurrection_altar");
@@ -86,9 +91,5 @@ public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuPro
         }
 
         Containers.dropContents(Objects.requireNonNull(this.level), this.worldPosition, inventory);
-    }
-
-    public static <E extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, E e) {
-
     }
 }

@@ -29,19 +29,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class UpgradingStationBlockEntity extends BlockEntity implements MenuProvider {
-    /* Capability */
     public final ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
         }
     };
-    private LazyOptional<IItemHandler> inventoryHandlerLazyOptional = LazyOptional.empty();
-
-
+    private final RecipeManager.CachedCheck<SimpleContainer, UpgradingStationRecipe> quickCheck = RecipeManager.createCheck(UpgradingStationRecipe.Type.INSTANCE);
+    int hasBaseIngredient;
     protected final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int pIndex) {
+            //noinspection SwitchStatementWithTooFewBranches
             return switch (pIndex) {
                 case 0 -> UpgradingStationBlockEntity.this.hasBaseIngredient;
                 default -> 0;
@@ -50,8 +49,8 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
 
         @Override
         public void set(int pIndex, int pValue) {
-            switch (pIndex) {
-                case 0 -> UpgradingStationBlockEntity.this.hasBaseIngredient = pValue;
+            if (pIndex == 0) {
+                UpgradingStationBlockEntity.this.hasBaseIngredient = pValue;
             }
         }
 
@@ -60,13 +59,26 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
             return 1;
         }
     };
-    int hasBaseIngredient;
-
-    private final RecipeManager.CachedCheck<SimpleContainer, UpgradingStationRecipe> quickCheck =
-            RecipeManager.createCheck(UpgradingStationRecipe.Type.INSTANCE);
+    private LazyOptional<IItemHandler> inventoryHandlerLazyOptional = LazyOptional.empty();
 
     public UpgradingStationBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.UPGRADING_STATION_BLOCK_ENTITY.get(), pPos, pBlockState);
+    }
+
+    @SuppressWarnings("unused")
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, UpgradingStationBlockEntity pBlockEntity) {
+        ItemStack item = pBlockEntity.inventory.getStackInSlot(0);
+        SimpleContainer container = new SimpleContainer(item);
+
+        ItemStack result = pBlockEntity.quickCheck.getRecipeFor(container, pLevel).map(upgradingStationRecipe -> upgradingStationRecipe.assemble(container)).orElse(ItemStack.EMPTY);
+
+
+        if (result.isEmpty()) {
+            pBlockEntity.hasBaseIngredient = 0;
+        } else {
+            pBlockEntity.hasBaseIngredient = 1;
+            pBlockEntity.inventory.setStackInSlot(0, result);
+        }
     }
 
     //region Capability
@@ -93,6 +105,7 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
         pTag.putBoolean("hasBaseIngredient", hasBaseIngredient != 0);
         super.saveAdditional(pTag);
     }
+    //endregion
 
     @Override
     public void load(CompoundTag pTag) {
@@ -100,7 +113,6 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
         inventory.deserializeNBT(pTag.getCompound("inventory"));
         hasBaseIngredient = pTag.getBoolean("hasBaseIngredient") ? 1 : 0;
     }
-    //endregion
 
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(this.inventory.getSlots());
@@ -113,23 +125,6 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
         }
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, UpgradingStationBlockEntity pBlockEntity) {
-        ItemStack item = pBlockEntity.inventory.getStackInSlot(0);
-        SimpleContainer container = new SimpleContainer(item);
-
-        ItemStack result = pBlockEntity.quickCheck.getRecipeFor(container, pLevel)
-                .map(upgradingStationRecipe -> upgradingStationRecipe.assemble(container)).orElse(ItemStack.EMPTY);
-
-
-
-        if (result.isEmpty()) {
-            pBlockEntity.hasBaseIngredient = 0;
-        } else {
-            pBlockEntity.hasBaseIngredient = 1;
-            pBlockEntity.inventory.setStackInSlot(0, result);
-        }
-    }
-
     @Override
     public Component getDisplayName() {
         return Component.translatable("container." + DeathCube.MODID + ".upgrading_station");
@@ -138,7 +133,6 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new UpgradingStationMenu(pContainerId, pPlayerInventory, this,
-                ContainerLevelAccess.create(pPlayer.level, this.getBlockPos()), this.dataAccess);
+        return new UpgradingStationMenu(pContainerId, pPlayerInventory, this, ContainerLevelAccess.create(pPlayer.level, this.getBlockPos()), this.dataAccess);
     }
 }

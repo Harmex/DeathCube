@@ -42,8 +42,8 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
             setChanged();
         }
     };
-    private LazyOptional<IItemHandler> inventoryHandlerLazyOptional = LazyOptional.empty();
-
+    int manipulationProgress;
+    int manipulationTimeTotal;
     protected final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int pIndex) {
@@ -67,13 +67,77 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
             return 2;
         }
     };
-    int manipulationProgress;
-    int manipulationTimeTotal;
+    private LazyOptional<IItemHandler> inventoryHandlerLazyOptional = LazyOptional.empty();
 
     public MatterManipulatorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.MATTER_MANIPULATOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         this.manipulationProgress = 0;
         this.manipulationTimeTotal = 50;
+    }
+
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, MatterManipulatorBlockEntity pBlockEntity) {
+        if (hasRecipe(pBlockEntity)) {
+            pBlockEntity.manipulationProgress++;
+            setChanged(pLevel, pPos, pState);
+            if (pBlockEntity.manipulationProgress > pBlockEntity.manipulationTimeTotal) {
+                craftItem(pBlockEntity);
+            }
+        } else {
+            pBlockEntity.resetProgress();
+            setChanged(pLevel, pPos, pState);
+        }
+    }
+
+    private static boolean hasRecipe(MatterManipulatorBlockEntity pBlockEntity) {
+        Level level = pBlockEntity.level;
+        SimpleContainer inventory = new SimpleContainer(pBlockEntity.inventory.getSlots());
+        for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
+            inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
+        }
+
+        Optional<ShapedMatterManipulationRecipe> match = Objects.requireNonNull(level).getRecipeManager().getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
+
+        if (match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem())) {
+            pBlockEntity.manipulationTimeTotal = match.get().getManipulationTime();
+        }
+
+        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem());
+    }
+
+    private static void craftItem(MatterManipulatorBlockEntity pBlockEntity) {
+        Level level = pBlockEntity.level;
+        SimpleContainer inventory = new SimpleContainer(pBlockEntity.inventory.getSlots());
+        for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
+            inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
+        }
+
+        Optional<ShapedMatterManipulationRecipe> match = Objects.requireNonNull(level).getRecipeManager().getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
+
+
+        if (match.isPresent()) {
+            NonNullList<Ingredient> ingredients = match.get().getIngredients();
+            Map<Item, Integer> itemCount = new HashMap<>();
+            for (Ingredient ingredient : ingredients) {
+                for (ItemStack itemStack : ingredient.getItems()) {
+                    itemCount.put(itemStack.getItem(), itemStack.getCount());
+                }
+            }
+            for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
+                pBlockEntity.inventory.extractItem(i, itemCount.getOrDefault(pBlockEntity.inventory.getStackInSlot(i).getItem(), 1), false);
+            }
+
+            pBlockEntity.inventory.insertItem(10, match.get().getResultItem(), false);
+
+            pBlockEntity.resetProgress();
+        }
+    }
+
+    private static boolean canInsertItemIntoOutputSlot(SimpleContainer pContainer, ItemStack pResult) {
+        return pContainer.getItem(10).getItem() == pResult.getItem() || pContainer.getItem(10).isEmpty();
+    }
+
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer pContainer) {
+        return pContainer.getItem(10).getMaxStackSize() > pContainer.getItem(10).getCount();
     }
 
     @Override
@@ -130,79 +194,8 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
         }
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, MatterManipulatorBlockEntity pBlockEntity) {
-        if(hasRecipe(pBlockEntity)) {
-            pBlockEntity.manipulationProgress++;
-            setChanged(pLevel, pPos, pState);
-            if(pBlockEntity.manipulationProgress > pBlockEntity.manipulationTimeTotal) {
-                craftItem(pBlockEntity);
-            }
-        } else {
-            pBlockEntity.resetProgress();
-            setChanged(pLevel, pPos, pState);
-        }
-    }
-
-    private static boolean hasRecipe(MatterManipulatorBlockEntity pBlockEntity) {
-        Level level = pBlockEntity.level;
-        SimpleContainer inventory = new SimpleContainer(pBlockEntity.inventory.getSlots());
-        for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
-            inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
-        }
-
-        Optional<ShapedMatterManipulationRecipe> match = Objects.requireNonNull(level).getRecipeManager()
-                .getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
-
-        if (match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
-                && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem())) {
-            pBlockEntity.manipulationTimeTotal = match.get().getManipulationTime();
-        }
-
-        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)
-                && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem());
-    }
-
-    private static void craftItem(MatterManipulatorBlockEntity pBlockEntity) {
-        Level level = pBlockEntity.level;
-        SimpleContainer inventory = new SimpleContainer(pBlockEntity.inventory.getSlots());
-        for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
-            inventory.setItem(i, pBlockEntity.inventory.getStackInSlot(i));
-        }
-
-        Optional<ShapedMatterManipulationRecipe> match = Objects.requireNonNull(level).getRecipeManager()
-                .getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
-
-
-        if(match.isPresent()) {
-            NonNullList<Ingredient> ingredients = match.get().getIngredients();
-            Map<Item, Integer> itemCount = new HashMap<>();
-            for (Ingredient ingredient : ingredients) {
-                for (ItemStack itemStack : ingredient.getItems()) {
-                    itemCount.put(itemStack.getItem(), itemStack.getCount());
-                }
-            }
-            for (int i = 0; i < pBlockEntity.inventory.getSlots(); i++) {
-                    pBlockEntity.inventory.extractItem(i,
-                            itemCount.getOrDefault(pBlockEntity.inventory.getStackInSlot(i).getItem(), 1),
-                            false);
-            }
-
-            pBlockEntity.inventory.insertItem(10, match.get().getResultItem(), false);
-
-            pBlockEntity.resetProgress();
-        }
-    }
-
     private void resetProgress() {
         this.manipulationProgress = 0;
         this.manipulationTimeTotal = 200;
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer pContainer, ItemStack pResult) {
-        return pContainer.getItem(10).getItem() == pResult.getItem() || pContainer.getItem(10).isEmpty();
-    }
-
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer pContainer) {
-        return pContainer.getItem(10).getMaxStackSize() > pContainer.getItem(10).getCount();
     }
 }
