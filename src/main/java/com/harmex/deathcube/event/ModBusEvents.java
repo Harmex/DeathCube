@@ -2,24 +2,41 @@ package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.block.ModBlocks;
+import com.harmex.deathcube.block.entity.ModWoodTypes;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.entity.boss.*;
 import com.harmex.deathcube.item.custom.ModPotionItem;
+import com.harmex.deathcube.networking.ModMessages;
 import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.recipe.UpgradingStationRecipe;
 import com.harmex.deathcube.thirst.DrinkProperties;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
 @Mod.EventBusSubscriber(modid = DeathCube.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBusEvents {
+
+    @SubscribeEvent
+    public static void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHERRY_SAPLING.getId(), ModBlocks.POTTED_CHERRY_SAPLING);
+
+            Sheets.addWoodType(ModWoodTypes.CHERRY);
+
+        });
+        ModMessages.register();
+    }
 
     @SubscribeEvent
     public static void registerEvent(RegisterEvent event) {

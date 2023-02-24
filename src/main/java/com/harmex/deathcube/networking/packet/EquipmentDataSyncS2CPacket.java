@@ -3,11 +3,9 @@ package com.harmex.deathcube.networking.packet;
 import com.harmex.deathcube.equipment.ClientEquipmentData;
 import com.harmex.deathcube.item.custom.ArmorSet;
 import com.harmex.deathcube.item.custom.ArmorSets;
-import com.harmex.deathcube.thirst.ClientThirstData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.EnumSet;
 import java.util.Map;
 import java.util.function.Supplier;
 
