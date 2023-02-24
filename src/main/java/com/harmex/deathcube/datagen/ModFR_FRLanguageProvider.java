@@ -40,6 +40,27 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         addItemTooltip("rarity.hellish", "Infernal");
         addItemTooltip("rarity.mythic", "Mythique");
 
+        addItemTooltip("set", "Panoplie : %s (%s / 4)");
+        addItemTooltip("set.oak", "Chêne");
+        addItemTooltip("set.spruce", "Sapin");
+        addItemTooltip("set.birch", "Bouleau");
+        addItemTooltip("set.jungle", "Acajou");
+        addItemTooltip("set.acacia", "Acacia");
+        addItemTooltip("set.dark_oak", "Chêne Noir");
+        addItemTooltip("set.mangrove", "Palétuvier");
+        addItemTooltip("set.cherry", "Cerisier");
+        addItemTooltip("set.crimson", "Carmin");
+        addItemTooltip("set.warped", "Biscornu");
+        addItemTooltip("set.gold", "Or");
+        addItemTooltip("set.bone", "Os");
+        addItemTooltip("set.stone", "Roche");
+        addItemTooltip("set.copper", "Cuivre");
+        addItemTooltip("set.iron", "Fer");
+        addItemTooltip("set.emerald", "Émeraude");
+        addItemTooltip("set.diamond", "Diamant");
+        addItemTooltip("set.obsidian", "Obsidienne");
+        addItemTooltip("set.netherite", "Netherite");
+
         add(ModEntityTypes.AZRATHAL.get().getDescriptionId(), "Azrathal");
         add(ModEntityTypes.BORZADON.get().getDescriptionId(), "Borzadon");
         add(ModEntityTypes.GALTERIUS.get().getDescriptionId(), "Galterius");

@@ -40,6 +40,27 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         addItemTooltip("rarity.hellish", "Hellish");
         addItemTooltip("rarity.mythic", "Mythic");
 
+        addItemTooltip("set", "Set : %s (%s / 4)");
+        addItemTooltip("set.oak", "Oak");
+        addItemTooltip("set.spruce", "Spruce");
+        addItemTooltip("set.birch", "Birch");
+        addItemTooltip("set.jungle", "Jungle");
+        addItemTooltip("set.acacia", "Acacia");
+        addItemTooltip("set.dark_oak", "Dark Oak");
+        addItemTooltip("set.mangrove", "Mangrove");
+        addItemTooltip("set.cherry", "Cherry");
+        addItemTooltip("set.crimson", "Crimson");
+        addItemTooltip("set.warped", "Warped");
+        addItemTooltip("set.gold", "Gold");
+        addItemTooltip("set.bone", "Bone");
+        addItemTooltip("set.stone", "Stone");
+        addItemTooltip("set.copper", "Copper");
+        addItemTooltip("set.iron", "Iron");
+        addItemTooltip("set.emerald", "Emerald");
+        addItemTooltip("set.diamond", "Diamond");
+        addItemTooltip("set.obsidian", "Obsidian");
+        addItemTooltip("set.netherite", "Netherite");
+
         add(ModEntityTypes.AZRATHAL.get().getDescriptionId(), "Azrathal");
         add(ModEntityTypes.BORZADON.get().getDescriptionId(), "Borzadon");
         add(ModEntityTypes.GALTERIUS.get().getDescriptionId(), "Galterius");

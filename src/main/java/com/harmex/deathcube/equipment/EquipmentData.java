@@ -49,7 +49,7 @@ public class EquipmentData {
     }
 
     public void loadNBTData(CompoundTag pNBT) {
-        ListTag listTag = pNBT.getList("deathcube.equippedSets", Tag.TAG_COMPOUND);
+        ListTag listTag = pNBT.getList("EquippedSets", Tag.TAG_COMPOUND);
         for (int i = 0; i < listTag.size(); i++) {
             CompoundTag compoundTag = listTag.getCompound(i);
             ArmorSet armorSet = ArmorSets.getByName(compoundTag.getString("Set"));
@@ -59,12 +59,16 @@ public class EquipmentData {
     }
 
     public void saveNBTData(CompoundTag pNBT) {
+        ListTag listTag = new ListTag();
         for (Map.Entry<ArmorSet, Integer> entry : equippedNumberForArmorSet.entrySet()) {
-            CompoundTag tag = new CompoundTag();
-            tag.putString("Set", entry.getKey().getName());
-            tag.putInt("Equipped", entry.getValue());
-            pNBT.put("deathcube.equippedSets", tag);
+            if (entry.getValue() != 0) {
+                CompoundTag tag = new CompoundTag();
+                tag.putString("Set", entry.getKey().getName());
+                tag.putInt("Equipped", entry.getValue());
+                listTag.add(tag);
+            }
         }
+        pNBT.put("EquippedSets", listTag);
     }
 
     public Map<ArmorSet, Integer> getEquippedNumberForArmorSet() {

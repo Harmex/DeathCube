@@ -1,6 +1,7 @@
 package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.equipment.ClientEquipmentData;
 import com.harmex.deathcube.equipment.EquipmentData;
 import com.harmex.deathcube.equipment.EquipmentDataProvider;
 import com.harmex.deathcube.item.custom.ArmorSet;
@@ -11,6 +12,7 @@ import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
 import com.harmex.deathcube.thirst.ThirstConstants;
 import com.harmex.deathcube.thirst.ThirstData;
 import com.harmex.deathcube.thirst.ThirstDataProvider;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,6 +36,8 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = DeathCube.MODID)
 public class ModEvents {
@@ -168,9 +172,37 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
+        if (event.getEntity() != null && event.getEntity().level.isClientSide()) {
+            if (event.getItemStack().getItem() instanceof ArmorSetItem armorSetItem) {
+                if (ClientEquipmentData.getEquippedNumberForArmorSet() != null) {
+                    ArmorSet armorSet = armorSetItem.getArmorSet();
+                    int equippedCount = 0;
+                    ChatFormatting color;
+                    if (ClientEquipmentData.getEquippedNumberForArmorSet().containsKey(armorSetItem.getArmorSet())) {
+                        equippedCount = ClientEquipmentData.getEquippedNumberForArmorSet().get(armorSet);
+                        if (equippedCount == 4) {
+                            color = ChatFormatting.GOLD;
+                        } else {
+                            color = ChatFormatting.DARK_GRAY;
+                        }
+                    } else {
+                        color = ChatFormatting.DARK_GRAY;
+                    }
+                    Component set = Component.translatable(
+                            "itemTooltip." + DeathCube.MODID + ".set",
+                            Component.translatable("itemTooltip." + DeathCube.MODID + ".set." + armorSet.getName().toLowerCase())
+                                    .withStyle(armorSet.getStyleModifier()),
+                            equippedCount)
+                            .withStyle(style -> style.withColor(color));
+
+                    event.getToolTip().add(1, set);
+                }
+            }
+        }
+
         Rarity rarity = event.getItemStack().getRarity();
-        Component rarityComponent =
-                Component.translatable("itemTooltip." + DeathCube.MODID + ".rarity." + rarity.name().toLowerCase())
+        Component rarityComponent = Component.translatable(
+                "itemTooltip." + DeathCube.MODID + ".rarity." + rarity.name().toLowerCase())
                 .withStyle(rarity.getStyleModifier());
         event.getToolTip().add(rarityComponent);
     }
