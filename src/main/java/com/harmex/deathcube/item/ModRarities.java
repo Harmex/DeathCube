@@ -12,4 +12,5 @@ public class ModRarities {
     public static final Rarity HELLISH = Rarity.create("hellish", style -> style.withColor(0x550000));
     public static final Rarity MYTHIC = Rarity.create("mythic", style -> style.withColor(0xFF55FF));
     public static final Rarity DIVINE = Rarity.create("divine", style -> style.withColor(0x55FFFF));
+    public static final Rarity ETERNAL = Rarity.create("eternal", style -> style.withColor(0xAA00FF));
 }

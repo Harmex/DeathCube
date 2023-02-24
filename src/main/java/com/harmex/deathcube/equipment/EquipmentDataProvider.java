@@ -1,4 +1,4 @@
-package com.harmex.deathcube.thirst;
+package com.harmex.deathcube.equipment;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -11,23 +11,23 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ThirstDataProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<ThirstData> PLAYER_THIRST = CapabilityManager.get(new CapabilityToken<>() { });
+public class EquipmentDataProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+    public static Capability<EquipmentData> EQUIPPED_SETS = CapabilityManager.get(new CapabilityToken<>() {});
 
-    private ThirstData thirst = null;
-    private final LazyOptional<ThirstData> optional = LazyOptional.of(this::createPlayerThirst);
+    private EquipmentData equippedSets = null;
+    private final LazyOptional<EquipmentData> optional = LazyOptional.of(this::createPlayerThirst);
 
-    private ThirstData createPlayerThirst() {
-        if (this.thirst == null) {
-            this.thirst = new ThirstData();
+    private EquipmentData createPlayerThirst() {
+        if (equippedSets == null) {
+            equippedSets = new EquipmentData();
         }
 
-        return this.thirst;
+        return equippedSets;
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == PLAYER_THIRST) {
+        if (cap == EQUIPPED_SETS) {
             return optional.cast();
         }
         return LazyOptional.empty();

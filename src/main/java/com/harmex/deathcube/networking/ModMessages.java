@@ -1,6 +1,7 @@
 package com.harmex.deathcube.networking;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,6 +32,12 @@ public class ModMessages {
                 .decoder(ThirstDataSyncS2CPacket::new)
                 .encoder(ThirstDataSyncS2CPacket::toBytes)
                 .consumerMainThread(ThirstDataSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(EquipmentDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EquipmentDataSyncS2CPacket::new)
+                .encoder(EquipmentDataSyncS2CPacket::toBytes)
+                .consumerMainThread(EquipmentDataSyncS2CPacket::handle)
                 .add();
     }
 
