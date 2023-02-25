@@ -1,4 +1,4 @@
-package com.harmex.deathcube.thirst;
+package com.harmex.deathcube.capabilities.thirst;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

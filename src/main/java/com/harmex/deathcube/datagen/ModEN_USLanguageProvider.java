@@ -51,10 +51,12 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         addItemTooltip("set.cherry", "Cherry");
         addItemTooltip("set.crimson", "Crimson");
         addItemTooltip("set.warped", "Warped");
+        addItemTooltip("set.leather", "Leather");
         addItemTooltip("set.gold", "Gold");
         addItemTooltip("set.bone", "Bone");
         addItemTooltip("set.stone", "Stone");
         addItemTooltip("set.copper", "Copper");
+        addItemTooltip("set.chainmail", "Chainmail");
         addItemTooltip("set.iron", "Iron");
         addItemTooltip("set.emerald", "Emerald");
         addItemTooltip("set.diamond", "Diamond");

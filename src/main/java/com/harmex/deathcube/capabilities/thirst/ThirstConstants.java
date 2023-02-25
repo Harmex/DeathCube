@@ -1,4 +1,4 @@
-package com.harmex.deathcube.thirst;
+package com.harmex.deathcube.capabilities.thirst;
 
 public class ThirstConstants {
     public static final int MAX_THIRST = 20;

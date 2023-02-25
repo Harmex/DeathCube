@@ -51,10 +51,12 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         addItemTooltip("set.cherry", "Cerisier");
         addItemTooltip("set.crimson", "Carmin");
         addItemTooltip("set.warped", "Biscornu");
+        addItemTooltip("set.leather", "Cuir");
         addItemTooltip("set.gold", "Or");
         addItemTooltip("set.bone", "Os");
         addItemTooltip("set.stone", "Roche");
         addItemTooltip("set.copper", "Cuivre");
+        addItemTooltip("set.chainmail", "Maille");
         addItemTooltip("set.iron", "Fer");
         addItemTooltip("set.emerald", "Émeraude");
         addItemTooltip("set.diamond", "Diamant");

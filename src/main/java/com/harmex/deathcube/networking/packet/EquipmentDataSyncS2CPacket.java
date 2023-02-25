@@ -1,6 +1,6 @@
 package com.harmex.deathcube.networking.packet;
 
-import com.harmex.deathcube.equipment.ClientEquipmentData;
+import com.harmex.deathcube.capabilities.equipment.ClientEquippedSetsData;
 import com.harmex.deathcube.item.custom.ArmorSet;
 import com.harmex.deathcube.item.custom.ArmorSets;
 import net.minecraft.network.FriendlyByteBuf;
@@ -28,7 +28,7 @@ public class EquipmentDataSyncS2CPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            ClientEquipmentData.set(equippedNumberForArmorSet);
+            ClientEquippedSetsData.set(equippedNumberForArmorSet);
         });
         return true;
     }

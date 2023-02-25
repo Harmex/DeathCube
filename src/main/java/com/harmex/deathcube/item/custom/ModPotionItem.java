@@ -1,7 +1,7 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.thirst.DrinkProperties;
-import com.harmex.deathcube.thirst.ThirstDataProvider;
+import com.harmex.deathcube.capabilities.thirst.DrinkProperties;
+import com.harmex.deathcube.capabilities.thirst.ThirstDataProvider;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;

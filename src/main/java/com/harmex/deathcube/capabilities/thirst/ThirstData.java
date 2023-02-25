@@ -1,4 +1,4 @@
-package com.harmex.deathcube.thirst;
+package com.harmex.deathcube.capabilities.thirst;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Difficulty;
@@ -6,7 +6,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 
-import static com.harmex.deathcube.thirst.ThirstConstants.*;
+import static com.harmex.deathcube.capabilities.thirst.ThirstConstants.*;
 
 public class ThirstData {
     private int thirstLevel = MAX_THIRST;

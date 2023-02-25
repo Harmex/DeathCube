@@ -1,6 +1,6 @@
 package com.harmex.deathcube.networking.packet;
 
-import com.harmex.deathcube.thirst.ClientThirstData;
+import com.harmex.deathcube.capabilities.thirst.ClientThirstData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

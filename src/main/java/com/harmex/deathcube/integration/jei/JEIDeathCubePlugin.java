@@ -44,7 +44,6 @@ public class JEIDeathCubePlugin implements IModPlugin {
         registration.addRecipeTransferHandler(MatterManipulatorMenu.class, ModMenuTypes.MATTER_MANIPULATOR_MENU.get(),
                 ModRecipeTypes.MATTER_MANIPULATION_SHAPED,
                 0, 10, 11, 36);
-
     }
 
     @Override

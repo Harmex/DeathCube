@@ -1,6 +1,6 @@
 package com.harmex.deathcube.item.custom;
 
-import com.harmex.deathcube.thirst.DrinkProperties;
+import com.harmex.deathcube.capabilities.thirst.DrinkProperties;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;

@@ -1,4 +1,4 @@
-package com.harmex.deathcube.equipment;
+package com.harmex.deathcube.capabilities.equipment;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -11,17 +11,16 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class EquipmentDataProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<EquipmentData> EQUIPPED_SETS = CapabilityManager.get(new CapabilityToken<>() {});
+public class EquippedSetsDataProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+    public static Capability<EquippedSetsData> EQUIPPED_SETS = CapabilityManager.get(new CapabilityToken<>() {});
 
-    private EquipmentData equippedSets = null;
-    private final LazyOptional<EquipmentData> optional = LazyOptional.of(this::createPlayerThirst);
+    private EquippedSetsData equippedSets = null;
+    private final LazyOptional<EquippedSetsData> optional = LazyOptional.of(this::createPlayerThirst);
 
-    private EquipmentData createPlayerThirst() {
+    private EquippedSetsData createPlayerThirst() {
         if (equippedSets == null) {
-            equippedSets = new EquipmentData();
+            equippedSets = new EquippedSetsData();
         }
-
         return equippedSets;
     }
 

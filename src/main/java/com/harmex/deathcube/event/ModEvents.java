@@ -1,17 +1,17 @@
 package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.equipment.ClientEquipmentData;
-import com.harmex.deathcube.equipment.EquipmentData;
-import com.harmex.deathcube.equipment.EquipmentDataProvider;
+import com.harmex.deathcube.capabilities.equipment.ClientEquippedSetsData;
+import com.harmex.deathcube.capabilities.equipment.EquippedSetsData;
+import com.harmex.deathcube.capabilities.equipment.EquippedSetsDataProvider;
 import com.harmex.deathcube.item.custom.ArmorSet;
 import com.harmex.deathcube.item.custom.ArmorSetItem;
 import com.harmex.deathcube.networking.ModMessages;
 import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
-import com.harmex.deathcube.thirst.ThirstConstants;
-import com.harmex.deathcube.thirst.ThirstData;
-import com.harmex.deathcube.thirst.ThirstDataProvider;
+import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
+import com.harmex.deathcube.capabilities.thirst.ThirstData;
+import com.harmex.deathcube.capabilities.thirst.ThirstDataProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -45,8 +45,8 @@ public class ModEvents {
             if (!event.getObject().getCapability(ThirstDataProvider.PLAYER_THIRST).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "thirst"), new ThirstDataProvider());
             }
-            if (!event.getObject().getCapability(EquipmentDataProvider.EQUIPPED_SETS).isPresent()) {
-                event.addCapability(new ResourceLocation(DeathCube.MODID, "equipment"), new EquipmentDataProvider());
+            if (!event.getObject().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).isPresent()) {
+                event.addCapability(new ResourceLocation(DeathCube.MODID, "equipped_sets"), new EquippedSetsDataProvider());
             }
         }
     }
@@ -54,25 +54,23 @@ public class ModEvents {
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
-            event.getOriginal().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                    ModMessages.sendToClient(new ThirstDataSyncS2CPacket(newStore.getThirstLevel(), newStore.getSaturationLevel(), newStore.getExhaustionLevel()), (ServerPlayer) event.getEntity());
-                });
-            });
-            event.getOriginal().getCapability(EquipmentDataProvider.EQUIPPED_SETS).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(EquipmentDataProvider.EQUIPPED_SETS).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                    ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedNumberForArmorSet()), (ServerPlayer) event.getEntity());
-                });
-            });
+            event.getOriginal().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(oldStore ->
+                    event.getOriginal().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(newStore -> {
+                newStore.copyFrom(oldStore);
+                ModMessages.sendToClient(new ThirstDataSyncS2CPacket(newStore.getThirstLevel(), newStore.getSaturationLevel(), newStore.getExhaustionLevel()), (ServerPlayer) event.getEntity());
+            }));
+            event.getOriginal().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(oldStore ->
+                    event.getOriginal().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(newStore -> {
+                newStore.copyFrom(oldStore);
+                ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedCountForArmorSet()), (ServerPlayer) event.getEntity());
+            }));
         }
     }
 
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.register(ThirstData.class);
-        event.register(EquipmentData.class);
+        event.register(EquippedSetsData.class);
     }
 
     @SubscribeEvent
@@ -85,8 +83,8 @@ public class ModEvents {
                     thirstData.tick(player);
                 }
             });
-            player.getCapability(EquipmentDataProvider.EQUIPPED_SETS).ifPresent(equipmentData -> {
-                ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedNumberForArmorSet()), ((ServerPlayer) player));
+            player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(equipmentData -> {
+                ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet()), ((ServerPlayer) player));
                 equipmentData.tick(player);
             });
         }
@@ -97,12 +95,10 @@ public class ModEvents {
     public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
         if (!event.getLevel().isClientSide()) {
             if (event.getEntity() instanceof ServerPlayer player) {
-                player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirst -> {
-                    ModMessages.sendToClient(new ThirstDataSyncS2CPacket(thirst.getThirstLevel(), thirst.getSaturationLevel(), thirst.getExhaustionLevel()), player);
-                });
-                player.getCapability(EquipmentDataProvider.EQUIPPED_SETS).ifPresent(equipmentData -> {
-                    ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedNumberForArmorSet()), player);
-                });
+                player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirst ->
+                        ModMessages.sendToClient(new ThirstDataSyncS2CPacket(thirst.getThirstLevel(), thirst.getSaturationLevel(), thirst.getExhaustionLevel()), player));
+                player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(equipmentData ->
+                        ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet()), player));
             }
         }
     }
@@ -113,7 +109,7 @@ public class ModEvents {
             ItemStack oldArmor = event.getFrom();
             ItemStack newArmor = event.getTo();
 
-            player.getCapability(EquipmentDataProvider.EQUIPPED_SETS).ifPresent(equipmentData -> {
+            player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(equipmentData -> {
                 if (oldArmor.getItem() instanceof ArmorSetItem oldArmorSetItem) {
                     ArmorSet oldArmorSet = oldArmorSetItem.getArmorSet();
                     int oldArmorSetEquippedCount = equipmentData.getArmorSetEquippedCount(player, oldArmorSet);
@@ -141,18 +137,16 @@ public class ModEvents {
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
         if (event.getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
-            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData -> {
-                thirstData.addExhaustion(ThirstConstants.EXHAUSTION_DAMAGE);
-            });
+            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
+                    thirstData.addExhaustion(ThirstConstants.EXHAUSTION_DAMAGE));
         }
     }
 
     @SubscribeEvent
     public static void onEntityAttack(LivingAttackEvent event) {
         if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
-            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData -> {
-                thirstData.addExhaustion(ThirstConstants.EXHAUSTION_ATTACK);
-            });
+            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
+                    thirstData.addExhaustion(ThirstConstants.EXHAUSTION_ATTACK));
         }
 
     }
@@ -161,9 +155,8 @@ public class ModEvents {
     public static void onEntityDestroyBlock(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         if (!player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
-            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData -> {
-                thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE);
-            });
+            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
+                    thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE));
         }
     }
 
@@ -171,12 +164,12 @@ public class ModEvents {
     public static void onItemTooltip(ItemTooltipEvent event) {
         if (event.getEntity() != null && event.getEntity().level.isClientSide()) {
             if (event.getItemStack().getItem() instanceof ArmorSetItem armorSetItem) {
-                if (ClientEquipmentData.getEquippedNumberForArmorSet() != null) {
+                if (ClientEquippedSetsData.getEquippedNumberForArmorSet() != null) {
                     ArmorSet armorSet = armorSetItem.getArmorSet();
                     int equippedCount = 0;
                     ChatFormatting color;
-                    if (ClientEquipmentData.getEquippedNumberForArmorSet().containsKey(armorSetItem.getArmorSet())) {
-                        equippedCount = ClientEquipmentData.getEquippedNumberForArmorSet().get(armorSet);
+                    if (ClientEquippedSetsData.getEquippedNumberForArmorSet().containsKey(armorSetItem.getArmorSet())) {
+                        equippedCount = ClientEquippedSetsData.getEquippedNumberForArmorSet().get(armorSet);
                         if (equippedCount == 4) {
                             color = ChatFormatting.GOLD;
                         } else {

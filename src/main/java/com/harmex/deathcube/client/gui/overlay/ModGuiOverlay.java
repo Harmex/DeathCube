@@ -1,8 +1,8 @@
 package com.harmex.deathcube.client.gui.overlay;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.thirst.ClientThirstData;
-import com.harmex.deathcube.thirst.ThirstConstants;
+import com.harmex.deathcube.capabilities.thirst.ClientThirstData;
+import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -17,10 +17,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodData;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.awt.*;
 
+@OnlyIn(Dist.CLIENT)
 public class ModGuiOverlay {
     private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(DeathCube.MODID, "textures/gui/icons.png");
     private static final int textureWidth = 256;

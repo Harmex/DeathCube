@@ -12,7 +12,6 @@ import com.harmex.deathcube.recipe.ModRecipes;
 import com.harmex.deathcube.screen.ModMenuTypes;
 import com.harmex.deathcube.world.effect.ModMobEffects;
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -28,21 +27,19 @@ public class DeathCube {
     public DeathCube() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-
-        ModMobEffects.register(modEventBus);
-        ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
-        ModEntityTypes.register(modEventBus);
-        ModPotions.register(modEventBus);
-        ModPaintings.register(modEventBus);
+        ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
-
+        ModPaintings.register(modEventBus);
+        ModMobEffects.register(modEventBus);
+        ModPotions.register(modEventBus);
+        ModEntityTypes.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DeathCubeClientConfigs.SPEC, "deathcube-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DeathCubeCommonConfigs.SPEC, "deathcube-common.toml");
 
-        MinecraftForge.EVENT_BUS.register(this);
+        LOGGER.info("Deathcube Loaded");
     }
 }

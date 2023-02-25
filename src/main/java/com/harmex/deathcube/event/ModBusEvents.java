@@ -5,13 +5,14 @@ import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.block.entity.ModWoodTypes;
 import com.harmex.deathcube.entity.ModEntityTypes;
 import com.harmex.deathcube.entity.boss.*;
-import com.harmex.deathcube.item.custom.ModPotionItem;
+import com.harmex.deathcube.item.custom.*;
 import com.harmex.deathcube.networking.ModMessages;
 import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.recipe.UpgradingStationRecipe;
-import com.harmex.deathcube.thirst.DrinkProperties;
+import com.harmex.deathcube.capabilities.thirst.DrinkProperties;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -60,6 +61,60 @@ public class ModBusEvents {
                                     .saturationModifier(1)
                                     .build()
                     ));
+
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_helmet"),
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.HEAD));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_chestplate"),
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.CHEST));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_leggings"),
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.LEGS));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_boots"),
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.FEET));
+
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_helmet"),
+                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.HEAD));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_chestplate"),
+                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.CHEST));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_leggings"),
+                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.LEGS));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_boots"),
+                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.FEET));
+
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_helmet"),
+                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.HEAD));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_chestplate"),
+                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.CHEST));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_leggings"),
+                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.LEGS));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_boots"),
+                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.FEET));
+
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_helmet"),
+                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.HEAD));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_chestplate"),
+                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.CHEST));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_leggings"),
+                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.LEGS));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_boots"),
+                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.FEET));
+
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_helmet"),
+                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.HEAD));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_chestplate"),
+                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.CHEST));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_leggings"),
+                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.LEGS));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_boots"),
+                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.FEET));
+
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_helmet"),
+                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.HEAD));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_chestplate"),
+                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.CHEST));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_leggings"),
+                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.LEGS));
+            itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_boots"),
+                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.FEET));
         });
     }
 

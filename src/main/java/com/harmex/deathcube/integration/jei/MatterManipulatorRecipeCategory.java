@@ -48,7 +48,7 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
                 .build(new CacheLoader<>() {
                     @Override
                     public @NotNull IDrawableAnimated load(@NotNull Integer manipulationTime) {
-                        return guiHelper.drawableBuilder(TEXTURE, 0, 148, 22, 16)
+                        return guiHelper.drawableBuilder(TEXTURE, 148, 0, 22, 16)
                                 .buildAnimated(manipulationTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
