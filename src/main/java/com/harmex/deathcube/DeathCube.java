@@ -5,6 +5,7 @@ import com.harmex.deathcube.block.entity.ModBlockEntities;
 import com.harmex.deathcube.config.DeathCubeClientConfigs;
 import com.harmex.deathcube.config.DeathCubeCommonConfigs;
 import com.harmex.deathcube.entity.ModEntityTypes;
+import com.harmex.deathcube.entity.attribute.ModAttributes;
 import com.harmex.deathcube.item.ModItems;
 import com.harmex.deathcube.painting.ModPaintings;
 import com.harmex.deathcube.potion.ModPotions;
@@ -36,6 +37,7 @@ public class DeathCube {
         ModMobEffects.register(modEventBus);
         ModPotions.register(modEventBus);
         ModEntityTypes.register(modEventBus);
+        ModAttributes.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DeathCubeClientConfigs.SPEC, "deathcube-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DeathCubeCommonConfigs.SPEC, "deathcube-common.toml");

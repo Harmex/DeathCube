@@ -4,10 +4,13 @@ import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.capabilities.equipment.ClientEquippedSetsData;
 import com.harmex.deathcube.capabilities.equipment.EquippedSetsData;
 import com.harmex.deathcube.capabilities.equipment.EquippedSetsDataProvider;
+import com.harmex.deathcube.capabilities.mana.ManaData;
+import com.harmex.deathcube.capabilities.mana.ManaDataProvider;
 import com.harmex.deathcube.item.custom.ArmorSet;
 import com.harmex.deathcube.item.custom.ArmorSetItem;
 import com.harmex.deathcube.networking.ModMessages;
 import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
+import com.harmex.deathcube.networking.packet.ManaDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
 import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
 import com.harmex.deathcube.capabilities.thirst.ThirstData;
@@ -51,6 +54,9 @@ public class ModEvents {
             if (!event.getObject().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "equipped_sets"), new EquippedSetsDataProvider());
             }
+            if (!event.getObject().getCapability(ManaDataProvider.PLAYER_MANA).isPresent()) {
+                event.addCapability(new ResourceLocation(DeathCube.MODID, "mana"), new ManaDataProvider());
+            }
         }
     }
 
@@ -67,6 +73,11 @@ public class ModEvents {
                 newStore.copyFrom(oldStore);
                 ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedCountForArmorSet()), (ServerPlayer) event.getEntity());
             }));
+            event.getOriginal().getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(oldStore ->
+                    event.getOriginal().getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(newStore -> {
+                newStore.copyFrom(oldStore);
+                ModMessages.sendToClient(new ManaDataSyncS2CPacket(newStore.getManaLevel()), (ServerPlayer) event.getEntity());
+            }));
         }
     }
 
@@ -74,6 +85,7 @@ public class ModEvents {
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.register(ThirstData.class);
         event.register(EquippedSetsData.class);
+        event.register(ManaData.class);
     }
 
     @SubscribeEvent
@@ -90,6 +102,12 @@ public class ModEvents {
                 ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet()), ((ServerPlayer) player));
                 equipmentData.tick(player);
             });
+            player.getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(manaData -> {
+                ModMessages.sendToClient(new ManaDataSyncS2CPacket(manaData.getManaLevel()), ((ServerPlayer) player));
+                if (!player.isCreative() && !player.isSpectator()) {
+                    manaData.tick(player);
+                }
+            });
         }
 
     }
@@ -102,6 +120,8 @@ public class ModEvents {
                         ModMessages.sendToClient(new ThirstDataSyncS2CPacket(thirst.getThirstLevel(), thirst.getSaturationLevel(), thirst.getExhaustionLevel()), player));
                 player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(equipmentData ->
                         ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet()), player));
+                player.getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(manaData ->
+                        ModMessages.sendToClient(new ManaDataSyncS2CPacket(manaData.getManaLevel()), player));
             }
         }
     }

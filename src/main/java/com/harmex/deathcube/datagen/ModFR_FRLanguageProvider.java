@@ -28,6 +28,8 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
 
         add("gui.jei.deathcube.category.matter_manipulation", "Manipulation de matière");
 
+        addAttribute("max_mana", "Max Mana");
+
         addContainer("upgrading_station", "Station d'amélioration");
         addContainer("matter_manipulator", "Manipulateur de matière");
         addContainer("resurrection_altar", "Autel de résurrection");
@@ -202,5 +204,8 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
     }
     private void addContainer(String pId, String pName) {
         add("container." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addAttribute(String pId, String pName) {
+        add("attribute.name." + DeathCube.MODID + "." + pId, pName);
     }
 }

@@ -5,6 +5,7 @@ import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.block.entity.ModWoodTypes;
 import com.harmex.deathcube.capabilities.thirst.DrinkProperties;
 import com.harmex.deathcube.entity.ModEntityTypes;
+import com.harmex.deathcube.entity.attribute.ModAttributes;
 import com.harmex.deathcube.entity.boss.*;
 import com.harmex.deathcube.item.custom.ArmorSetItem;
 import com.harmex.deathcube.item.custom.ArmorSets;
@@ -15,13 +16,16 @@ import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
 import com.harmex.deathcube.recipe.UpgradingStationRecipe;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -128,5 +132,10 @@ public class ModBusEvents {
         event.put(ModEntityTypes.GALTERIUS.get(), Galterius.createAttributes().build());
         event.put(ModEntityTypes.NAERVUS.get(), Naervus.createAttributes().build());
         event.put(ModEntityTypes.ZANUZAL.get(), Zanuzal.createAttributes().build());
+    }
+
+    @SubscribeEvent
+    public static void onModifyAttribute(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, ModAttributes.MAX_MANA.get());
     }
 }

@@ -1,11 +1,15 @@
 package com.harmex.deathcube.client.gui.overlay;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.capabilities.mana.ClientManaData;
 import com.harmex.deathcube.capabilities.thirst.ClientThirstData;
 import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
+import com.harmex.deathcube.entity.attribute.ModAttributes;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -104,16 +108,22 @@ public class ModGuiOverlay {
             int absorptionBarSize = Mth.ceil(absorption * 79 / maxHealth);
 
             GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 13 : healthBarSize >= thirtyPercent ? 0 : 26, 81, 13, textureWidth, textureHeight);
-            GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, healthBarSize, 13, textureWidth, textureHeight);
-            GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, 130, absorptionBarSize, 13, textureWidth, textureHeight);
+            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, vOffset + 1, healthBarSize, 11, textureWidth, textureHeight);
+            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, 130 + 1, absorptionBarSize, 11, textureWidth, textureHeight);
 
-            String healthAmount = Mth.ceil(health + absorption) + " / " + Mth.ceil(maxHealth);
+            String healthText = String.valueOf(Mth.ceil(health + absorption));
+            String maxHealthText = String.valueOf(Mth.ceil(maxHealth));
 
             if (Mth.ceil(absorption) > 0) {
                 textColor = new Color(105, 86, 27);
             }
 
-            gui.getFont().draw(poseStack, healthAmount, left + 2, top + 2, textColor.getRGB());
+            Font guiFont = gui.getFont();
+
+            guiFont.draw(poseStack, healthText, left + 38 - guiFont.width(healthText) - guiFont.width("/") + 2, top + 2, textColor.getRGB());
+            guiFont.draw(poseStack, "/", left + 38, top + 2, textColor.getRGB());
+            guiFont.draw(poseStack, maxHealthText, left + 38 + (guiFont.width("/") * 2) - 2, top + 2, textColor.getRGB());
+
 
             RenderSystem.disableBlend();
             gui.getMinecraft().getProfiler().pop();
@@ -163,6 +173,53 @@ public class ModGuiOverlay {
 
             RenderSystem.disableBlend();
             gui.getMinecraft().getProfiler().pop();
+        }
+    };
+    public static final IGuiOverlay PLAYER_MANA = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+        Minecraft minecraft = gui.getMinecraft();
+        Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
+        if (gui.shouldDrawSurvivalElements()) {
+            assert player != null;
+            if (!(player.getVehicle() instanceof LivingEntity) && !minecraft.options.hideGui) {
+                gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+
+                RenderSystem.enableBlend();
+
+                minecraft.getProfiler().popPush("mana");
+
+                int left = screenWidth / 2 + 91 - 81;
+                int top = screenHeight - gui.rightHeight - 4;
+                gui.rightHeight += 14;
+
+                AttributeInstance manaAttribute = player.getAttribute(ModAttributes.MAX_MANA.get());
+                assert manaAttribute != null;
+                float maxMana = (float) manaAttribute.getValue();
+                float manaLevel = ClientManaData.getManaLevel();
+                int manaBarSize = Mth.ceil(manaLevel * 79 / maxMana);
+                int thirtyPercent = Mth.ceil((maxMana * 30 / 100) * 79 / maxMana);
+                Color textColor = new Color(89, 50, 102);
+
+                int uOffset = player.level.getLevelData().isHardcore() ? 81 : 0;;
+                int vOffsetContainer = 0;
+                int vOffsetMana = 157;
+
+                if (manaBarSize <= thirtyPercent) {
+                    vOffsetContainer = 13;
+                }
+
+                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 13, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left + 80 - manaBarSize, top + 1, uOffset + 80 - manaBarSize, vOffsetMana, manaBarSize, 11, textureWidth, textureHeight);
+
+                String manaText = String.valueOf(Mth.ceil(manaLevel));
+                String maxManaText = String.valueOf(Mth.ceil(maxMana));
+                Font guiFont = gui.getFont();
+                guiFont.draw(poseStack, manaText, left + 38 - guiFont.width(manaText) - guiFont.width("/") + 2, top + 2, textColor.getRGB());
+                guiFont.draw(poseStack, "/", left + 38, top + 2, textColor.getRGB());
+                guiFont.draw(poseStack, maxManaText, left + 38 + (guiFont.width("/") * 2) - 2, top + 2, textColor.getRGB());
+
+                RenderSystem.disableBlend();
+                minecraft.getProfiler().pop();
+            }
         }
     };
     public static final IGuiOverlay FOOD_LEVEL = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {

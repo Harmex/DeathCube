@@ -2,7 +2,6 @@ package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
 import com.mojang.datafixers.util.Either;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;

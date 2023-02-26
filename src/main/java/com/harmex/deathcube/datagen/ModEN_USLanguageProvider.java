@@ -28,6 +28,8 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
 
         add("gui.jei.deathcube.category.matter_manipulation", "Matter Manipulating");
 
+        addAttribute("max_mana", "Max Mana");
+
         addContainer("upgrading_station", "Upgrading Station");
         addContainer("matter_manipulator", "Matter Manipulator");
         addContainer("resurrection_altar", "Resurrection Altar");
@@ -202,5 +204,8 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
     }
     private void addContainer(String pId, String pName) {
         add("container." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addAttribute(String pId, String pName) {
+        add("attribute.name." + DeathCube.MODID + "." + pId, pName);
     }
 }

@@ -66,6 +66,8 @@ public class ClientModBusEvents {
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "player_health"),
                 "armor_level", ModGuiOverlay.ARMOR_LEVEL);
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "armor_level"),
+                "player_mana", ModGuiOverlay.PLAYER_MANA);
+        event.registerAbove(new ResourceLocation(DeathCube.MODID, "player_mana"),
                 "food_level", ModGuiOverlay.FOOD_LEVEL);
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "food_level"),
                 "thirst_level", ModGuiOverlay.THIRST_LEVEL);

@@ -103,16 +103,16 @@ public class ThirstData {
         exhaustionLevel = Math.min(exhaustionLevel + pExhaustion, MAX_EXHAUSTION);
     }
 
-    public void loadNBTData(CompoundTag nbt) {
-        thirstLevel = nbt.getInt("thirstLevel");
-        saturationLevel = nbt.getFloat("thirstSaturationLevel");
-        exhaustionLevel = nbt.getFloat("thirstExhaustionLevel");
+    public void loadNBTData(CompoundTag pNBT) {
+        thirstLevel = pNBT.getInt("thirstLevel");
+        saturationLevel = pNBT.getFloat("thirstSaturationLevel");
+        exhaustionLevel = pNBT.getFloat("thirstExhaustionLevel");
     }
 
-    public void saveNBTData(CompoundTag nbt) {
-        nbt.putInt("thirstLevel", thirstLevel);
-        nbt.putFloat("thirstSaturationLevel", saturationLevel);
-        nbt.putFloat("thirstExhaustionLevel", exhaustionLevel);
+    public void saveNBTData(CompoundTag pNBT) {
+        pNBT.putInt("thirstLevel", thirstLevel);
+        pNBT.putFloat("thirstSaturationLevel", saturationLevel);
+        pNBT.putFloat("thirstExhaustionLevel", exhaustionLevel);
     }
 
     public int getThirstLevel() {
