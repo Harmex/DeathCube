@@ -3,6 +3,7 @@ package com.harmex.deathcube.networking;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ManaDataSyncS2CPacket;
+import com.harmex.deathcube.networking.packet.SkillsDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,6 +46,12 @@ public class ModMessages {
                 .decoder(ManaDataSyncS2CPacket::new)
                 .encoder(ManaDataSyncS2CPacket::toBytes)
                 .consumerMainThread(ManaDataSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(SkillsDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SkillsDataSyncS2CPacket::new)
+                .encoder(SkillsDataSyncS2CPacket::toBytes)
+                .consumerMainThread(SkillsDataSyncS2CPacket::handle)
                 .add();
     }
 
