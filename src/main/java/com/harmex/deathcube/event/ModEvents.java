@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -35,6 +36,8 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+
+import java.text.DecimalFormat;
 
 @Mod.EventBusSubscriber(modid = DeathCube.MODID)
 public class ModEvents {
@@ -162,8 +165,9 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
+        ItemStack hoveredItem = event.getItemStack();
         if (event.getEntity() != null && event.getEntity().level.isClientSide()) {
-            if (event.getItemStack().getItem() instanceof ArmorSetItem armorSetItem) {
+            if (hoveredItem.getItem() instanceof ArmorSetItem armorSetItem) {
                 if (ClientEquippedSetsData.getEquippedNumberForArmorSet() != null) {
                     ArmorSet armorSet = armorSetItem.getArmorSet();
                     int equippedCount = 0;
@@ -183,14 +187,39 @@ public class ModEvents {
                             Component.translatable("itemTooltip." + DeathCube.MODID + ".set." + armorSet.getName().toLowerCase())
                                     .withStyle(armorSet.getStyleModifier()),
                             equippedCount)
-                            .withStyle(style -> style.withColor(color));
+                            .withStyle(color);
+                    event.getToolTip().add(set);
 
-                    event.getToolTip().add(1, set);
+                    if (armorSet.getFullSetBonus() != null) {
+                        Component effect = Component.translatable(
+                                armorSet.getFullSetBonus().getDescriptionId())
+                                .withStyle(color);
+                        Component dash = Component.literal(" - ").withStyle(color).append(effect);
+                        event.getToolTip().add(dash);
+                    }
                 }
+            }
+            if (hoveredItem.isDamageableItem()) {
+                int maxDurability = hoveredItem.getMaxDamage();
+                int durability = maxDurability - hoveredItem.getDamageValue();
+                float durabilityPercent = ((float) durability * 100 / maxDurability);
+                ChatFormatting color;
+                if (durabilityPercent >= 50) {
+                    color = ChatFormatting.GREEN;
+                } else if (durabilityPercent >= 10) {
+                    color = ChatFormatting.YELLOW;
+                } else {
+                    color = ChatFormatting.RED;
+                }
+                Component durabilityComponent = Component.literal(
+                        durability + " / " + maxDurability)
+                        .withStyle(style -> style.withColor(color))
+                        .append(Component.literal(" (" + new DecimalFormat("#.##").format(durabilityPercent) + "%)"));
+                event.getToolTip().add(durabilityComponent);
             }
         }
 
-        Rarity rarity = event.getItemStack().getRarity();
+        Rarity rarity = hoveredItem.getRarity();
         Component rarityComponent = Component.translatable(
                 "itemTooltip." + DeathCube.MODID + ".rarity." + rarity.name().toLowerCase())
                 .withStyle(rarity.getStyleModifier());

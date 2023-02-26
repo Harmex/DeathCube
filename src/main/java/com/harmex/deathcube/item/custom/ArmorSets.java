@@ -28,7 +28,7 @@ public enum ArmorSets implements ArmorSet, StringRepresentable {
     GOLD("gold", ArmorMaterials.GOLD, null, 0, ModRarities.UNCOMMON, style -> style.withColor(0xE9B115)),
     BONE("bone", ModArmorMaterials.BONE, null, 0, ModRarities.COMMON, style -> style.withColor(0xBCBCBC)),
     STONE("stone", ModArmorMaterials.OAK, null, 0, ModRarities.COMMON, style -> style.withColor(0xFFFFFF)),
-    CHAIN("chain", ArmorMaterials.CHAIN, null, 0, ModRarities.UNCOMMON, style -> style.withColor(0xD8D8D8)),
+    CHAIN("chainmail", ArmorMaterials.CHAIN, null, 0, ModRarities.UNCOMMON, style -> style.withColor(0xD8D8D8)),
     COPPER("copper", ModArmorMaterials.COPPER, null, 0, ModRarities.UNCOMMON, style -> style.withColor(0xFFAF81)),
     IRON("iron", ArmorMaterials.IRON, null, 0, ModRarities.UNCOMMON, style -> style.withColor(0x969696)),
     EMERALD("emerald", ModArmorMaterials.EMERALD, MobEffects.HERO_OF_THE_VILLAGE, 0, ModRarities.RARE, style -> style.withColor(0x00CB63)),

@@ -42,7 +42,7 @@ public class ClientModBusEvents {
     }
 
     @SubscribeEvent
-    public static void onRegister(EntityRenderersEvent.RegisterLayerDefinitions event) {
+    public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(AzrathalModel.AZRATHAL_LAYER, AzrathalModel::createBodyLayer);
         event.registerLayerDefinition(BorzadonModel.BORZADON_LAYER, BorzadonModel::createBodyLayer);
         event.registerLayerDefinition(GalteriusModel.GALTERIUS_LAYER, GalteriusModel::createBodyLayer);
@@ -51,7 +51,7 @@ public class ClientModBusEvents {
     }
 
     @SubscribeEvent
-    public static void onRegister(EntityRenderersEvent.RegisterRenderers event) {
+    public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.AZRATHAL.get(), AzrathalRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.BORZADON.get(), BorzadonRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.GALTERIUS.get(), GalteriusRenderer::new);
@@ -70,7 +70,6 @@ public class ClientModBusEvents {
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "food_level"),
                 "thirst_level", ModGuiOverlay.THIRST_LEVEL);
     }
-
 
     @SubscribeEvent
     public static void addCreativeModeTabs(CreativeModeTabEvent.BuildContents event) {
