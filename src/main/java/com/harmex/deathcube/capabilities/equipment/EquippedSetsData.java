@@ -9,10 +9,12 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@AutoRegisterCapability
 public class EquippedSetsData {
     private Map<ArmorSet, Integer> equippedCountForArmorSet;
     private final Map<ArmorSet, Boolean> isEffectActiveForArmorSet;

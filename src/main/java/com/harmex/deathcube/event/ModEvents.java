@@ -8,6 +8,9 @@ import com.harmex.deathcube.capabilities.mana.ManaData;
 import com.harmex.deathcube.capabilities.mana.ManaDataProvider;
 import com.harmex.deathcube.capabilities.skills.SkillsData;
 import com.harmex.deathcube.capabilities.skills.SkillsDataProvider;
+import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
+import com.harmex.deathcube.capabilities.thirst.ThirstData;
+import com.harmex.deathcube.capabilities.thirst.ThirstDataProvider;
 import com.harmex.deathcube.item.custom.ArmorSet;
 import com.harmex.deathcube.item.custom.ArmorSetItem;
 import com.harmex.deathcube.networking.ModMessages;
@@ -15,9 +18,6 @@ import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ManaDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.SkillsDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
-import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
-import com.harmex.deathcube.capabilities.thirst.ThirstData;
-import com.harmex.deathcube.capabilities.thirst.ThirstDataProvider;
 import com.harmex.deathcube.world.skill.Skills;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -26,14 +26,19 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.EnchantmentMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -43,24 +48,24 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.text.DecimalFormat;
 
-import static com.harmex.deathcube.world.skill.SkillUtils.XP_AMOUNT_FOR_ENTITIES;
+import static com.harmex.deathcube.world.skill.SkillUtils.*;
 
 @Mod.EventBusSubscriber(modid = DeathCube.MODID)
 public class ModEvents {
 
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof Player) {
-            if (!event.getObject().getCapability(ThirstDataProvider.PLAYER_THIRST).isPresent()) {
+        if (event.getObject() instanceof Player player) {
+            if (!player.getCapability(ThirstDataProvider.PLAYER_THIRST).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "thirst"), new ThirstDataProvider());
             }
-            if (!event.getObject().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).isPresent()) {
+            if (!player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "equipped_sets"), new EquippedSetsDataProvider());
             }
-            if (!event.getObject().getCapability(ManaDataProvider.PLAYER_MANA).isPresent()) {
+            if (!player.getCapability(ManaDataProvider.PLAYER_MANA).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "mana"), new ManaDataProvider());
             }
-            if (!event.getObject().getCapability(SkillsDataProvider.SKILLS).isPresent()) {
+            if (!player.getCapability(SkillsDataProvider.SKILLS).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "skills"), new SkillsDataProvider());
             }
         }
@@ -70,39 +75,31 @@ public class ModEvents {
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
             event.getOriginal().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(oldStore ->
-                    event.getOriginal().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(newStore -> {
+                    event.getEntity().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(newStore -> {
                         newStore.copyFrom(oldStore);
                         ModMessages.sendToClient(new ThirstDataSyncS2CPacket(newStore.getThirstLevel(), newStore.getSaturationLevel(), newStore.getExhaustionLevel()), (ServerPlayer) event.getEntity());
             }));
             event.getOriginal().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(oldStore ->
-                    event.getOriginal().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(newStore -> {
+                    event.getEntity().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(newStore -> {
                         newStore.copyFrom(oldStore);
                         ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedCountForArmorSet()), (ServerPlayer) event.getEntity());
             }));
             event.getOriginal().getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(oldStore ->
-                    event.getOriginal().getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(newStore -> {
+                    event.getEntity().getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(newStore -> {
                         newStore.copyFrom(oldStore);
                         ModMessages.sendToClient(new ManaDataSyncS2CPacket(newStore.getManaLevel()), (ServerPlayer) event.getEntity());
             }));
             event.getOriginal().getCapability(SkillsDataProvider.SKILLS).ifPresent(oldStore ->
-                    event.getOriginal().getCapability(SkillsDataProvider.SKILLS).ifPresent(newStore -> {
+                    event.getEntity().getCapability(SkillsDataProvider.SKILLS).ifPresent(newStore -> {
                         newStore.copyFrom(oldStore);
                         ModMessages.sendToClient(new SkillsDataSyncS2CPacket(newStore.getSkillsLVL()), (ServerPlayer) event.getEntity());
-            }));
+                    }));
         }
     }
 
     @SubscribeEvent
-    public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(ThirstData.class);
-        event.register(EquippedSetsData.class);
-        event.register(ManaData.class);
-        event.register(SkillsData.class);
-    }
-
-    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START) {
+        if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
             Player player = event.player;
             player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData -> {
                 ModMessages.sendToClient(new ThirstDataSyncS2CPacket(thirstData.getThirstLevel(), thirstData.getSaturationLevel(), thirstData.getExhaustionLevel()), (ServerPlayer) player);
@@ -129,7 +126,26 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
+    public static void onPlayerFish(ItemFishedEvent event) {
+        Player player = event.getEntity();
+        player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
+            for (ItemStack fishedItem : event.getDrops()) {
+                skillsData.addXP(Skills.FISHING, XP_FOR_ITEM_FISHED.getOrDefault(fishedItem.getItem(), 0.0F));
+            }
+        });
+    }
+
+    @SubscribeEvent
+    public static void onBlockMined(BlockEvent.BreakEvent event) {
+        Player player = event.getPlayer();
+        Block block = event.getState().getBlock();
+        player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
+            skillsData.addXP(Skills.MINING, XP_FOR_BLOCK_BROKEN.getOrDefault(block, 0.0F));
+        });
+    }
+
+    @SubscribeEvent
+    public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
         if (!event.getLevel().isClientSide()) {
             if (event.getEntity() instanceof ServerPlayer player) {
                 player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirst ->
@@ -145,7 +161,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerEquipArmor(LivingEquipmentChangeEvent event) {
+    public static void onEntityEquipArmor(LivingEquipmentChangeEvent event) {
         if (event.getEntity() instanceof Player player && event.getSlot().isArmor()) {
             ItemStack oldArmor = event.getFrom();
             ItemStack newArmor = event.getTo();
@@ -167,7 +183,8 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
-        if (event.getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+        if (event.getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL
+                && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData -> {
                 if (player.isSprinting()) thirstData.addExhaustion(ThirstConstants.EXHAUSTION_SPRINT_JUMP);
                 else thirstData.addExhaustion(ThirstConstants.EXHAUSTION_JUMP);
@@ -177,7 +194,8 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
-        if (event.getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+        if (event.getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL
+                && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
                     thirstData.addExhaustion(ThirstConstants.EXHAUSTION_DAMAGE));
         }
@@ -185,7 +203,8 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onEntityAttack(LivingAttackEvent event) {
-        if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+        if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL
+                && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
                     thirstData.addExhaustion(ThirstConstants.EXHAUSTION_ATTACK));
         }
@@ -195,10 +214,9 @@ public class ModEvents {
     public static void onEntityDeath(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide()) {
             EntityType<?> entityType = event.getEntity().getType();
-            if (XP_AMOUNT_FOR_ENTITIES.containsKey(entityType)) {
-                player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData ->
-                        skillsData.addXP(Skills.COMBAT, XP_AMOUNT_FOR_ENTITIES.getOrDefault(entityType, 0.0F)));
-            }
+            player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData ->
+                    skillsData.addXP(Skills.COMBAT, XP_AMOUNT_FOR_ENTITIES.getOrDefault(entityType, 0.0F)
+                            * (event.getEntity() instanceof Slime slime ? slime.getSize() : 1.0F)));
         }
     }
 

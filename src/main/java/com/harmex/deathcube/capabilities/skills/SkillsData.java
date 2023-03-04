@@ -8,10 +8,12 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@AutoRegisterCapability
 public class SkillsData {
     private Map<Skill, SkillProperties> skillsLVL;
 
@@ -61,7 +63,7 @@ public class SkillsData {
         return skillsLVL;
     }
 
-    public void addXP(Skill skill, float pAmount) {
+    public void addXP(Skill skill, Float pAmount) {
         skillsLVL.get(skill).addXp(pAmount);
     }
 }

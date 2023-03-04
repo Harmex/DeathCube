@@ -5,9 +5,11 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import static com.harmex.deathcube.capabilities.thirst.ThirstConstants.*;
 
+@AutoRegisterCapability
 public class ThirstData {
     private int thirstLevel = MAX_THIRST;
     private float saturationLevel;

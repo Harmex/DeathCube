@@ -2,7 +2,9 @@ package com.harmex.deathcube.capabilities.mana;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class ManaData {
     private float manaLevel;
 

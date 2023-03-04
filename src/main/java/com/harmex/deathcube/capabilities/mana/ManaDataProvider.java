@@ -26,11 +26,16 @@ public class ManaDataProvider implements ICapabilityProvider, INBTSerializable<C
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
         if (cap == PLAYER_MANA) {
             return optional.cast();
         }
         return LazyOptional.empty();
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        return getCapability(cap);
     }
 
     @Override

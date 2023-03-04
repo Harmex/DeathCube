@@ -6,7 +6,6 @@ import com.harmex.deathcube.capabilities.thirst.ClientThirstData;
 import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
 import com.harmex.deathcube.entity.attribute.ModAttributes;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -303,6 +302,16 @@ public class ModGuiOverlay {
                 RenderSystem.disableBlend();
                 minecraft.getProfiler().pop();
             }
+        }
+    };
+    public static final IGuiOverlay EXPERIENCE_BAR = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+        Minecraft minecraft = gui.getMinecraft();
+        Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
+        if (gui.shouldDrawSurvivalElements()) {
+            assert player != null;
+            gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+            minecraft.getProfiler().push("experience_bar");
+            RenderSystem.enableBlend();
         }
     };
 }
