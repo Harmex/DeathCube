@@ -1,8 +1,8 @@
 package com.harmex.deathcube.datagen;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.block.ModBlocks;
 import com.harmex.deathcube.util.ModTags;
+import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;

@@ -1,6 +1,6 @@
 package com.harmex.deathcube.datagen.loot;
 
-import com.harmex.deathcube.entity.ModEntityTypes;
+import com.harmex.deathcube.world.entity.ModEntityTypes;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;

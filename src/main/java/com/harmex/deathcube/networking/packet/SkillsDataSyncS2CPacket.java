@@ -1,6 +1,6 @@
 package com.harmex.deathcube.networking.packet;
 
-import com.harmex.deathcube.capabilities.skills.ClientSkillsData;
+import com.harmex.deathcube.util.capabilities.skills.ClientSkillsData;
 import com.harmex.deathcube.world.skill.Skill;
 import com.harmex.deathcube.world.skill.SkillProperties;
 import com.harmex.deathcube.world.skill.Skills;

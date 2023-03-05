@@ -1,7 +1,7 @@
 package com.harmex.deathcube.datagen.advancement;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.block.ModBlocks;
+import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;

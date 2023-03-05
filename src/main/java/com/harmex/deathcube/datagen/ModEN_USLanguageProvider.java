@@ -1,9 +1,9 @@
 package com.harmex.deathcube.datagen;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.block.ModBlocks;
-import com.harmex.deathcube.entity.ModEntityTypes;
-import com.harmex.deathcube.item.ModItems;
+import com.harmex.deathcube.world.entity.ModEntityTypes;
+import com.harmex.deathcube.world.item.ModItems;
+import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 

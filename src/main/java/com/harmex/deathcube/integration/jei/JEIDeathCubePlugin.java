@@ -1,11 +1,11 @@
 package com.harmex.deathcube.integration.jei;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.block.ModBlocks;
+import com.harmex.deathcube.client.gui.screens.inventory.MatterManipulatorScreen;
 import com.harmex.deathcube.recipe.ShapedMatterManipulationRecipe;
-import com.harmex.deathcube.screen.MatterManipulatorMenu;
-import com.harmex.deathcube.screen.MatterManipulatorScreen;
-import com.harmex.deathcube.screen.ModMenuTypes;
+import com.harmex.deathcube.world.inventory.MatterManipulatorMenu;
+import com.harmex.deathcube.world.inventory.ModMenuTypes;
+import com.harmex.deathcube.world.level.block.ModBlocks;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;

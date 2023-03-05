@@ -1,6 +1,6 @@
 package com.harmex.deathcube.networking.packet;
 
-import com.harmex.deathcube.capabilities.mana.ClientManaData;
+import com.harmex.deathcube.util.capabilities.mana.ClientManaData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

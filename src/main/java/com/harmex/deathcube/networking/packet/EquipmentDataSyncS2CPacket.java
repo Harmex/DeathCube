@@ -1,8 +1,8 @@
 package com.harmex.deathcube.networking.packet;
 
-import com.harmex.deathcube.capabilities.equipment.ClientEquippedSetsData;
-import com.harmex.deathcube.item.custom.ArmorSet;
-import com.harmex.deathcube.item.custom.ArmorSets;
+import com.harmex.deathcube.util.capabilities.equipment.ClientEquippedSetsData;
+import com.harmex.deathcube.world.item.custom.ArmorSet;
+import com.harmex.deathcube.world.item.custom.ArmorSets;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

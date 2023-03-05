@@ -1,10 +1,13 @@
 package com.harmex.deathcube.client.gui.overlay;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.capabilities.mana.ClientManaData;
-import com.harmex.deathcube.capabilities.thirst.ClientThirstData;
-import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
-import com.harmex.deathcube.entity.attribute.ModAttributes;
+import com.harmex.deathcube.util.capabilities.mana.ClientManaData;
+import com.harmex.deathcube.util.capabilities.skills.ClientSkillsData;
+import com.harmex.deathcube.util.capabilities.thirst.ClientThirstData;
+import com.harmex.deathcube.util.capabilities.thirst.ThirstConstants;
+import com.harmex.deathcube.world.entity.ai.attribute.ModAttributes;
+import com.harmex.deathcube.world.skill.Skill;
+import com.harmex.deathcube.world.skill.SkillProperties;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -25,10 +28,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.awt.*;
+import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class ModGuiOverlay {
-    private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(DeathCube.MODID, "textures/gui/icons.png");
+    private static final ResourceLocation BARS_LOCATION = new ResourceLocation(DeathCube.MODID, "textures/gui/bars.png");
     private static final int textureWidth = 256;
     private static final int textureHeight = 256;
 
@@ -39,14 +43,15 @@ public class ModGuiOverlay {
 
     public static final IGuiOverlay PLAYER_HEALTH = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
         if (!gui.getMinecraft().options.hideGui && gui.shouldDrawSurvivalElements()) {
-            gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+            gui.setupOverlayRenderState(true, false, BARS_LOCATION);
             gui.getMinecraft().getProfiler().push("health");
             RenderSystem.enableBlend();
 
             Player player = (Player) gui.getMinecraft().getCameraEntity();
             assert player != null;
             int health = Mth.ceil(player.getHealth());
-            boolean highlight = healthBlinkTime > (long) gui.getGuiTicks() && (healthBlinkTime - (long) gui.getGuiTicks()) / 3L % 2L == 1;
+            boolean highlight = healthBlinkTime > (long) gui.getGuiTicks()
+                    && (healthBlinkTime - (long) gui.getGuiTicks()) / 3L % 2L == 1;
 
             if (health < lastHealth && player.invulnerableTime > 0) {
                 lastHealthTime = Util.getMillis();
@@ -130,7 +135,7 @@ public class ModGuiOverlay {
     };
     public static final IGuiOverlay ARMOR_LEVEL = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
         if (!gui.getMinecraft().options.hideGui && gui.shouldDrawSurvivalElements()) {
-            gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+            gui.setupOverlayRenderState(true, false, BARS_LOCATION);
             gui.getMinecraft().getProfiler().push("armor");
             RenderSystem.enableBlend();
 
@@ -180,7 +185,7 @@ public class ModGuiOverlay {
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
             if (!(player.getVehicle() instanceof LivingEntity) && !minecraft.options.hideGui) {
-                gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+                gui.setupOverlayRenderState(true, false, BARS_LOCATION);
 
                 RenderSystem.enableBlend();
 
@@ -227,7 +232,7 @@ public class ModGuiOverlay {
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
             if (!(player.getVehicle() instanceof LivingEntity) && !minecraft.options.hideGui) {
-                gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+                gui.setupOverlayRenderState(true, false, BARS_LOCATION);
 
                 RenderSystem.enableBlend();
 
@@ -238,9 +243,12 @@ public class ModGuiOverlay {
                 gui.rightHeight += 7;
 
                 FoodData stats = player.getFoodData();
-                int foodLevel = Mth.ceil(stats.getFoodLevel() * 79 / (float) FoodConstants.MAX_FOOD);
-                int thirtyPercent = Mth.ceil(((float) FoodConstants.MAX_FOOD * 30 / 100) * 79 / (float) FoodConstants.MAX_FOOD);
-                int foodSaturationLevel = Mth.ceil(stats.getSaturationLevel() * 81 / FoodConstants.MAX_SATURATION);
+                int foodLevel = Mth.ceil(stats.getFoodLevel() * 79
+                        / (float) FoodConstants.MAX_FOOD);
+                int thirtyPercent = Mth.ceil(((float) FoodConstants.MAX_FOOD * 30 / 100) * 79
+                        / (float) FoodConstants.MAX_FOOD);
+                int foodSaturationLevel = Mth.ceil(stats.getSaturationLevel() * 81
+                        / FoodConstants.MAX_SATURATION);
 
                 int uOffset = 162;
                 int vOffsetContainer = 0;
@@ -269,7 +277,7 @@ public class ModGuiOverlay {
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
             if (!(player.getVehicle() instanceof LivingEntity) && !minecraft.options.hideGui) {
-                gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+                gui.setupOverlayRenderState(true, false, BARS_LOCATION);
 
                 RenderSystem.enableBlend();
 
@@ -279,9 +287,12 @@ public class ModGuiOverlay {
                 int top = screenHeight - gui.rightHeight + 3;
                 gui.rightHeight += 7;
 
-                int thirstLevel = Mth.ceil(ClientThirstData.getThirstLevel() * 79 / (float) ThirstConstants.MAX_THIRST);
-                int thirtyPercent = Mth.ceil(((float) ThirstConstants.MAX_THIRST * 30 / 100) * 79 / (float) ThirstConstants.MAX_THIRST);
-                int thirstSaturationLevel = Mth.ceil(ClientThirstData.getSaturationLevel() * 81 / ThirstConstants.MAX_SATURATION);
+                int thirstLevel = Mth.ceil(ClientThirstData.getThirstLevel() * 79
+                        / (float) ThirstConstants.MAX_THIRST);
+                int thirtyPercent = Mth.ceil(((float) ThirstConstants.MAX_THIRST * 30 / 100) * 79
+                        / (float) ThirstConstants.MAX_THIRST);
+                int thirstSaturationLevel = Mth.ceil(ClientThirstData.getSaturationLevel() * 81
+                        / ThirstConstants.MAX_SATURATION);
 
                 int uOffset = 162;
                 int vOffsetContainer = 0;
@@ -309,9 +320,26 @@ public class ModGuiOverlay {
         Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
-            gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+            gui.setupOverlayRenderState(true, false, BARS_LOCATION);
             minecraft.getProfiler().push("experience_bar");
             RenderSystem.enableBlend();
+
+            int left = 0;
+            int top = screenHeight - 6;
+            int uOffset = 162;
+            int vOffset = 0;
+
+            for (Map.Entry<Skill, SkillProperties> entry : ClientSkillsData.getSkillsLVL().entrySet()) {
+                float currentXp = entry.getValue().getXp();
+                float requiredXp = entry.getValue().getRequiredXp();
+                int xpBarSize = Mth.ceil(currentXp * 79 / requiredXp);
+                GuiComponent.blit(poseStack, left, top, uOffset, vOffset, 81, 6, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, vOffset + 73, xpBarSize, 4, textureWidth, textureHeight);
+                top -= 6;
+            }
+
+            RenderSystem.disableBlend();
+            minecraft.getProfiler().pop();
         }
     };
 }

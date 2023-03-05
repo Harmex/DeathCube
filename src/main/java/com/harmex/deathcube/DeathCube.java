@@ -1,17 +1,17 @@
 package com.harmex.deathcube;
 
-import com.harmex.deathcube.block.ModBlocks;
-import com.harmex.deathcube.block.entity.ModBlockEntities;
 import com.harmex.deathcube.config.DeathCubeClientConfigs;
 import com.harmex.deathcube.config.DeathCubeCommonConfigs;
-import com.harmex.deathcube.entity.ModEntityTypes;
-import com.harmex.deathcube.entity.attribute.ModAttributes;
-import com.harmex.deathcube.item.ModItems;
 import com.harmex.deathcube.painting.ModPaintings;
 import com.harmex.deathcube.potion.ModPotions;
 import com.harmex.deathcube.recipe.ModRecipes;
-import com.harmex.deathcube.screen.ModMenuTypes;
 import com.harmex.deathcube.world.effect.ModMobEffects;
+import com.harmex.deathcube.world.entity.ModEntityTypes;
+import com.harmex.deathcube.world.entity.ai.attribute.ModAttributes;
+import com.harmex.deathcube.world.inventory.ModMenuTypes;
+import com.harmex.deathcube.world.item.ModItems;
+import com.harmex.deathcube.world.level.block.ModBlocks;
+import com.harmex.deathcube.world.level.block.entity.ModBlockEntities;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;

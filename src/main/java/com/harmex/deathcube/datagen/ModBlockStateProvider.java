@@ -1,7 +1,7 @@
 package com.harmex.deathcube.datagen;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.block.ModBlocks;
+import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;

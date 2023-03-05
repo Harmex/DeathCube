@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.block.ModBlocks;
+import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;

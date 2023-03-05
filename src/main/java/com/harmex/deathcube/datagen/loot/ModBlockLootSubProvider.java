@@ -1,8 +1,8 @@
 package com.harmex.deathcube.datagen.loot;
 
-import com.harmex.deathcube.block.ModBlocks;
-import com.harmex.deathcube.block.custom.GoldenCarrotBlock;
-import com.harmex.deathcube.item.ModItems;
+import com.harmex.deathcube.world.item.ModItems;
+import com.harmex.deathcube.world.level.block.ModBlocks;
+import com.harmex.deathcube.world.level.block.custom.GoldenCarrotBlock;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;

@@ -1,23 +1,19 @@
 package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.capabilities.equipment.ClientEquippedSetsData;
-import com.harmex.deathcube.capabilities.equipment.EquippedSetsData;
-import com.harmex.deathcube.capabilities.equipment.EquippedSetsDataProvider;
-import com.harmex.deathcube.capabilities.mana.ManaData;
-import com.harmex.deathcube.capabilities.mana.ManaDataProvider;
-import com.harmex.deathcube.capabilities.skills.SkillsData;
-import com.harmex.deathcube.capabilities.skills.SkillsDataProvider;
-import com.harmex.deathcube.capabilities.thirst.ThirstConstants;
-import com.harmex.deathcube.capabilities.thirst.ThirstData;
-import com.harmex.deathcube.capabilities.thirst.ThirstDataProvider;
-import com.harmex.deathcube.item.custom.ArmorSet;
-import com.harmex.deathcube.item.custom.ArmorSetItem;
 import com.harmex.deathcube.networking.ModMessages;
 import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ManaDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.SkillsDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
+import com.harmex.deathcube.util.capabilities.equipment.ClientEquippedSetsData;
+import com.harmex.deathcube.util.capabilities.equipment.EquippedSetsDataProvider;
+import com.harmex.deathcube.util.capabilities.mana.ManaDataProvider;
+import com.harmex.deathcube.util.capabilities.skills.SkillsDataProvider;
+import com.harmex.deathcube.util.capabilities.thirst.ThirstConstants;
+import com.harmex.deathcube.util.capabilities.thirst.ThirstDataProvider;
+import com.harmex.deathcube.world.item.custom.ArmorSet;
+import com.harmex.deathcube.world.item.custom.ArmorSetItem;
 import com.harmex.deathcube.world.skill.Skills;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -25,19 +21,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.EnchantmentMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -73,28 +68,16 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
-        if (event.isWasDeath()) {
-            event.getOriginal().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(oldStore ->
-                    event.getEntity().getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(newStore -> {
-                        newStore.copyFrom(oldStore);
-                        ModMessages.sendToClient(new ThirstDataSyncS2CPacket(newStore.getThirstLevel(), newStore.getSaturationLevel(), newStore.getExhaustionLevel()), (ServerPlayer) event.getEntity());
-            }));
-            event.getOriginal().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(oldStore ->
-                    event.getEntity().getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(newStore -> {
-                        newStore.copyFrom(oldStore);
-                        ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedCountForArmorSet()), (ServerPlayer) event.getEntity());
-            }));
-            event.getOriginal().getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(oldStore ->
-                    event.getEntity().getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(newStore -> {
-                        newStore.copyFrom(oldStore);
-                        ModMessages.sendToClient(new ManaDataSyncS2CPacket(newStore.getManaLevel()), (ServerPlayer) event.getEntity());
-            }));
-            event.getOriginal().getCapability(SkillsDataProvider.SKILLS).ifPresent(oldStore ->
-                    event.getEntity().getCapability(SkillsDataProvider.SKILLS).ifPresent(newStore -> {
-                        newStore.copyFrom(oldStore);
-                        ModMessages.sendToClient(new SkillsDataSyncS2CPacket(newStore.getSkillsLVL()), (ServerPlayer) event.getEntity());
-                    }));
-        }
+        Player originalPlayer = event.getOriginal();
+        Player newPlayer = event.getEntity();
+        originalPlayer.reviveCaps();
+        originalPlayer.getCapability(SkillsDataProvider.SKILLS).ifPresent(oldStore -> {
+            newPlayer.getCapability(SkillsDataProvider.SKILLS).ifPresent(newStore -> {
+                newStore.copyFrom(oldStore);
+                ModMessages.sendToClient(new SkillsDataSyncS2CPacket(newStore.getSkillsLVL()), (ServerPlayer) event.getEntity());
+            });
+        });
+        originalPlayer.invalidateCaps();
     }
 
     @SubscribeEvent
@@ -139,9 +122,19 @@ public class ModEvents {
     public static void onBlockMined(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getState().getBlock();
-        player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
-            skillsData.addXP(Skills.MINING, XP_FOR_BLOCK_BROKEN.getOrDefault(block, 0.0F));
-        });
+        if (!player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
+                    thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE));
+            player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
+                if (XP_FOR_BLOCK_MINED.containsKey(block)) {
+                    skillsData.addXP(Skills.MINING, XP_FOR_BLOCK_MINED.get(block));
+                } else if (XP_FOR_CROP_HARVESTED.containsKey(block)) {
+                    if (!(block instanceof CropBlock cropBlock) || cropBlock.isMaxAge(event.getState())) {
+                        skillsData.addXP(Skills.FARMING, XP_FOR_CROP_HARVESTED.get(block));
+                    }
+                }
+            });
+        }
     }
 
     @SubscribeEvent
@@ -208,24 +201,10 @@ public class ModEvents {
             player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
                     thirstData.addExhaustion(ThirstConstants.EXHAUSTION_ATTACK));
         }
-    }
-
-    @SubscribeEvent
-    public static void onEntityDeath(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide()) {
-            EntityType<?> entityType = event.getEntity().getType();
-            player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData ->
-                    skillsData.addXP(Skills.COMBAT, XP_AMOUNT_FOR_ENTITIES.getOrDefault(entityType, 0.0F)
-                            * (event.getEntity() instanceof Slime slime ? slime.getSize() : 1.0F)));
-        }
-    }
-
-    @SubscribeEvent
-    public static void onEntityDestroyBlock(BlockEvent.BreakEvent event) {
-        Player player = event.getPlayer();
-        if (!player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
-            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
-                    thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE));
+            player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
+                skillsData.addXP(Skills.COMBAT, event.getAmount());
+            });
         }
     }
 

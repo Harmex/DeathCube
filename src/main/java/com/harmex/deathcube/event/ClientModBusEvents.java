@@ -1,22 +1,20 @@
 package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.block.ModBlocks;
-import com.harmex.deathcube.block.entity.ModBlockEntities;
-import com.harmex.deathcube.block.entity.ModWoodTypes;
 import com.harmex.deathcube.client.gui.overlay.ModGuiOverlay;
-import com.harmex.deathcube.entity.ModEntityTypes;
-import com.harmex.deathcube.entity.model.*;
-import com.harmex.deathcube.entity.renderer.*;
-import com.harmex.deathcube.item.ModCreativeModeTabs;
-import com.harmex.deathcube.item.ModItems;
-import com.harmex.deathcube.screen.MatterManipulatorScreen;
-import com.harmex.deathcube.screen.ModMenuTypes;
-import com.harmex.deathcube.screen.ResurrectionAltarScreen;
-import com.harmex.deathcube.screen.UpgradingStationScreen;
+import com.harmex.deathcube.client.gui.screens.inventory.MatterManipulatorScreen;
+import com.harmex.deathcube.client.gui.screens.inventory.ResurrectionAltarScreen;
+import com.harmex.deathcube.client.gui.screens.inventory.UpgradingStationScreen;
+import com.harmex.deathcube.client.model.*;
+import com.harmex.deathcube.client.renderer.entity.*;
+import com.harmex.deathcube.world.entity.ModEntityTypes;
+import com.harmex.deathcube.world.inventory.ModMenuTypes;
+import com.harmex.deathcube.world.item.ModCreativeModeTabs;
+import com.harmex.deathcube.world.item.ModItems;
+import com.harmex.deathcube.world.level.block.ModBlocks;
+import com.harmex.deathcube.world.level.block.entity.ModBlockEntities;
+import com.harmex.deathcube.world.level.block.entity.ModWoodTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -71,6 +69,7 @@ public class ClientModBusEvents {
                 "food_level", ModGuiOverlay.FOOD_LEVEL);
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "food_level"),
                 "thirst_level", ModGuiOverlay.THIRST_LEVEL);
+        event.registerAboveAll("experience_bar", ModGuiOverlay.EXPERIENCE_BAR);
     }
 
     @SubscribeEvent
