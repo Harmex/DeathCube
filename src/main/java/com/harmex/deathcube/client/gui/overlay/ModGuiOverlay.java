@@ -8,11 +8,13 @@ import com.harmex.deathcube.util.capabilities.thirst.ThirstConstants;
 import com.harmex.deathcube.world.entity.ai.attribute.ModAttributes;
 import com.harmex.deathcube.world.skill.Skill;
 import com.harmex.deathcube.world.skill.SkillProperties;
+import com.harmex.deathcube.world.skill.Skills;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -27,14 +29,20 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import java.awt.*;
+import java.awt.Color;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class ModGuiOverlay {
     private static final ResourceLocation BARS_LOCATION = new ResourceLocation(DeathCube.MODID, "textures/gui/bars.png");
-    private static final int textureWidth = 256;
-    private static final int textureHeight = 256;
+    private static final int barsTextureWidth = 256;
+    private static final int barsTextureHeight = 256;
+    private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(DeathCube.MODID, "textures/gui/icons.png");
+    private static final int iconsTextureWidth = 256;
+    private static final int iconsTextureHeight = 256;
 
     private static int lastHealth;
     private static long healthBlinkTime;
@@ -111,9 +119,9 @@ public class ModGuiOverlay {
             int thirtyPercent = Mth.ceil((maxHealth * 30 / 100) * 79 / maxHealth);
             int absorptionBarSize = Mth.ceil(absorption * 79 / maxHealth);
 
-            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 13 : healthBarSize >= thirtyPercent ? 0 : 26, 81, 13, textureWidth, textureHeight);
-            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, vOffset + 1, healthBarSize, 11, textureWidth, textureHeight);
-            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, 130 + 1, absorptionBarSize, 11, textureWidth, textureHeight);
+            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 13 : healthBarSize >= thirtyPercent ? 0 : 26, 81, 13, barsTextureWidth, barsTextureHeight);
+            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, vOffset + 1, healthBarSize, 11, barsTextureWidth, barsTextureHeight);
+            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, 130 + 1, absorptionBarSize, 11, barsTextureWidth, barsTextureHeight);
 
             String healthText = String.valueOf(Mth.ceil(health + absorption));
             String maxHealthText = String.valueOf(Mth.ceil(maxHealth));
@@ -155,7 +163,7 @@ public class ModGuiOverlay {
             int uOffset = 162;
 
             if (armorLevel > 0) {
-                GuiComponent.blit(poseStack, left, top, uOffset, 0, 81, 6, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left, top, uOffset, 0, 81, 6, barsTextureWidth, barsTextureHeight);
 
                 while (armorBarLevel > armorBarSize) {
                     armorBarLevel -= armorBarSize;
@@ -168,10 +176,10 @@ public class ModGuiOverlay {
                         vOffset = prevVOffset + 6 * i;
 
                     }
-                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarSize, 6, textureWidth, textureHeight);
-                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, armorBarLevel, 6, textureWidth, textureHeight);
+                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarSize, 6, barsTextureWidth, barsTextureHeight);
+                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, armorBarLevel, 6, barsTextureWidth, barsTextureHeight);
                 } else {
-                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarLevel, 6, textureWidth, textureHeight);
+                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarLevel, 6, barsTextureWidth, barsTextureHeight);
                 }
             }
 
@@ -211,8 +219,8 @@ public class ModGuiOverlay {
                     vOffsetContainer = 13;
                 }
 
-                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 13, textureWidth, textureHeight);
-                GuiComponent.blit(poseStack, left + 80 - manaBarSize, top + 1, uOffset + 80 - manaBarSize, vOffsetMana, manaBarSize, 11, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 13, barsTextureWidth, barsTextureHeight);
+                GuiComponent.blit(poseStack, left + 80 - manaBarSize, top + 1, uOffset + 80 - manaBarSize, vOffsetMana, manaBarSize, 11, barsTextureWidth, barsTextureHeight);
 
                 String manaText = String.valueOf(Mth.ceil(manaLevel));
                 String maxManaText = String.valueOf(Mth.ceil(maxMana));
@@ -262,9 +270,9 @@ public class ModGuiOverlay {
                     vOffsetContainer = 12;
                 }
 
-                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, textureWidth, textureHeight);
-                GuiComponent.blit(poseStack, left + 81 - foodSaturationLevel, top, uOffset + 81 - foodSaturationLevel, vOffsetSaturation, foodSaturationLevel, 6, textureWidth, textureHeight);
-                GuiComponent.blit(poseStack, left + 80 - foodLevel, top, uOffset + 80 - foodLevel, vOffsetFood, foodLevel, 6, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, barsTextureWidth, barsTextureHeight);
+                GuiComponent.blit(poseStack, left + 81 - foodSaturationLevel, top, uOffset + 81 - foodSaturationLevel, vOffsetSaturation, foodSaturationLevel, 6, barsTextureWidth, barsTextureHeight);
+                GuiComponent.blit(poseStack, left + 80 - foodLevel, top, uOffset + 80 - foodLevel, vOffsetFood, foodLevel, 6, barsTextureWidth, barsTextureHeight);
 
                 RenderSystem.disableBlend();
                 minecraft.getProfiler().pop();
@@ -306,9 +314,9 @@ public class ModGuiOverlay {
                     vOffsetContainer = 12;
                 }
 
-                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, textureWidth, textureHeight);
-                GuiComponent.blit(poseStack, left + 81 - thirstSaturationLevel, top, uOffset + 81 - thirstSaturationLevel, vOffsetSaturation, thirstSaturationLevel, 6, textureWidth, textureHeight);
-                GuiComponent.blit(poseStack, left + 80 - thirstLevel, top, uOffset + 80 - thirstLevel, vOffsetThirst, thirstLevel, 6, textureWidth, textureHeight);
+                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, barsTextureWidth, barsTextureHeight);
+                GuiComponent.blit(poseStack, left + 81 - thirstSaturationLevel, top, uOffset + 81 - thirstSaturationLevel, vOffsetSaturation, thirstSaturationLevel, 6, barsTextureWidth, barsTextureHeight);
+                GuiComponent.blit(poseStack, left + 80 - thirstLevel, top, uOffset + 80 - thirstLevel, vOffsetThirst, thirstLevel, 6, barsTextureWidth, barsTextureHeight);
 
                 RenderSystem.disableBlend();
                 minecraft.getProfiler().pop();
@@ -320,22 +328,58 @@ public class ModGuiOverlay {
         Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
-            gui.setupOverlayRenderState(true, false, BARS_LOCATION);
+            gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
             minecraft.getProfiler().push("experience_bar");
             RenderSystem.enableBlend();
 
-            int left = 0;
-            int top = screenHeight - 6;
-            int uOffset = 162;
+            int left = 8;
+            int top = screenHeight - 24;
             int vOffset = 0;
+            int uOffset = 0;
 
-            for (Map.Entry<Skill, SkillProperties> entry : ClientSkillsData.getSkillsLVL().entrySet()) {
-                float currentXp = entry.getValue().getXp();
+            Font font = gui.getFont();
+
+            List<Map.Entry<Skill, SkillProperties>> sortedList = new ArrayList<>(ClientSkillsData.getSkillsLVL().entrySet());
+            sortedList.sort((o1, o2) -> Float.compare(o1.getValue().getTotalXp(), o2.getValue().getTotalXp()));
+
+            for (Map.Entry<Skill, SkillProperties> entry : sortedList) {
                 float requiredXp = entry.getValue().getRequiredXp();
-                int xpBarSize = Mth.ceil(currentXp * 79 / requiredXp);
-                GuiComponent.blit(poseStack, left, top, uOffset, vOffset, 81, 6, textureWidth, textureHeight);
-                GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, vOffset + 73, xpBarSize, 4, textureWidth, textureHeight);
-                top -= 6;
+                float currentXp = entry.getValue().getXp() / requiredXp;
+                float level = entry.getValue().getLvl() + currentXp;
+                if (level > 0) {
+                    if (entry.getKey() == Skills.COMBAT) {
+                        uOffset = 0;
+                    } else if (entry.getKey() == Skills.MINING) {
+                        uOffset = 16;
+                    } else if (entry.getKey() == Skills.FARMING) {
+                        uOffset = 32;
+                    } else if (entry.getKey() == Skills.FISHING) {
+                        uOffset = 48;
+                    } else if (entry.getKey() == Skills.ENCHANTING) {
+                        uOffset = 64;
+                    } else if (entry.getKey() == Skills.MAGIC) {
+                        uOffset = 80;
+                    }
+                    GuiComponent.blit(poseStack, left, top, uOffset, vOffset, 16, 16, iconsTextureWidth, iconsTextureHeight);
+                    top -= 20;
+                }
+            }
+
+            top = screenHeight - 24;
+
+            for (Map.Entry<Skill, SkillProperties> entry : sortedList) {
+                float requiredXp = entry.getValue().getRequiredXp();
+                float currentXp = entry.getValue().getXp();
+                float xpPercentage = currentXp * 100 / requiredXp;
+                int level = entry.getValue().getLvl();
+                if (level + currentXp > 0) {
+                    String requiredXpText = new DecimalFormat("#.##").format(requiredXp);
+                    String currentXpText = new DecimalFormat("#.##").format(currentXp);
+                    String xpText = currentXpText + " / " + requiredXpText + " (" + new DecimalFormat("#.##").format(xpPercentage) + "%)";
+                    font.drawShadow(poseStack, Component.literal(String.valueOf(level)).withStyle(entry.getKey().getStyleModifier()), left, top + (16 - font.lineHeight), 0);
+                    font.drawShadow(poseStack, Component.literal(xpText).withStyle(entry.getKey().getStyleModifier()), left + 20, top + (8 - (float) (font.lineHeight / 2)), 0);
+                    top -= 20;
+                }
             }
 
             RenderSystem.disableBlend();

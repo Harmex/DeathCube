@@ -1,4 +1,4 @@
-package com.harmex.deathcube.screen.slot;
+package com.harmex.deathcube.world.inventory.slot;
 
 import com.harmex.deathcube.util.ModTags;
 import net.minecraft.world.item.ItemStack;

@@ -19,12 +19,13 @@ public class SkillsDataSyncS2CPacket {
 
     public SkillsDataSyncS2CPacket(FriendlyByteBuf buf) {
         skillsLVL = buf.readMap(friendlyByteBuf -> friendlyByteBuf.readEnum(Skills.class), friendlyByteBuf ->
-                new SkillProperties(friendlyByteBuf.readInt(), friendlyByteBuf.readFloat()));
+                new SkillProperties(friendlyByteBuf.readInt(), friendlyByteBuf.readFloat(), friendlyByteBuf.readFloat()));
     }
 
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeMap(skillsLVL, (friendlyByteBuf, skill) -> friendlyByteBuf.writeEnum((Enum<?>) skill), (friendlyByteBuf, skillLVL) -> {
             friendlyByteBuf.writeInt(skillLVL.getLvl());
+            friendlyByteBuf.writeFloat(skillLVL.getTotalXp());
             friendlyByteBuf.writeFloat(skillLVL.getXp());
         });
     }

@@ -1,6 +1,6 @@
 package com.harmex.deathcube.world.inventory;
 
-import com.harmex.deathcube.screen.slot.ModResultSlot;
+import com.harmex.deathcube.world.inventory.slot.ModResultSlot;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import com.harmex.deathcube.world.level.block.entity.custom.MatterManipulatorBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,12 +23,12 @@ public class MatterManipulatorMenu extends AbstractContainerMenu {
         this(pContainerId, pInventory, pInventory.player.level.getBlockEntity(pExtraData.readBlockPos()), new SimpleContainerData(2));
     }
 
-    public MatterManipulatorMenu(int pContainerId, Inventory inventory, BlockEntity blockEntity, ContainerData dataAccess) {
+    public MatterManipulatorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pDataAccess) {
         super(ModMenuTypes.MATTER_MANIPULATOR_MENU.get(), pContainerId);
-        checkContainerSize(inventory, 11);
-        this.blockEntity = ((MatterManipulatorBlockEntity) blockEntity);
-        this.level = inventory.player.level;
-        this.dataAccess = dataAccess;
+        checkContainerSize(pInventory, 11);
+        this.blockEntity = ((MatterManipulatorBlockEntity) pBlockEntity);
+        this.level = pInventory.player.level;
+        this.dataAccess = pDataAccess;
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             for(int i = 0; i < 3; ++i) {
@@ -40,10 +40,10 @@ public class MatterManipulatorMenu extends AbstractContainerMenu {
             this.addSlot(new ModResultSlot(handler, 10, 134, 35));
         });
 
-        addPlayerInventory(inventory);
-        addPlayerHotbar(inventory);
+        addPlayerInventory(pInventory);
+        addPlayerHotbar(pInventory);
 
-        addDataSlots(dataAccess);
+        addDataSlots(pDataAccess);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

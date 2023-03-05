@@ -20,12 +20,12 @@ public class SkillsData {
     public SkillsData() {
         skillsLVL = new HashMap<>();
 
-        skillsLVL.put(Skills.COMBAT, new SkillProperties(1, 0.0F));
-        skillsLVL.put(Skills.MINING, new SkillProperties(1, 0.0F));
-        skillsLVL.put(Skills.FARMING, new SkillProperties(1, 0.0F));
-        skillsLVL.put(Skills.FISHING, new SkillProperties(1, 0.0F));
-        skillsLVL.put(Skills.ENCHANTING, new SkillProperties(1, 0.0F));
-        skillsLVL.put(Skills.MAGIC, new SkillProperties(1, 0.0F));
+        skillsLVL.put(Skills.COMBAT, new SkillProperties(0, 0.0F, 0.0F));
+        skillsLVL.put(Skills.MINING, new SkillProperties(0, 0.0F, 0.0F));
+        skillsLVL.put(Skills.FARMING, new SkillProperties(0, 0.0F, 0.0F));
+        skillsLVL.put(Skills.FISHING, new SkillProperties(0, 0.0F, 0.0F));
+        skillsLVL.put(Skills.ENCHANTING, new SkillProperties(0, 0.0F, 0.0F));
+        skillsLVL.put(Skills.MAGIC, new SkillProperties(0, 0.0F, 0.0F));
 
     }
 
@@ -49,6 +49,7 @@ public class SkillsData {
             Skill skill = Skills.getByName(skillLVLTag.getString("Skill"));
             skillsLVL.get(skill).setLvl(skillLVLTag.getInt("LVL"));
             skillsLVL.get(skill).setXp(skillLVLTag.getFloat("XP"));
+            skillsLVL.get(skill).setTotalXp(skillLVLTag.getFloat("TotalXP"));
         }
     }
 
@@ -59,6 +60,7 @@ public class SkillsData {
             skillLVLTag.putString("Skill", entry.getKey().getName());
             skillLVLTag.putInt("LVL", entry.getValue().getLvl());
             skillLVLTag.putFloat("XP", entry.getValue().getXp());
+            skillLVLTag.putFloat("TotalXP", entry.getValue().getTotalXp());
             skillListTag.add(skillLVLTag);
         }
         pNBT.put("Skills", skillListTag);

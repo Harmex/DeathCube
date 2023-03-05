@@ -1,5 +1,10 @@
 package com.harmex.deathcube.util.capabilities.mana;
 
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+@OnlyIn(Dist.CLIENT)
 public class ClientManaData {
     private static float manaLevel;
 
