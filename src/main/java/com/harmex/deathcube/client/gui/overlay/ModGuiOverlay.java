@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -34,6 +35,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class ModGuiOverlay {
@@ -211,7 +213,7 @@ public class ModGuiOverlay {
                 int thirtyPercent = Mth.ceil((maxMana * 30 / 100) * 79 / maxMana);
                 Color textColor = new Color(89, 50, 102);
 
-                int uOffset = player.level.getLevelData().isHardcore() ? 81 : 0;;
+                int uOffset = player.level.getLevelData().isHardcore() ? 81 : 0;
                 int vOffsetContainer = 0;
                 int vOffsetMana = 157;
 
@@ -360,25 +362,27 @@ public class ModGuiOverlay {
                     } else if (entry.getKey() == Skills.MAGIC) {
                         uOffset = 80;
                     }
+                    GuiComponent.blit(poseStack, left - 3, top - 3, 0, 16, 72, 22, iconsTextureWidth, iconsTextureHeight);
                     GuiComponent.blit(poseStack, left, top, uOffset, vOffset, 16, 16, iconsTextureWidth, iconsTextureHeight);
-                    top -= 20;
+                    top -= 22;
                 }
             }
 
             top = screenHeight - 24;
 
             for (Map.Entry<Skill, SkillProperties> entry : sortedList) {
+                int color = Objects.requireNonNull(entry.getKey().getStyleModifier().apply(Style.EMPTY).getColor()).getValue();
                 float requiredXp = entry.getValue().getRequiredXp();
                 float currentXp = entry.getValue().getXp();
                 float xpPercentage = currentXp * 100 / requiredXp;
+                int xpBarSize = Mth.ceil(currentXp * 48 / requiredXp);
                 int level = entry.getValue().getLvl();
                 if (level + currentXp > 0) {
-                    String requiredXpText = new DecimalFormat("#.##").format(requiredXp);
-                    String currentXpText = new DecimalFormat("#.##").format(currentXp);
-                    String xpText = currentXpText + " / " + requiredXpText + " (" + new DecimalFormat("#.##").format(xpPercentage) + "%)";
-                    font.drawShadow(poseStack, Component.literal(String.valueOf(level)).withStyle(entry.getKey().getStyleModifier()), left, top + (16 - font.lineHeight), 0);
-                    font.drawShadow(poseStack, Component.literal(xpText).withStyle(entry.getKey().getStyleModifier()), left + 20, top + (8 - (float) (font.lineHeight / 2)), 0);
-                    top -= 20;
+                    String xpPercentageText = new DecimalFormat("#.##").format(xpPercentage) + "%";
+                    font.drawShadow(poseStack, Component.literal(String.valueOf(level)).withStyle(entry.getKey().getStyleModifier()), left + 16 - (font.width(String.valueOf(level))), top + (16 - font.lineHeight), 0);
+                    font.drawShadow(poseStack, Component.literal(xpPercentageText).withStyle(entry.getKey().getStyleModifier()), left + 42 - (float) (font.width(xpPercentageText) / 2), top + (6 - (float) (font.lineHeight / 2)), 0);
+                    GuiComponent.fill(poseStack, left + 18, top + 13, left + 18 + xpBarSize, top + 16, color + 0xFF000000);
+                    top -= 22;
                 }
             }
 
