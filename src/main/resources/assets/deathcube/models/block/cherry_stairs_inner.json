@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "deathcube:block/cherry_planks",
-    "side": "deathcube:block/cherry_planks",
-    "top": "deathcube:block/cherry_planks"
-  }
-}

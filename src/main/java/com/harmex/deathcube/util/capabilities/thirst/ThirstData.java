@@ -1,11 +1,16 @@
 package com.harmex.deathcube.util.capabilities.thirst;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
+
+import java.util.Objects;
 
 import static com.harmex.deathcube.util.capabilities.thirst.ThirstConstants.*;
 
@@ -15,6 +20,7 @@ public class ThirstData {
     private float saturationLevel;
     private float exhaustionLevel;
     private int tickTimer;
+    private Vec3 lastPlayerPos;
 
 
     public ThirstData() {
@@ -32,31 +38,30 @@ public class ThirstData {
         }
 
         if (difficulty != Difficulty.PEACEFUL) {
-            //TODO : Le fonctionnement de la soif
-            //Vec3 oldPlayerPos = new Vec3(pPlayer.xOld, pPlayer.yOld, pPlayer.zOld);
-            //Vec3 playerPos = new Vec3(pPlayer.getX(), pPlayer.getY(), pPlayer.getZ());
-            //Vec3 playerPosDelta = playerPos.subtract(oldPlayerPos);
-            //double moveDist = oldPlayerPos.distanceToSqr(playerPos);
-            //int moveDistRound = Math.round((float) moveDist * 100.0F);
-            //int moveDistHorizontal = Math.round((float) playerPosDelta.horizontalDistanceSqr() * 100.0F);
-//
-            //if (!pPlayer.isPassenger()) {
-            //    if (pPlayer.isSwimming() || pPlayer.isEyeInFluidType(ForgeMod.WATER_TYPE.get())) {
-            //        if (moveDistRound > 0) {
-            //            addExhaustion(EXHAUSTION_SWIM * (float) moveDistRound * 0.01F);
-            //        }
-            //    } else if (pPlayer.isInWater()) {
-            //        if (moveDistHorizontal > 0) {
-            //            addExhaustion(EXHAUSTION_SWIM * (float) moveDistHorizontal * 0.01F);
-            //        }
-            //    } else if (pPlayer.isOnGround()) {
-            //        if (moveDistHorizontal > 0) {
-            //            if (pPlayer.isSprinting()) {
-            //                addExhaustion(EXHAUSTION_SPRINT * (float) moveDistHorizontal * 0.01F);
-            //            }
-            //        }
-            //    }
-            //}
+            Vec3 playerPos = new Vec3(pPlayer.getX(), pPlayer.getY(), pPlayer.getZ());
+            if (lastPlayerPos != null && !Objects.equals(lastPlayerPos, playerPos)) {
+                Vec3 playerPosDelta = playerPos.subtract(lastPlayerPos);
+                int moveDist = Math.round((float) lastPlayerPos.distanceTo(playerPos) * 100.0F);
+                int moveDistHorizontal = Math.round((float) playerPosDelta.horizontalDistance() * 100.0F);
+                if (!pPlayer.isPassenger()) {
+                    if (pPlayer.isSwimming() || pPlayer.isEyeInFluidType(ForgeMod.WATER_TYPE.get())) {
+                        if (moveDist > 0) {
+                            addExhaustion(EXHAUSTION_SWIM * (float) moveDist * 0.01F);
+                        }
+                    } else if (pPlayer.isInWater()) {
+                        if (moveDistHorizontal > 0) {
+                            addExhaustion(EXHAUSTION_SWIM * (float) moveDistHorizontal * 0.01F);
+                        }
+                    } else if (pPlayer.isOnGround()) {
+                        if (moveDistHorizontal > 0) {
+                            if (pPlayer.isSprinting()) {
+                                addExhaustion(EXHAUSTION_SPRINT * (float) moveDistHorizontal * 0.01F);
+                            }
+                        }
+                    }
+                }
+            }
+            lastPlayerPos = playerPos;
         }
 
         if (exhaustionLevel > EXHAUSTION_DROP) {

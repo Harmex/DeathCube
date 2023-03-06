@@ -13,16 +13,12 @@ import com.harmex.deathcube.world.item.custom.ArmorSets;
 import com.harmex.deathcube.world.item.custom.DyeableArmorSetItem;
 import com.harmex.deathcube.world.item.custom.ModPotionItem;
 import com.harmex.deathcube.world.level.block.ModBlocks;
-import com.harmex.deathcube.world.level.block.entity.ModWoodTypes;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,12 +32,6 @@ public class ModBusEvents {
 
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CHERRY_SAPLING.getId(), ModBlocks.POTTED_CHERRY_SAPLING);
-
-            Sheets.addWoodType(ModWoodTypes.CHERRY);
-
-        });
         ModMessages.register();
     }
 

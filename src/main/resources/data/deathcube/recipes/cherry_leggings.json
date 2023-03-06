@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "X": {
-      "item": "deathcube:cherry_wood"
+      "item": "minecraft:oak_wood"
     }
   },
   "pattern": [

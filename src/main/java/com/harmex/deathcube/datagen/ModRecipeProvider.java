@@ -1,6 +1,5 @@
 package com.harmex.deathcube.datagen;
 
-import com.harmex.deathcube.util.ModTags;
 import com.harmex.deathcube.world.item.ModItems;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.data.PackOutput;
@@ -119,7 +118,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 ModItems.CHERRY_CHESTPLATE.get(),
                 ModItems.CHERRY_LEGGINGS.get(),
                 ModItems.CHERRY_BOOTS.get(),
-                ModBlocks.CHERRY_WOOD.get().asItem(),
+                Blocks.OAK_WOOD.asItem(),
                 "has_cherry_wood");
         armorRecipes(pFinishedRecipeConsumer,
                 ModItems.CRIMSON_HELMET.get(),
@@ -261,70 +260,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void shapedRecipes(Consumer<FinishedRecipe> pWriter) {
-
-        //region Cherry Furniture
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_DOOR.get(), 3)
-                .define('#', ModBlocks.CHERRY_PLANKS.get())
-                .pattern("##")
-                .pattern("##")
-                .pattern("##")
-                .group("wooden_door")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_FENCE.get(), 3)
-                .define('#', Items.STICK)
-                .define('W', ModBlocks.CHERRY_PLANKS.get())
-                .pattern("W#W")
-                .pattern("W#W")
-                .group("wooden_fence")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_FENCE_GATE.get())
-                .define('#', Items.STICK)
-                .define('W', ModBlocks.CHERRY_PLANKS.get())
-                .pattern("#W#")
-                .pattern("#W#")
-                .group("wooden_fence_gate")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModBlocks.CHERRY_PRESSURE_PLATE.get())
-                .define('#', ModBlocks.CHERRY_PLANKS.get())
-                .pattern("##")
-                .group("wooden_pressure_plate")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.CHERRY_SIGN.get(), 3)
-                .define('#', ModBlocks.CHERRY_PLANKS.get())
-                .define('X', Items.STICK)
-                .pattern("###")
-                .pattern("###")
-                .pattern(" X ")
-                .group("wooden_sign")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_SLAB.get(), 6)
-                .define('#', ModBlocks.CHERRY_PLANKS.get())
-                .pattern("###")
-                .group("wooden_slab")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_STAIRS.get(), 4)
-                .define('#', ModBlocks.CHERRY_PLANKS.get())
-                .pattern("#  ")
-                .pattern("## ")
-                .pattern("###")
-                .group("wooden_stairs")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_TRAPDOOR.get(), 2)
-                .define('#', ModBlocks.CHERRY_PLANKS.get())
-                .pattern("###")
-                .pattern("###")
-                .group("wooden_trapdoor")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
-        //endregion
-
         //region Echo Amethyst
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ECHO_AMETHYST_SHARD.get(), 8)
                 .define('#', Items.ECHO_SHARD)
@@ -355,17 +290,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     }
     private void shapelessRecipes(Consumer<FinishedRecipe> pWriter) {
-        //Cherry Furniture
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHERRY_PLANKS.get(), 4)
-                .requires(ModTags.Items.CHERRY_LOGS)
-                .group("planks")
-                .unlockedBy("has_cherry_logs", has(ModTags.Items.CHERRY_LOGS))
-                .save(pWriter);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, ModBlocks.CHERRY_BUTTON.get())
-                .requires(ModBlocks.CHERRY_PLANKS.get())
-                .group("wooden_button")
-                .unlockedBy("has_cherry_planks", has(ModBlocks.CHERRY_PLANKS.get()))
-                .save(pWriter);
+
     }
     private void cookingRecipes(Consumer<FinishedRecipe> pWriter) {
         SimpleCookingRecipeBuilder.blasting(Ingredient.of(ModItems.ECHO_AMETHYST_SHARD.get()),

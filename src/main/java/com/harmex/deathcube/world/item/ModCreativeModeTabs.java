@@ -27,7 +27,7 @@ public class ModCreativeModeTabs {
     @SubscribeEvent
     public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
         DEATHCUBE_BUILDING_BLOCKS_TAB = event.registerCreativeModeTab(new ResourceLocation(DeathCube.MODID, "building_blocks"),
-                builder -> builder.icon(() -> new ItemStack(ModBlocks.CHERRY_PLANKS.get()))
+                builder -> builder.icon(() -> new ItemStack(ModBlocks.ECHO_AMETHYST_BLOCK.get()))
                         .title(Component.translatable("itemGroup." + DeathCube.MODID + ".buildingBlocks")).build());
 
         DEATHCUBE_COLORED_BLOCKS_TAB = event.registerCreativeModeTab(new ResourceLocation(DeathCube.MODID, "colored_blocks"),
@@ -35,7 +35,7 @@ public class ModCreativeModeTabs {
                         .title(Component.translatable("itemGroup." + DeathCube.MODID + ".coloredBlocks")).build());
 
         DEATHCUBE_NATURAL_BLOCKS_TAB = event.registerCreativeModeTab(new ResourceLocation(DeathCube.MODID, "natural_blocks"),
-                builder -> builder.icon(() -> new ItemStack(ModBlocks.CHERRY_LEAVES.get()))
+                builder -> builder.icon(() -> new ItemStack(ModBlocks.ZANTHINE_ORE.get()))
                         .title(Component.translatable("itemGroup." + DeathCube.MODID + ".naturalBlocks")).build());
 
         DEATHCUBE_FUNCTIONAL_BLOCKS_TAB = event.registerCreativeModeTab(new ResourceLocation(DeathCube.MODID, "functional_blocks"),

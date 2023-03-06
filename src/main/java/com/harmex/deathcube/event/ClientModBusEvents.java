@@ -13,12 +13,10 @@ import com.harmex.deathcube.world.item.ModCreativeModeTabs;
 import com.harmex.deathcube.world.item.ModItems;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import com.harmex.deathcube.world.level.block.entity.ModBlockEntities;
-import com.harmex.deathcube.world.level.block.entity.ModWoodTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -34,9 +32,6 @@ public class ClientModBusEvents {
         MenuScreens.register(ModMenuTypes.UPGRADING_STATION_MENU.get(), UpgradingStationScreen::new);
         MenuScreens.register(ModMenuTypes.MATTER_MANIPULATOR_MENU.get(), MatterManipulatorScreen::new);
         MenuScreens.register(ModMenuTypes.RESURRECTION_ALTAR_MENU.get(), ResurrectionAltarScreen::new);
-
-        WoodType.register(ModWoodTypes.CHERRY);
-        BlockEntityRenderers.register(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
     }
 
     @SubscribeEvent
@@ -63,9 +58,9 @@ public class ClientModBusEvents {
                 "player_health", ModGuiOverlay.PLAYER_HEALTH);
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "player_health"),
                 "armor_level", ModGuiOverlay.ARMOR_LEVEL);
+        /*event.registerAbove(new ResourceLocation(DeathCube.MODID, "armor_level"),
+                "player_mana", ModGuiOverlay.PLAYER_MANA);*/
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "armor_level"),
-                "player_mana", ModGuiOverlay.PLAYER_MANA);
-        event.registerAbove(new ResourceLocation(DeathCube.MODID, "player_mana"),
                 "food_level", ModGuiOverlay.FOOD_LEVEL);
         event.registerAbove(new ResourceLocation(DeathCube.MODID, "food_level"),
                 "thirst_level", ModGuiOverlay.THIRST_LEVEL);
@@ -75,28 +70,12 @@ public class ClientModBusEvents {
     @SubscribeEvent
     public static void addCreativeModeTabs(CreativeModeTabEvent.BuildContents event) {
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_BUILDING_BLOCKS_TAB) {
-            event.accept(ModBlocks.CHERRY_LOG);
-            event.accept(ModBlocks.CHERRY_WOOD);
-            event.accept(ModBlocks.STRIPPED_CHERRY_LOG);
-            event.accept(ModBlocks.STRIPPED_CHERRY_WOOD);
-            event.accept(ModBlocks.CHERRY_PLANKS);
-            event.accept(ModBlocks.CHERRY_STAIRS);
-            event.accept(ModBlocks.CHERRY_SLAB);
-            event.accept(ModBlocks.CHERRY_FENCE);
-            event.accept(ModBlocks.CHERRY_FENCE_GATE);
-            event.accept(ModBlocks.CHERRY_DOOR);
-            event.accept(ModBlocks.CHERRY_TRAPDOOR);
-            event.accept(ModBlocks.CHERRY_PRESSURE_PLATE);
-            event.accept(ModBlocks.CHERRY_BUTTON);
             event.accept(ModBlocks.ECHO_AMETHYST_BLOCK);
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_COLORED_BLOCKS_TAB) {
             event.accept(ModBlocks.ECHO_AMETHYST_BLOCK);
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_NATURAL_BLOCKS_TAB) {
-            event.accept(ModBlocks.CHERRY_LOG);
-            event.accept(ModBlocks.CHERRY_LEAVES);
-            event.accept(ModBlocks.CHERRY_SAPLING);
             event.accept(ModBlocks.ZANTHINE_ORE);
             event.accept(ModBlocks.DEEPSLATE_ZANTHINE_ORE);
         }
@@ -104,11 +83,9 @@ public class ClientModBusEvents {
             event.accept(ModBlocks.UPGRADING_STATION);
             event.accept(ModBlocks.MATTER_MANIPULATOR);
             event.accept(ModBlocks.RESURRECTION_ALTAR);
-            event.accept(ModItems.CHERRY_SIGN);
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_REDSTONE_BLOCKS_TAB) {
-            event.accept(ModBlocks.CHERRY_BUTTON);
-            event.accept(ModBlocks.CHERRY_PRESSURE_PLATE);
+
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_TOOLS_AND_UTILITIES_TAB) {
             event.accept(ModItems.BONE_SHOVEL);
@@ -213,6 +190,10 @@ public class ClientModBusEvents {
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_SPAWN_EGGS_TAB) {
             event.accept(ModItems.GALTERIUS_SPAWN_EGG);
+            event.accept(ModItems.ZANUZAL_SPAWN_EGG);
+            event.accept(ModItems.NAERVUS_SPAWN_EGG);
+            event.accept(ModItems.AZRATHAL_SPAWN_EGG);
+            event.accept(ModItems.BORZADON_SPAWN_EGG);
         }
         //OP Blocks
     }

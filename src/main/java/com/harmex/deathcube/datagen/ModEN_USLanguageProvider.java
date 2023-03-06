@@ -84,23 +84,6 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add(ModItems.NAERVUS_SPAWN_EGG.get(), "Naervus Spawn Egg");
         add(ModItems.ZANUZAL_SPAWN_EGG.get(), "Zanuzal Spawn Egg");
 
-        add(ModBlocks.CHERRY_PLANKS.get(), "Cherry Planks");
-        add(ModBlocks.CHERRY_SAPLING.get(), "Cherry Sapling");
-        add(ModBlocks.CHERRY_LOG.get(), "Cherry Log");
-        add(ModBlocks.STRIPPED_CHERRY_LOG.get(), "Stripped Cherry Log");
-        add(ModBlocks.STRIPPED_CHERRY_WOOD.get(), "Stripped Cherry Wood");
-        add(ModBlocks.CHERRY_WOOD.get(), "Cherry Wood");
-        add(ModBlocks.CHERRY_LEAVES.get(), "Cherry Leaves");
-        add(ModBlocks.CHERRY_SLAB.get(), "Cherry Slab");
-        add(ModBlocks.CHERRY_FENCE.get(), "Cherry Fence");
-        add(ModBlocks.CHERRY_STAIRS.get(), "Cherry Stairs");
-        add(ModBlocks.CHERRY_BUTTON.get(), "Cherry Button");
-        add(ModBlocks.CHERRY_PRESSURE_PLATE.get(), "Cherry Pressure Plate");
-        add(ModBlocks.CHERRY_DOOR.get(), "Cherry Door");
-        add(ModBlocks.CHERRY_TRAPDOOR.get(), "Cherry Trapdoor");
-        add(ModBlocks.CHERRY_FENCE_GATE.get(), "Cherry Fence Gate");
-        add(ModBlocks.CHERRY_SIGN.get(), "Cherry Sign");
-
         add(ModBlocks.ECHO_AMETHYST_BLOCK.get(), "Echo-Amethyst Block");
         add(ModBlocks.UPGRADING_STATION.get(), "Upgrade Station");
         add(ModBlocks.MATTER_MANIPULATOR.get(), "Matter Manipulator");

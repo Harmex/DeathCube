@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button",
-  "textures": {
-    "texture": "deathcube:block/cherry_planks"
-  }
-}

@@ -24,7 +24,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        copy(ModTags.Blocks.CHERRY_LOGS, ModTags.Items.CHERRY_LOGS);
         copy(ModTags.Blocks.ZANTHINE_ORES, ModTags.Items.ZANTHINE_ORES);
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);

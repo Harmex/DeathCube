@@ -23,7 +23,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
@@ -62,31 +61,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
                         .withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.GOLDEN_CARROT)))
                         .withPool(LootPool.lootPool().when(goldenCarrotsLootCondition).add(LootItem.lootTableItem(Items.GOLDEN_CARROT)
                                 .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
-
-        this.dropSelf(ModBlocks.CHERRY_PLANKS.get());
-        this.dropSelf(ModBlocks.CHERRY_SAPLING.get());
-        this.dropPottedContents(ModBlocks.POTTED_CHERRY_SAPLING.get());
-        this.add(ModBlocks.CHERRY_LEAVES.get(), block ->
-                createLeavesDrops(block, ModBlocks.CHERRY_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
-                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                                .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
-                                .add(applyExplosionCondition(block, LootItem.lootTableItem(ModItems.CHERRY.get()))
-                                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE,
-                                                CHERRY_LEAVES_FRUIT_CHANCES)))));
-        this.dropSelf(ModBlocks.CHERRY_LOG.get());
-        this.dropSelf(ModBlocks.STRIPPED_CHERRY_LOG.get());
-        this.dropSelf(ModBlocks.STRIPPED_CHERRY_WOOD.get());
-        this.dropSelf(ModBlocks.CHERRY_WOOD.get());
-        this.add(ModBlocks.CHERRY_SLAB.get(), this::createSlabItemTable);
-        this.dropSelf(ModBlocks.CHERRY_FENCE.get());
-        this.dropSelf(ModBlocks.CHERRY_STAIRS.get());
-        this.dropSelf(ModBlocks.CHERRY_BUTTON.get());
-        this.dropSelf(ModBlocks.CHERRY_PRESSURE_PLATE.get());
-        this.add(ModBlocks.CHERRY_DOOR.get(), this::createDoorTable);
-        this.dropSelf(ModBlocks.CHERRY_TRAPDOOR.get());
-        this.dropSelf(ModBlocks.CHERRY_FENCE_GATE.get());
-        this.dropOther(ModBlocks.CHERRY_SIGN.get(), ModItems.CHERRY_SIGN.get());
-        this.dropOther(ModBlocks.CHERRY_WALL_SIGN.get(), ModItems.CHERRY_SIGN.get());
 
         this.add(ModBlocks.ZANTHINE_ORE.get(), block ->
                 createOreDrop(block, ModItems.ZANTHINE.get())

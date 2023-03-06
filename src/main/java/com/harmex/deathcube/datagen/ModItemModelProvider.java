@@ -31,24 +31,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         blockItem(ModBlocks.ZANTHINE_ORE.get());
         blockItem(ModBlocks.DEEPSLATE_ZANTHINE_ORE.get());
         //endregion
-        //region Cherry Furniture
-        blockItem(ModBlocks.CHERRY_PLANKS.get());
-        plantItem(ModBlocks.CHERRY_SAPLING.get());
-        blockItem(ModBlocks.CHERRY_LOG.get());
-        blockItem(ModBlocks.STRIPPED_CHERRY_LOG.get());
-        blockItem(ModBlocks.STRIPPED_CHERRY_WOOD.get());
-        blockItem(ModBlocks.CHERRY_WOOD.get());
-        blockItem(ModBlocks.CHERRY_LEAVES.get());
-        blockItem(ModBlocks.CHERRY_SLAB.get());
-        fenceItem(ModBlocks.CHERRY_FENCE.get());
-        blockItem(ModBlocks.CHERRY_STAIRS.get());
-        buttonItem(ModBlocks.CHERRY_BUTTON.get());
-        blockItem(ModBlocks.CHERRY_PRESSURE_PLATE.get());
-        basicItem(ModBlocks.CHERRY_DOOR.get().asItem());
-        trapdoorItem(ModBlocks.CHERRY_TRAPDOOR.get());
-        blockItem(ModBlocks.CHERRY_FENCE_GATE.get());
-        basicItem(ModItems.CHERRY_SIGN.get());
-        //endregion
         //region Misc.
         basicItem(ModItems.ENDER_DRAGON_SCALE.get());
         basicItem(ModItems.WARDEN_HEART.get());

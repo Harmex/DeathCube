@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_fence_gate",
-  "textures": {
-    "texture": "deathcube:block/cherry_planks"
-  }
-}

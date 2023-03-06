@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -36,7 +37,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0.0F, 0.0F, () -> Ingredient.of(Items.MANGROVE_LOG)
     ),
     CHERRY("cherry", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_GENERIC,
-            0.0F, 0.0F, () -> Ingredient.of(ModBlocks.CHERRY_LOG.get().asItem())
+            0.0F, 0.0F, () -> Ingredient.of(Blocks.OAK_WOOD.asItem())
     ),
     CRIMSON("crimson", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_GENERIC,
             0.0F, 0.0F, () -> Ingredient.of(Items.CRIMSON_STEM)

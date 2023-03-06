@@ -84,23 +84,6 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModItems.NAERVUS_SPAWN_EGG.get(), "Oeuf d'apparition de Naervus");
         add(ModItems.ZANUZAL_SPAWN_EGG.get(), "Oeuf d'apparition de Zanuzal");
 
-        add(ModBlocks.CHERRY_PLANKS.get(), "Planches de cerisier");
-        add(ModBlocks.CHERRY_SAPLING.get(), "Pousse de cerisier");
-        add(ModBlocks.CHERRY_LOG.get(), "Bûche de cerisier");
-        add(ModBlocks.STRIPPED_CHERRY_LOG.get(), "Bûche de cerisier écorcé");
-        add(ModBlocks.STRIPPED_CHERRY_WOOD.get(), "Bois de cerisier écorcé");
-        add(ModBlocks.CHERRY_WOOD.get(), "Bois de cerisier");
-        add(ModBlocks.CHERRY_LEAVES.get(), "Feuilles de cerisier");
-        add(ModBlocks.CHERRY_SLAB.get(), "Dalle en cerisier");
-        add(ModBlocks.CHERRY_FENCE.get(), "Barrière en cerisier");
-        add(ModBlocks.CHERRY_STAIRS.get(), "Escalier en cerisier");
-        add(ModBlocks.CHERRY_BUTTON.get(), "Bouton en cerisier");
-        add(ModBlocks.CHERRY_PRESSURE_PLATE.get(), "Plaque de pression en cerisier");
-        add(ModBlocks.CHERRY_DOOR.get(), "Porte en cerisier");
-        add(ModBlocks.CHERRY_TRAPDOOR.get(), "Trappe en cerisier");
-        add(ModBlocks.CHERRY_FENCE_GATE.get(), "Portillon en cerisier");
-        add(ModBlocks.CHERRY_SIGN.get(), "Pancarte en cerisier");
-
         add(ModBlocks.ECHO_AMETHYST_BLOCK.get(), "Bloc d'écho-améthyste");
         add(ModBlocks.UPGRADING_STATION.get(), "Station d'amélioration");
         add(ModBlocks.MATTER_MANIPULATOR.get(), "Manipulateur de matière");

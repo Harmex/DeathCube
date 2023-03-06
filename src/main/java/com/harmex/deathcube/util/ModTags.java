@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Block;
 
 public class ModTags {
     public static class Blocks {
-        public static final TagKey<Block> CHERRY_LOGS = tag("cherry_logs");
         public static final TagKey<Block> ZANTHINE_ORES = tag("zanthine_ores");
 
         private static TagKey<Block> tag(String name) {
@@ -24,7 +23,6 @@ public class ModTags {
     }
 
     public static class Items {
-        public static final TagKey<Item> CHERRY_LOGS = tag("cherry_logs");
         public static final TagKey<Item> ZANTHINE_ORES = tag("zanthine_ores");
         public static final TagKey<Item> OAK_SET = tag("wooden_sets");
         public static final TagKey<Item> SPRUCE_SET = tag("oak_set");
