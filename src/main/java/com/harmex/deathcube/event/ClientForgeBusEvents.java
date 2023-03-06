@@ -48,6 +48,9 @@ public class ClientForgeBusEvents {
                         } else if (contents.getKey().startsWith("attribute.modifier.")) {
                             tooltipElements.remove(i - removedElementCount);
                             removedElementCount++;
+                        } else if (contents.getKey().startsWith("enchantment.")) {
+                            tooltipElements.remove(i - removedElementCount);
+                            removedElementCount++;
                         }
                     } else if (component.getSiblings().size() > 0 && component.getSiblings().get(0).getContents() instanceof TranslatableContents contents) {
                         if (contents.getKey().startsWith("attribute.modifier.")) {

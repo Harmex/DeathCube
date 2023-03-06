@@ -9,9 +9,9 @@ public enum Skills implements Skill, StringRepresentable {
     COMBAT("combat", 100, style -> style.withColor(0xAA2020)),
     MINING("mining", 100, style -> style.withColor(0x909090)),
     FARMING("farming", 100, style -> style.withColor(0xE1B235)),
-    FISHING("fishing", 100, style -> style.withColor(0x00d2FF)),
-    ENCHANTING("enchanting", 100, style -> style.withColor(0x7070F0)),
-    MAGIC("magic", 100, style -> style.withColor(0xB364CD));
+    FISHING("fishing", 100, style -> style.withColor(0x00d2FF));
+    //ENCHANTING("enchanting", 100, style -> style.withColor(0x7070F0)),
+    //MAGIC("magic", 100, style -> style.withColor(0xB364CD));
 
 
     private final String name;

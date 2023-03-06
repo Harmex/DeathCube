@@ -28,6 +28,13 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
 
         add("gui.jei.deathcube.category.matter_manipulation", "Matter Manipulating");
 
+        add("chat.deathcube.lvlup", "%s leveled Up! %s!");
+
+        addSkill("combat", "Combat");
+        addSkill("mining", "Mining");
+        addSkill("farming", "Farming");
+        addSkill("fishing", "Fishing");
+
         addAttribute("max_mana", "Max Mana");
 
         addContainer("upgrading_station", "Upgrading Station");
@@ -207,5 +214,8 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
     }
     private void addAttribute(String pId, String pName) {
         add("attribute.name." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addSkill(String pId, String pName) {
+        add("skill.name." + DeathCube.MODID + "." + pId, pName);
     }
 }

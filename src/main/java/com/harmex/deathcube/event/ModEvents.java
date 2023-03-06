@@ -1,5 +1,6 @@
 package com.harmex.deathcube.event;
 
+import com.google.common.collect.Multimap;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.networking.ModMessages;
 import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
@@ -21,9 +22,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -42,6 +50,9 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 import static com.harmex.deathcube.world.skill.SkillUtils.*;
 
@@ -122,15 +133,19 @@ public class ModEvents {
     public static void onBlockMined(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getState().getBlock();
-        if (!player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
-            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
-                    thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE));
+        if (!player.getLevel().isClientSide()) {
+            if (player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+                player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
+                        thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE));
+            }
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
                 if (XP_FOR_BLOCK_MINED.containsKey(block)) {
                     skillsData.addXP(Skills.MINING, XP_FOR_BLOCK_MINED.get(block));
                 } else if (XP_FOR_CROP_HARVESTED.containsKey(block)) {
-                    if (!(block instanceof CropBlock cropBlock) || cropBlock.isMaxAge(event.getState())) {
+                    if (!(block instanceof CropBlock cropBlock)) {
                         skillsData.addXP(Skills.FARMING, XP_FOR_CROP_HARVESTED.get(block));
+                    } else if (cropBlock.isMaxAge(event.getState())) {
+                        skillsData.addXP(Skills.FARMING, XP_FOR_CROP_HARVESTED.get(cropBlock));
                     }
                 }
             });
@@ -212,6 +227,50 @@ public class ModEvents {
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack hoveredItem = event.getItemStack();
         if (event.getEntity() != null && event.getEntity().level.isClientSide()) {
+            // Show Attribute Modifiers (Armor, Attack Damage, etc.)
+            if (hoveredItem.getItem() instanceof ArmorItem || hoveredItem.getItem() instanceof TieredItem) {
+                Multimap<Attribute, AttributeModifier> attributeModifiers =
+                        hoveredItem.getAttributeModifiers(LivingEntity.getEquipmentSlotForItem(hoveredItem));
+                for (Map.Entry<Attribute, Collection<AttributeModifier>> entry : attributeModifiers.asMap().entrySet()) {
+                    Attribute attribute = entry.getKey();
+                    float amount = 0;
+                    for (AttributeModifier attributeModifier : entry.getValue()) {
+                        if (attribute == Attributes.ATTACK_SPEED) {
+                            amount += 4;
+                        }
+                        amount += attributeModifier.getAmount();
+                    }
+                    ChatFormatting color = ChatFormatting.GRAY;
+                    if (attribute == Attributes.MAX_HEALTH) {
+                        color = ChatFormatting.RED;
+                    } else if (attribute == Attributes.KNOCKBACK_RESISTANCE) {
+                        color = ChatFormatting.DARK_GRAY;
+                    } else if (attribute == Attributes.MOVEMENT_SPEED) {
+                        color = ChatFormatting.YELLOW;
+                    } else if (attribute == Attributes.ATTACK_DAMAGE) {
+                        color = ChatFormatting.DARK_RED;
+                    } else if (attribute == Attributes.ATTACK_KNOCKBACK) {
+                        color = ChatFormatting.BLUE;
+                    } else if (attribute == Attributes.ATTACK_SPEED) {
+                        color = ChatFormatting.GOLD;
+                    } else if (attribute == Attributes.ARMOR) {
+                        color = ChatFormatting.WHITE;
+                    } else if (attribute == Attributes.ARMOR_TOUGHNESS) {
+                        color = ChatFormatting.GRAY;
+                    } else if (attribute == Attributes.LUCK) {
+                        color = ChatFormatting.GREEN;
+                    }
+                    if (amount != 0) {
+                        Component attributeText = Component.translatable(attribute.getDescriptionId()).withStyle(ChatFormatting.GRAY)
+                                .append(Component.literal(": "))
+                                .append(Component.literal(String.valueOf(new DecimalFormat("#.##").format(amount))).withStyle(color));
+                        event.getToolTip().add(attributeText);
+                    }
+                }
+                event.getToolTip().add(Component.empty());
+            }
+
+            //Show the armor set if the item has one
             if (hoveredItem.getItem() instanceof ArmorSetItem armorSetItem) {
                 if (ClientEquippedSetsData.getEquippedNumberForArmorSet() != null) {
                     ArmorSet armorSet = armorSetItem.getArmorSet();
@@ -242,8 +301,22 @@ public class ModEvents {
                         Component dash = Component.literal(" - ").withStyle(color).append(effect);
                         event.getToolTip().add(dash);
                     }
+                    event.getToolTip().add(Component.empty());
                 }
             }
+
+            // Show Enchantment List if the item is enchanted
+            if (!hoveredItem.getAllEnchantments().isEmpty()) {
+                for (Map.Entry<Enchantment, Integer> entry : hoveredItem.getAllEnchantments().entrySet()) {
+                    Component enchantmentText = Component.literal("")
+                            .append(Component.translatable(entry.getKey().getDescriptionId()))
+                            .append(Component.literal(" " + entry.getValue())).withStyle(ChatFormatting.BLUE);
+                    event.getToolTip().add(enchantmentText);
+                }
+                event.getToolTip().add(Component.empty());
+            }
+
+            // Show Durability if the item can be damaged
             if (hoveredItem.isDamageableItem()) {
                 int maxDurability = hoveredItem.getMaxDamage();
                 int durability = maxDurability - hoveredItem.getDamageValue();

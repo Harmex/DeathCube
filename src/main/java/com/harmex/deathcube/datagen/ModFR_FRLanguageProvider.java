@@ -28,7 +28,14 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
 
         add("gui.jei.deathcube.category.matter_manipulation", "Manipulation de matière");
 
-        addAttribute("max_mana", "Max Mana");
+        add("chat.deathcube.lvlup", "%s monte de niveau ! %s !");
+
+        addSkill("combat", "Combat");
+        addSkill("mining", "Minage");
+        addSkill("farming", "Agriculture");
+        addSkill("fishing", "Pêche");
+
+        addAttribute("max_mana", "Mana Max");
 
         addContainer("upgrading_station", "Station d'amélioration");
         addContainer("matter_manipulator", "Manipulateur de matière");
@@ -207,5 +214,8 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
     }
     private void addAttribute(String pId, String pName) {
         add("attribute.name." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addSkill(String pId, String pName) {
+        add("skill.name." + DeathCube.MODID + "." + pId, pName);
     }
 }

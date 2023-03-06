@@ -3,7 +3,6 @@ package com.harmex.deathcube;
 import com.harmex.deathcube.config.DeathCubeClientConfigs;
 import com.harmex.deathcube.config.DeathCubeCommonConfigs;
 import com.harmex.deathcube.painting.ModPaintings;
-import com.harmex.deathcube.potion.ModPotions;
 import com.harmex.deathcube.recipe.ModRecipes;
 import com.harmex.deathcube.world.effect.ModMobEffects;
 import com.harmex.deathcube.world.entity.ModEntityTypes;
@@ -35,7 +34,6 @@ public class DeathCube {
         ModRecipes.register(modEventBus);
         ModPaintings.register(modEventBus);
         ModMobEffects.register(modEventBus);
-        ModPotions.register(modEventBus);
         ModEntityTypes.register(modEventBus);
         ModAttributes.register(modEventBus);
 

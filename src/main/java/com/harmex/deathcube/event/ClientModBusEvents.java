@@ -111,6 +111,22 @@ public class ClientModBusEvents {
             event.accept(ModBlocks.CHERRY_PRESSURE_PLATE);
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_TOOLS_AND_UTILITIES_TAB) {
+            event.accept(ModItems.BONE_SHOVEL);
+            event.accept(ModItems.BONE_PICKAXE);
+            event.accept(ModItems.BONE_AXE);
+            event.accept(ModItems.BONE_HOE);
+            event.accept(ModItems.COPPER_SHOVEL);
+            event.accept(ModItems.COPPER_PICKAXE);
+            event.accept(ModItems.COPPER_AXE);
+            event.accept(ModItems.COPPER_HOE);
+            event.accept(ModItems.EMERALD_SHOVEL);
+            event.accept(ModItems.EMERALD_PICKAXE);
+            event.accept(ModItems.EMERALD_AXE);
+            event.accept(ModItems.EMERALD_HOE);
+            event.accept(ModItems.OBSIDIAN_SHOVEL);
+            event.accept(ModItems.OBSIDIAN_PICKAXE);
+            event.accept(ModItems.OBSIDIAN_AXE);
+            event.accept(ModItems.OBSIDIAN_HOE);
             event.accept(ModItems.TOTEM_OF_RESURRECTION);
             event.accept(ModItems.ENDER_BAG);
             event.accept(ModItems.TIME_WAND);

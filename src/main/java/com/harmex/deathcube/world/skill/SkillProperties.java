@@ -10,7 +10,7 @@ public class SkillProperties {
         lvl = pLvl;
         totalXp = pTotalXp;
         xp = pXp;
-        requiredXp = (float) (100.0F * Math.pow(1.5F, pLvl - 1));
+        requiredXp = (float) (100.0F * Math.pow(1.05F, pLvl));
     }
 
     public int getLvl() {
@@ -39,7 +39,7 @@ public class SkillProperties {
     public void lvlUp() {
         lvl++;
         xp -= requiredXp;
-        requiredXp *= 1.5F;
+        requiredXp *= 1.05F;
     }
     public void addXp(float pAmount) {
         xp += pAmount;

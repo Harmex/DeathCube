@@ -156,7 +156,7 @@ public class ModGuiOverlay {
             gui.leftHeight += 7;
 
             assert player != null;
-            int armorLevel = player.getArmorValue();
+            float armorLevel = (float) (player.getArmorValue() + player.getAttributeBaseValue(Attributes.ARMOR));
             int armorBarLevel = Mth.ceil(armorLevel * 79 / 20.0F);
             int armorBarSize = 79;
             int armorFullBarNumber = 0;
@@ -334,7 +334,7 @@ public class ModGuiOverlay {
             minecraft.getProfiler().push("experience_bar");
             RenderSystem.enableBlend();
 
-            int left = 8;
+            int left = screenWidth - 77;
             int top = screenHeight - 24;
             int vOffset = 0;
             int uOffset = 0;
@@ -357,14 +357,14 @@ public class ModGuiOverlay {
                         uOffset = 32;
                     } else if (entry.getKey() == Skills.FISHING) {
                         uOffset = 48;
-                    } else if (entry.getKey() == Skills.ENCHANTING) {
+                    }/* else if (entry.getKey() == Skills.ENCHANTING) {
                         uOffset = 64;
                     } else if (entry.getKey() == Skills.MAGIC) {
                         uOffset = 80;
-                    }
+                    }*/
                     GuiComponent.blit(poseStack, left - 3, top - 3, 0, 16, 72, 22, iconsTextureWidth, iconsTextureHeight);
                     GuiComponent.blit(poseStack, left, top, uOffset, vOffset, 16, 16, iconsTextureWidth, iconsTextureHeight);
-                    top -= 22;
+                    top -= 21;
                 }
             }
 
@@ -380,9 +380,9 @@ public class ModGuiOverlay {
                 if (level + currentXp > 0) {
                     String xpPercentageText = new DecimalFormat("#.##").format(xpPercentage) + "%";
                     font.drawShadow(poseStack, Component.literal(String.valueOf(level)).withStyle(entry.getKey().getStyleModifier()), left + 16 - (font.width(String.valueOf(level))), top + (16 - font.lineHeight), 0);
-                    font.drawShadow(poseStack, Component.literal(xpPercentageText).withStyle(entry.getKey().getStyleModifier()), left + 42 - (float) (font.width(xpPercentageText) / 2), top + (6 - (float) (font.lineHeight / 2)), 0);
+                    font.drawShadow(poseStack, Component.literal(xpPercentageText).withStyle(entry.getKey().getStyleModifier()), left + 42 - (float) (font.width(xpPercentageText) / 2), top + (7 - (float) (font.lineHeight / 2)), 0);
                     GuiComponent.fill(poseStack, left + 18, top + 13, left + 18 + xpBarSize, top + 16, color + 0xFF000000);
-                    top -= 22;
+                    top -= 21;
                 }
             }
 
