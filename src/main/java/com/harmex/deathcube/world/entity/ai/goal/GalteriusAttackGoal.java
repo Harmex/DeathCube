@@ -9,25 +9,25 @@ public class GalteriusAttackGoal extends MeleeAttackGoal {
 
     public GalteriusAttackGoal(Galterius pGalterius, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
         super(pGalterius, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
-        this.galterius = pGalterius;
+        galterius = pGalterius;
     }
 
     @Override
     public void start() {
         super.start();
-        this.raiseArmTicks = 0;
+        raiseArmTicks = 0;
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.galterius.setAggressive(false);
+        galterius.setAggressive(false);
     }
 
     @Override
     public void tick() {
         super.tick();
-        ++this.raiseArmTicks;
-        this.galterius.setAggressive(this.raiseArmTicks >= 5 && this.getTicksUntilNextAttack() < this.getAttackInterval() / 2);
+        raiseArmTicks++;
+        galterius.setAggressive(this.raiseArmTicks >= 5 && this.getTicksUntilNextAttack() < this.getAttackInterval() / 2);
     }
 }

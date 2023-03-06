@@ -3,6 +3,8 @@ package com.harmex.deathcube.client.renderer.entity;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.client.model.ZanuzalModel;
 import com.harmex.deathcube.world.entity.boss.Zanuzal;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -21,5 +23,18 @@ public class ZanuzalRenderer extends MobRenderer<Zanuzal, ZanuzalModel<Zanuzal>>
     @Override
     public ResourceLocation getTextureLocation(Zanuzal pEntity) {
         return TEXTURE;
+    }
+
+    @Override
+    protected void scale(Zanuzal pLivingEntity, PoseStack pMatrixStack, float pPartialTickTime) {
+        float f = 1.0F + 0.15F;
+        pMatrixStack.scale(f, f, f);
+        pMatrixStack.translate(0.0F, 1.3125F, 0.1875F);
+    }
+
+    @Override
+    protected void setupRotations(Zanuzal pEntityLiving, PoseStack pMatrixStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
+        super.setupRotations(pEntityLiving, pMatrixStack, pAgeInTicks, pRotationYaw, pPartialTicks);
+        pMatrixStack.mulPose(Axis.XP.rotationDegrees(pEntityLiving.getXRot()));
     }
 }

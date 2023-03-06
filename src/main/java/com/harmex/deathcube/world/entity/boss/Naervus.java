@@ -1,5 +1,6 @@
 package com.harmex.deathcube.world.entity.boss;
 
+import com.harmex.deathcube.world.entity.ai.goal.NaervusAttackGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,8 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class Naervus extends Monster {
-    private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(),
-            BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
+    private final ServerBossEvent bossEvent = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(),
+            BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS).setDarkenScreen(true);
 
     public Naervus(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -38,19 +39,20 @@ public class Naervus extends Monster {
     }
 
     protected void addBehaviourGoals() {
+        this.goalSelector.addGoal(2, new NaervusAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(ZombifiedPiglin.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
-    public void startSeenByPlayer(@NotNull ServerPlayer pPlayer) {
+    public void startSeenByPlayer(ServerPlayer pPlayer) {
         super.startSeenByPlayer(pPlayer);
         this.bossEvent.addPlayer(pPlayer);
     }
 
     @Override
-    public void stopSeenByPlayer(@NotNull ServerPlayer pPlayer) {
+    public void stopSeenByPlayer(ServerPlayer pPlayer) {
         super.stopSeenByPlayer(pPlayer);
         this.bossEvent.removePlayer(pPlayer);
     }
@@ -65,7 +67,7 @@ public class Naervus extends Monster {
         }
     }
 
-    public static AttributeSupplier.@NotNull Builder createAttributes() {
+    public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 2.0D)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
@@ -78,7 +80,7 @@ public class Naervus extends Monster {
         return SoundEvents.PIGLIN_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return SoundEvents.PIGLIN_HURT;
     }
 
@@ -90,7 +92,7 @@ public class Naervus extends Monster {
         return SoundEvents.PIGLIN_STEP;
     }
 
-    protected void playStepSound(@NotNull BlockPos pPos, @NotNull BlockState pBlock) {
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
 }

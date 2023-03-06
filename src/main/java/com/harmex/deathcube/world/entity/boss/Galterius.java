@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class Galterius extends Monster {
-    private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(),
-            BossEvent.BossBarColor.WHITE, BossEvent.BossBarOverlay.NOTCHED_6);
+    private final ServerBossEvent bossEvent = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(),
+            BossEvent.BossBarColor.WHITE, BossEvent.BossBarOverlay.NOTCHED_6).setDarkenScreen(true);
 
     public Galterius(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -45,13 +45,13 @@ public class Galterius extends Monster {
     }
 
     @Override
-    public void startSeenByPlayer(@NotNull ServerPlayer pPlayer) {
+    public void startSeenByPlayer(ServerPlayer pPlayer) {
         super.startSeenByPlayer(pPlayer);
         this.bossEvent.addPlayer(pPlayer);
     }
 
     @Override
-    public void stopSeenByPlayer(@NotNull ServerPlayer pPlayer) {
+    public void stopSeenByPlayer(ServerPlayer pPlayer) {
         super.stopSeenByPlayer(pPlayer);
         this.bossEvent.removePlayer(pPlayer);
     }
@@ -66,7 +66,7 @@ public class Galterius extends Monster {
         }
     }
 
-    public static AttributeSupplier.@NotNull Builder createAttributes() {
+    public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 25.0D)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
@@ -79,7 +79,7 @@ public class Galterius extends Monster {
         return SoundEvents.ZOMBIE_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return SoundEvents.ZOMBIE_HURT;
     }
 
@@ -91,7 +91,7 @@ public class Galterius extends Monster {
         return SoundEvents.ZOMBIE_STEP;
     }
 
-    protected void playStepSound(@NotNull BlockPos pPos, @NotNull BlockState pBlock) {
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
 }

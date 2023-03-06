@@ -59,8 +59,7 @@ public class ZanuzalModel<T extends Zanuzal> extends HierarchicalModel<T> {
 
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        float f = pAgeInTicks * 7.448451F * ((float)Math.PI / 180F);
-        float f1 = 16.0F;
+        float f = (pEntity.getUniqueFlapTickOffset() + pAgeInTicks) * 7.448451F * ((float)Math.PI / 180F);
         this.leftWingBase.zRot = Mth.cos(f) * 16.0F * ((float)Math.PI / 180F);
         this.leftWingTip.zRot = Mth.cos(f) * 16.0F * ((float)Math.PI / 180F);
         this.rightWingBase.zRot = -this.leftWingBase.zRot;
