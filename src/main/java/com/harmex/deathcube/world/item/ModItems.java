@@ -72,14 +72,6 @@ public class ModItems {
                     });
     //endregion
     //region Misc
-    public static final RegistryObject<Item> CHERRY_SIGN =
-            ITEMS.register("cherry_sign",
-                    () -> new SignItem(new Item.Properties()
-                            .stacksTo(16)
-                            .rarity(ModRarities.COMMON),
-                            ModBlocks.CHERRY_SIGN.get(),
-                            ModBlocks.CHERRY_WALL_SIGN.get()
-                    ));
     public static final RegistryObject<Item> TOTEM_OF_RESURRECTION =
             ITEMS.register("totem_of_resurrection", TotemOfResurrectionItem::new);
     public static final RegistryObject<Item> TIME_GEM =
