@@ -18,6 +18,7 @@ import com.harmex.deathcube.world.item.custom.ArmorSetItem;
 import com.harmex.deathcube.world.skill.Skills;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
@@ -27,10 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -50,7 +48,6 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -228,7 +225,9 @@ public class ModEvents {
         ItemStack hoveredItem = event.getItemStack();
         if (event.getEntity() != null && event.getEntity().level.isClientSide()) {
             // Show Attribute Modifiers (Armor, Attack Damage, etc.)
-            if (hoveredItem.getItem() instanceof ArmorItem || hoveredItem.getItem() instanceof TieredItem) {
+            if (hoveredItem.getItem() instanceof ArmorItem
+                    || hoveredItem.getItem() instanceof TieredItem
+                    || hoveredItem.getItem() instanceof TridentItem) {
                 Multimap<Attribute, AttributeModifier> attributeModifiers =
                         hoveredItem.getAttributeModifiers(LivingEntity.getEquipmentSlotForItem(hoveredItem));
                 for (Map.Entry<Attribute, Collection<AttributeModifier>> entry : attributeModifiers.asMap().entrySet()) {
@@ -308,9 +307,17 @@ public class ModEvents {
             // Show Enchantment List if the item is enchanted
             if (!hoveredItem.getAllEnchantments().isEmpty()) {
                 for (Map.Entry<Enchantment, Integer> entry : hoveredItem.getAllEnchantments().entrySet()) {
-                    Component enchantmentText = Component.literal("")
-                            .append(Component.translatable(entry.getKey().getDescriptionId()))
-                            .append(Component.literal(" " + entry.getValue())).withStyle(ChatFormatting.BLUE);
+                    ChatFormatting color = ChatFormatting.BLUE;
+                    if (entry.getKey().isCurse()) {
+                        color = ChatFormatting.RED;
+                    } else if (entry.getKey().isTreasureOnly()) {
+                        color = ChatFormatting.GREEN;
+                    }
+                    MutableComponent enchantmentText = Component.literal("")
+                            .append(Component.translatable(entry.getKey().getDescriptionId())).withStyle(color);
+                    if (entry.getValue() > 1) {
+                            enchantmentText.append(Component.literal(" " + entry.getValue()));
+                    }
                     event.getToolTip().add(enchantmentText);
                 }
                 event.getToolTip().add(Component.empty());
