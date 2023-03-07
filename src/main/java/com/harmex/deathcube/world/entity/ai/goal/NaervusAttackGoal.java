@@ -1,6 +1,5 @@
 package com.harmex.deathcube.world.entity.ai.goal;
 
-import com.harmex.deathcube.world.entity.boss.Azrathal;
 import com.harmex.deathcube.world.entity.boss.Naervus;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 

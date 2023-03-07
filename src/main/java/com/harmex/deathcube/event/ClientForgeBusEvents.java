@@ -2,9 +2,9 @@ package com.harmex.deathcube.event;
 
 import com.harmex.deathcube.DeathCube;
 import com.mojang.datafixers.util.Either;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -23,10 +23,8 @@ public class ClientForgeBusEvents {
     @SubscribeEvent
     public static void onTooltipColorRender(RenderTooltipEvent.Color event) {
         Rarity itemRarity = event.getItemStack().getRarity();
-        int rarityColor = Objects.requireNonNull(Component.literal("")
-                .withStyle(itemRarity.getStyleModifier())
-                .getStyle().getColor()).getValue();
-        rarityColor = rarityColor | 0xFF000000 & event.getBorderStart();
+        Style rarityStyle = itemRarity.getStyleModifier().apply(Style.EMPTY);
+        int rarityColor = Objects.requireNonNull(rarityStyle.getColor()).getValue() + 0xFF000000;
         event.setBorderStart(rarityColor);
         event.setBorderEnd(rarityColor);
     }

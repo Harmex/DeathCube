@@ -1,5 +1,6 @@
 package com.harmex.deathcube.world.item.custom;
 
+import com.harmex.deathcube.world.item.custom.set.ArmorSet;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.DyeableArmorItem;
 

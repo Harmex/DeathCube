@@ -8,10 +8,10 @@ import com.harmex.deathcube.util.capabilities.thirst.DrinkProperties;
 import com.harmex.deathcube.world.entity.ModEntityTypes;
 import com.harmex.deathcube.world.entity.ai.attribute.ModAttributes;
 import com.harmex.deathcube.world.entity.boss.*;
-import com.harmex.deathcube.world.item.custom.ArmorSetItem;
-import com.harmex.deathcube.world.item.custom.ArmorSets;
 import com.harmex.deathcube.world.item.custom.DyeableArmorSetItem;
 import com.harmex.deathcube.world.item.custom.ModPotionItem;
+import com.harmex.deathcube.world.item.custom.set.ArmorSetItem;
+import com.harmex.deathcube.world.item.custom.set.ArmorSets;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -22,10 +22,13 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
+import top.theillusivec4.curios.api.SlotTypeMessage;
 
 @Mod.EventBusSubscriber(modid = DeathCube.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBusEvents {
@@ -33,6 +36,15 @@ public class ModBusEvents {
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
         ModMessages.register();
+    }
+
+    @SubscribeEvent
+    public static void interModEnqueue(InterModEnqueueEvent event) {
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+                () -> new SlotTypeMessage.Builder("totem")
+                        .icon(new ResourceLocation(DeathCube.MODID, "slot/totem"))
+                        .size(2)
+                        .build());
     }
 
     @SubscribeEvent

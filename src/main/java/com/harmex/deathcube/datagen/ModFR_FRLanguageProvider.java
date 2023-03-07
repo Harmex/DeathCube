@@ -26,6 +26,8 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         addItemGroup("ingredients", "DeathCube | Ingrédients");
         addItemGroup("spawnEggs", "DeathCube | Œufs d'apparition");
 
+        addCuriosSlot("totem", "Totem");
+
         add("gui.jei.deathcube.category.matter_manipulation", "Manipulation de matière");
 
         add("chat.deathcube.lvlup", "%s monte de niveau ! %s !");
@@ -48,6 +50,7 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         addItemTooltip("rarity.legendary", "Légendaire");
         addItemTooltip("rarity.hellish", "Infernal");
         addItemTooltip("rarity.mythic", "Mythique");
+        addItemTooltip("rarity.divine", "Divin");
 
         addItemTooltip("set", "Panoplie : %s (%s / 4)");
         addItemTooltip("set.oak", "Chêne");
@@ -100,6 +103,10 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModItems.NETHERITE_APPLE.get(), "Pomme en Netherite");
         add(ModItems.BEDROCK_APPLE.get(), "Pomme en Bedrock");
 
+        add(ModItems.TOTEM_OF_RESURRECTION.get(), "Totem de résurrection");
+        add(ModItems.TOTEM_OF_REGENERATION.get(), "Totem de régénération");
+        add(ModItems.TOTEM_OF_RESISTANCE.get(), "Totem of résistance");
+
         add(ModItems.TIME_GEM.get(), "Gemme du temps");
         add(ModItems.ECHO_AMETHYST_SHARD.get(), "Éclat d'écho-améthyste");
         add(ModItems.ECHO_AMETHYST_INGOT.get(), "Lingot d'écho-améthyste");
@@ -107,7 +114,6 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModItems.ENDER_DRAGON_SCALE.get(), "Écaille d'Ender Dragon");
         add(ModItems.TIME_WAND.get(), "Baguette du temps");
         add(ModItems.ENDER_BAG.get(), "Sac de l'Ender");
-        add(ModItems.TOTEM_OF_RESURRECTION.get(), "Totem de résurrection");
         add(ModItems.OAK_HELMET.get(), "Casque en chêne");
         add(ModItems.OAK_CHESTPLATE.get(), "Plastron en chêne");
         add(ModItems.OAK_LEGGINGS.get(), "Jambières en chêne");
@@ -186,6 +192,9 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModItems.OBSIDIAN_HOE.get(), "Houe en obsidienne");
     }
 
+    private void addCuriosSlot(String pId, String pName) {
+        add("curios.identifier." + pId, pName);
+    }
     private void addItemGroup(String pId, String pName) {
         add("itemGroup." + DeathCube.MODID + "." + pId, pName);
     }

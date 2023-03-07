@@ -1,7 +1,6 @@
 package com.harmex.deathcube.world.item;
 
 import com.harmex.deathcube.DeathCube;
-import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;

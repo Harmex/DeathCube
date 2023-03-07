@@ -7,14 +7,14 @@ import com.harmex.deathcube.networking.packet.EquipmentDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ManaDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.SkillsDataSyncS2CPacket;
 import com.harmex.deathcube.networking.packet.ThirstDataSyncS2CPacket;
-import com.harmex.deathcube.util.capabilities.equipment.ClientEquippedSetsData;
-import com.harmex.deathcube.util.capabilities.equipment.EquippedSetsDataProvider;
+import com.harmex.deathcube.util.capabilities.equipment.ClientEquipmentData;
+import com.harmex.deathcube.util.capabilities.equipment.EquipmentDataProvider;
 import com.harmex.deathcube.util.capabilities.mana.ManaDataProvider;
 import com.harmex.deathcube.util.capabilities.skills.SkillsDataProvider;
 import com.harmex.deathcube.util.capabilities.thirst.ThirstConstants;
 import com.harmex.deathcube.util.capabilities.thirst.ThirstDataProvider;
-import com.harmex.deathcube.world.item.custom.ArmorSet;
-import com.harmex.deathcube.world.item.custom.ArmorSetItem;
+import com.harmex.deathcube.world.item.custom.set.ArmorSet;
+import com.harmex.deathcube.world.item.custom.set.ArmorSetItem;
 import com.harmex.deathcube.world.skill.Skills;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -62,8 +62,8 @@ public class ModEvents {
             if (!player.getCapability(ThirstDataProvider.PLAYER_THIRST).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "thirst"), new ThirstDataProvider());
             }
-            if (!player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).isPresent()) {
-                event.addCapability(new ResourceLocation(DeathCube.MODID, "equipped_sets"), new EquippedSetsDataProvider());
+            if (!player.getCapability(EquipmentDataProvider.EQUIPMENT).isPresent()) {
+                event.addCapability(new ResourceLocation(DeathCube.MODID, "equipment"), new EquipmentDataProvider());
             }
             if (!player.getCapability(ManaDataProvider.PLAYER_MANA).isPresent()) {
                 event.addCapability(new ResourceLocation(DeathCube.MODID, "mana"), new ManaDataProvider());
@@ -98,8 +98,8 @@ public class ModEvents {
                     thirstData.tick(player);
                 }
             });
-            player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(equipmentData -> {
-                ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet()), ((ServerPlayer) player));
+            player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
+                ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet(), equipmentData.getEquippedTotems()), ((ServerPlayer) player));
                 equipmentData.tick(player);
             });
             player.getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(manaData -> {
@@ -113,7 +113,6 @@ public class ModEvents {
                 skillsData.tick(player);
             });
         }
-
     }
 
     @SubscribeEvent
@@ -155,8 +154,8 @@ public class ModEvents {
             if (event.getEntity() instanceof ServerPlayer player) {
                 player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirst ->
                         ModMessages.sendToClient(new ThirstDataSyncS2CPacket(thirst.getThirstLevel(), thirst.getSaturationLevel(), thirst.getExhaustionLevel()), player));
-                player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(equipmentData ->
-                        ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet()), player));
+                player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData ->
+                        ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(equipmentData.getEquippedCountForArmorSet(), equipmentData.getEquippedTotems()), player));
                 player.getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(manaData ->
                         ModMessages.sendToClient(new ManaDataSyncS2CPacket(manaData.getManaLevel()), player));
                 player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData ->
@@ -171,16 +170,16 @@ public class ModEvents {
             ItemStack oldArmor = event.getFrom();
             ItemStack newArmor = event.getTo();
 
-            player.getCapability(EquippedSetsDataProvider.EQUIPPED_SETS).ifPresent(equipmentData -> {
+            player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
                 if (oldArmor.getItem() instanceof ArmorSetItem oldArmorSetItem) {
                     ArmorSet oldArmorSet = oldArmorSetItem.getArmorSet();
                     int oldArmorSetEquippedCount = equipmentData.getArmorSetEquippedCount(player, oldArmorSet);
-                    equipmentData.setEquippedNumberForArmorSet(oldArmorSet, oldArmorSetEquippedCount);
+                    equipmentData.setEquippedCountForArmorSet(oldArmorSet, oldArmorSetEquippedCount);
                 }
                 if (newArmor.getItem() instanceof ArmorSetItem newArmorSetItem) {
                     ArmorSet newArmorSet = newArmorSetItem.getArmorSet();
                     int newArmorSetEquippedCount = equipmentData.getArmorSetEquippedCount(player, newArmorSet);
-                    equipmentData.setEquippedNumberForArmorSet(newArmorSet, newArmorSetEquippedCount);
+                    equipmentData.setEquippedCountForArmorSet(newArmorSet, newArmorSetEquippedCount);
                 }
             });
         }
@@ -271,12 +270,12 @@ public class ModEvents {
 
             //Show the armor set if the item has one
             if (hoveredItem.getItem() instanceof ArmorSetItem armorSetItem) {
-                if (ClientEquippedSetsData.getEquippedNumberForArmorSet() != null) {
+                if (ClientEquipmentData.getEquippedNumberForArmorSet() != null) {
                     ArmorSet armorSet = armorSetItem.getArmorSet();
                     int equippedCount = 0;
                     ChatFormatting color;
-                    if (ClientEquippedSetsData.getEquippedNumberForArmorSet().containsKey(armorSetItem.getArmorSet())) {
-                        equippedCount = ClientEquippedSetsData.getEquippedNumberForArmorSet().get(armorSet);
+                    if (ClientEquipmentData.getEquippedNumberForArmorSet().containsKey(armorSetItem.getArmorSet())) {
+                        equippedCount = ClientEquipmentData.getEquippedNumberForArmorSet().get(armorSet);
                         if (equippedCount == 4) {
                             color = ChatFormatting.GOLD;
                         } else {

@@ -31,6 +31,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         blockItem(ModBlocks.ZANTHINE_ORE.get());
         blockItem(ModBlocks.DEEPSLATE_ZANTHINE_ORE.get());
         //endregion
+        basicItem(ModItems.TOTEM_OF_RESURRECTION.get());
+        basicItem(ModItems.TOTEM_OF_REGENERATION.get());
+        basicItem(ModItems.TOTEM_OF_RESISTANCE.get());
         //region Misc.
         basicItem(ModItems.ENDER_DRAGON_SCALE.get());
         basicItem(ModItems.WARDEN_HEART.get());
@@ -43,7 +46,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.DIAMOND_APPLE.get());
         basicItem(ModItems.NETHERITE_APPLE.get());
         basicItem(ModItems.BEDROCK_APPLE.get());
-        basicItem(ModItems.TOTEM_OF_RESURRECTION.get());
         basicItem(ModItems.TIME_GEM.get());
         handheldItem(ModItems.TIME_WAND.get());
         basicItem(ModItems.ENDER_BAG.get());

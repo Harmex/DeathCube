@@ -1,7 +1,6 @@
 package com.harmex.deathcube.world.entity.ai.goal;
 
 import com.harmex.deathcube.world.entity.boss.Azrathal;
-import com.harmex.deathcube.world.entity.boss.Galterius;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
 public class AzrathalAttackGoal extends MeleeAttackGoal {

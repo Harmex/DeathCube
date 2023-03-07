@@ -26,6 +26,8 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         addItemGroup("ingredients", "DeathCube | Ingredients");
         addItemGroup("spawnEggs", "DeathCube | Spawn Eggs");
 
+        addCuriosSlot("totem", "Totem");
+
         add("gui.jei.deathcube.category.matter_manipulation", "Matter Manipulating");
 
         add("chat.deathcube.lvlup", "%s leveled Up! %s!");
@@ -48,6 +50,7 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         addItemTooltip("rarity.legendary", "Legendary");
         addItemTooltip("rarity.hellish", "Hellish");
         addItemTooltip("rarity.mythic", "Mythic");
+        addItemTooltip("rarity.divine", "Divine");
 
         addItemTooltip("set", "Set : %s (%s / 4)");
         addItemTooltip("set.oak", "Oak");
@@ -100,6 +103,10 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add(ModItems.NETHERITE_APPLE.get(), "Netherite Apple");
         add(ModItems.BEDROCK_APPLE.get(), "Bedrock Apple");
 
+        add(ModItems.TOTEM_OF_RESURRECTION.get(), "Totem of Resurrection");
+        add(ModItems.TOTEM_OF_REGENERATION.get(), "Totem of Regeneration");
+        add(ModItems.TOTEM_OF_RESISTANCE.get(), "Totem of Resistance");
+
         add(ModItems.TIME_GEM.get(), "Time Gem");
         add(ModItems.ECHO_AMETHYST_SHARD.get(), "Echo-Amethyst Shard");
         add(ModItems.ECHO_AMETHYST_INGOT.get(), "Echo-Amethyst Ingot");
@@ -107,7 +114,6 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add(ModItems.ENDER_DRAGON_SCALE.get(), "Ender Dragon Scale");
         add(ModItems.TIME_WAND.get(), "Time Wand");
         add(ModItems.ENDER_BAG.get(), "Ender Bag");
-        add(ModItems.TOTEM_OF_RESURRECTION.get(), "Totem of Resurrection");
         add(ModItems.OAK_HELMET.get(), "Oak Helmet");
         add(ModItems.OAK_CHESTPLATE.get(), "Oak Chestplate");
         add(ModItems.OAK_LEGGINGS.get(), "Oak Leggings");
@@ -186,6 +192,9 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add(ModItems.OBSIDIAN_HOE.get(), "Obsidian Hoe");
     }
 
+    private void addCuriosSlot(String pId, String pName) {
+        add("curios.identifier." + pId, pName);
+    }
     private void addItemGroup(String pId, String pName) {
         add("itemGroup." + DeathCube.MODID + "." + pId, pName);
     }

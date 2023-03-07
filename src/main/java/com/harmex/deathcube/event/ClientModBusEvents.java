@@ -12,10 +12,7 @@ import com.harmex.deathcube.world.inventory.ModMenuTypes;
 import com.harmex.deathcube.world.item.ModCreativeModeTabs;
 import com.harmex.deathcube.world.item.ModItems;
 import com.harmex.deathcube.world.level.block.ModBlocks;
-import com.harmex.deathcube.world.level.block.entity.ModBlockEntities;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -104,9 +101,11 @@ public class ClientModBusEvents {
             event.accept(ModItems.OBSIDIAN_PICKAXE);
             event.accept(ModItems.OBSIDIAN_AXE);
             event.accept(ModItems.OBSIDIAN_HOE);
-            event.accept(ModItems.TOTEM_OF_RESURRECTION);
             event.accept(ModItems.ENDER_BAG);
             event.accept(ModItems.TIME_WAND);
+            event.accept(ModItems.TOTEM_OF_RESURRECTION);
+            event.accept(ModItems.TOTEM_OF_REGENERATION);
+            event.accept(ModItems.TOTEM_OF_RESISTANCE);
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_COMBAT_TAB) {
             event.accept(ModItems.BONE_SWORD);

@@ -1,4 +1,4 @@
-package com.harmex.deathcube.world.item.custom;
+package com.harmex.deathcube.world.item.custom.set;
 
 public enum ItemSets implements ItemSet{
     OAK("oak", ArmorSets.OAK, ToolSets.WOOD),

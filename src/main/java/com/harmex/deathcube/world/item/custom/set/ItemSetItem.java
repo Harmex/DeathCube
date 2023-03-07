@@ -1,4 +1,4 @@
-package com.harmex.deathcube.world.item.custom;
+package com.harmex.deathcube.world.item.custom.set;
 
 import net.minecraft.world.item.Item;
 

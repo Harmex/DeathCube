@@ -1,4 +1,4 @@
-package com.harmex.deathcube.world.item.custom;
+package com.harmex.deathcube.world.item.custom.set;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DiggerItem;

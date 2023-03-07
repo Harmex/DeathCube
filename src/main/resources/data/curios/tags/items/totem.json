@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:totem_of_undying",
+    "deathcube:totem_of_resurrection",
+    "deathcube:totem_of_regeneration",
+    "deathcube:totem_of_resistance"
+  ]
+}

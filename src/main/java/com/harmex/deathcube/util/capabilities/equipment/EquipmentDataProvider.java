@@ -11,22 +11,22 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class EquippedSetsDataProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<EquippedSetsData> EQUIPPED_SETS = CapabilityManager.get(new CapabilityToken<>() {});
+public class EquipmentDataProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+    public static Capability<EquipmentData> EQUIPMENT = CapabilityManager.get(new CapabilityToken<>() {});
 
-    private EquippedSetsData equippedSets = null;
-    private final LazyOptional<EquippedSetsData> optional = LazyOptional.of(this::createEquippedSets);
+    private EquipmentData equipmentData = null;
+    private final LazyOptional<EquipmentData> optional = LazyOptional.of(this::createEquipmentData);
 
-    private EquippedSetsData createEquippedSets() {
-        if (equippedSets == null) {
-            equippedSets = new EquippedSetsData();
+    private EquipmentData createEquipmentData() {
+        if (equipmentData == null) {
+            equipmentData = new EquipmentData();
         }
-        return equippedSets;
+        return equipmentData;
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == EQUIPPED_SETS) {
+        if (cap == EQUIPMENT) {
             return optional.cast();
         }
         return LazyOptional.empty();
@@ -40,12 +40,12 @@ public class EquippedSetsDataProvider implements ICapabilityProvider, INBTSerial
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createEquippedSets().saveNBTData(nbt);
+        createEquipmentData().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag pNBT) {
-        createEquippedSets().loadNBTData(pNBT);
+        createEquipmentData().loadNBTData(pNBT);
     }
 }

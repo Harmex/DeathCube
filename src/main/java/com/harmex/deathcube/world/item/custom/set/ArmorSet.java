@@ -1,4 +1,4 @@
-package com.harmex.deathcube.world.item.custom;
+package com.harmex.deathcube.world.item.custom.set;
 
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffect;
@@ -13,7 +13,8 @@ public interface ArmorSet {
 
     ArmorMaterial getArmorMaterial();
 
-    @Nullable MobEffect getFullSetBonus();
+    @Nullable
+    MobEffect getFullSetBonus();
 
     int getEffectAmplifier();
 

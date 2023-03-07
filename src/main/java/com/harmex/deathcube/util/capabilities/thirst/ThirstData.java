@@ -1,6 +1,5 @@
 package com.harmex.deathcube.util.capabilities.thirst;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;

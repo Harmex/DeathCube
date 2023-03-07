@@ -2,8 +2,15 @@ package com.harmex.deathcube.world.item;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.world.entity.ModEntityTypes;
-import com.harmex.deathcube.world.item.custom.*;
-import com.harmex.deathcube.world.level.block.ModBlocks;
+import com.harmex.deathcube.world.item.custom.EnderBagItem;
+import com.harmex.deathcube.world.item.custom.FreshWaterBottleItem;
+import com.harmex.deathcube.world.item.custom.TimeWandItem;
+import com.harmex.deathcube.world.item.custom.apple.AppleItem;
+import com.harmex.deathcube.world.item.custom.apple.Apples;
+import com.harmex.deathcube.world.item.custom.set.ArmorSetItem;
+import com.harmex.deathcube.world.item.custom.set.ArmorSets;
+import com.harmex.deathcube.world.item.custom.totem.TotemItem;
+import com.harmex.deathcube.world.item.custom.totem.Totems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -71,9 +78,18 @@ public class ModItems {
                         }
                     });
     //endregion
-    //region Misc
+    //region Totem
     public static final RegistryObject<Item> TOTEM_OF_RESURRECTION =
-            ITEMS.register("totem_of_resurrection", TotemOfResurrectionItem::new);
+            ITEMS.register("totem_of_resurrection",
+                    () -> new TotemItem(Totems.RESURRECTION));
+    public static final RegistryObject<Item> TOTEM_OF_REGENERATION =
+            ITEMS.register("totem_of_regeneration",
+                    () -> new TotemItem(Totems.REGENERATION));
+    public static final RegistryObject<Item> TOTEM_OF_RESISTANCE =
+            ITEMS.register("totem_of_resistance",
+                    () -> new TotemItem(Totems.RESISTANCE));
+    //endregion
+    //region Misc
     public static final RegistryObject<Item> TIME_GEM =
             ITEMS.register("time_gem",
                     () -> new Item(new Item.Properties()

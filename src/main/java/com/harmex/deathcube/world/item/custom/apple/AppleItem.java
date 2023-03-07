@@ -1,4 +1,4 @@
-package com.harmex.deathcube.world.item.custom;
+package com.harmex.deathcube.world.item.custom.apple;
 
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;

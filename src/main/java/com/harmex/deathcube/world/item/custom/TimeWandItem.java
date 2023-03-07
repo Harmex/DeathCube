@@ -1,5 +1,6 @@
 package com.harmex.deathcube.world.item.custom;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -9,7 +10,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -42,17 +42,13 @@ public class TimeWandItem extends Item implements ITeleporter {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         if (pStack.hasTag()) {
             assert pStack.getTag() != null;
-            if (pStack.getTag().contains("deathcube.saved_dim")) {
+            if (pStack.getTag().contains("deathcube.saved_dim") && pStack.getTag().contains("deathcube.saved_pos")) {
                 String  savedDim = pStack.getTag().getString("deathcube.saved_dim");
-
-                pTooltipComponents.add(Component.literal(" - Dimension: " + savedDim));
-            }
-            if (pStack.getTag().contains("deathcube.saved_pos")) {
+                ResourceLocation savedDimLocation = new ResourceLocation(savedDim);
                 int[] savedPos = pStack.getTag().getIntArray("deathcube.saved_pos");
 
-                pTooltipComponents.add(Component.literal(" - X: " + savedPos[0]));
-                pTooltipComponents.add(Component.literal(" - Y: " + savedPos[1]));
-                pTooltipComponents.add(Component.literal(" - Z: " + savedPos[2]));
+                pTooltipComponents.add(Component.literal(savedPos[0] + ", " + savedPos[1] + ", " + savedPos[2]
+                        + " (" + savedDimLocation.getPath() + ")").withStyle(ChatFormatting.GRAY));
             }
         }
     }

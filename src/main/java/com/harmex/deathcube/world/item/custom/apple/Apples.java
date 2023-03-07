@@ -1,4 +1,4 @@
-package com.harmex.deathcube.world.item.custom;
+package com.harmex.deathcube.world.item.custom.apple;
 
 public enum Apples implements Apple {
     DIAMOND(26, new int[] {0, 2}),
