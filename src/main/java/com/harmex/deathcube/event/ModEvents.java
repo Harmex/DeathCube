@@ -47,6 +47,7 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
@@ -102,14 +103,12 @@ public class ModEvents {
             });
         });
 
-        if (event.isWasDeath() && !newPlayer.getLevel().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
-            originalPlayer.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(oldStore -> {
-                newPlayer.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                    ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedCountForArmorSet(), newStore.getEquippedTotems()), (ServerPlayer) event.getEntity());
-                });
+        originalPlayer.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(oldStore -> {
+            newPlayer.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(newStore -> {
+                newStore.copyFrom(oldStore);
+                ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedCountForArmorSet(), newStore.getEquippedTotems()), (ServerPlayer) event.getEntity());
             });
-        }
+        });
         originalPlayer.invalidateCaps();
     }
 
@@ -117,9 +116,11 @@ public class ModEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         Player player = event.getEntity();
         if (!player.getLevel().isClientSide()) {
-            player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
-                CuriosApi.getCuriosHelper().setEquippedCurio(player, "totem", 0, equipmentData.getEquippedTor());
-            });
+            if (!player.getLevel().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
+                player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
+                    CuriosApi.getCuriosHelper().setEquippedCurio(player, "totem", 0, equipmentData.getEquippedTor());
+                });
+            }
             ItemStack originalTor = ItemStack.EMPTY;
             Optional<SlotResult> opt = CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.TOTEM_OF_RESURRECTION.get());
             if (opt.isPresent()) {
@@ -153,6 +154,11 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void onPlayerSetRespawnPoint(PlayerSetSpawnEvent event) {
+        event.setCanceled(true);
+    }
+
+    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
             Player player = event.player;
@@ -182,18 +188,20 @@ public class ModEvents {
     @SubscribeEvent
     public static void onPlayerFish(ItemFishedEvent event) {
         Player player = event.getEntity();
-        player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
-            for (ItemStack fishedItem : event.getDrops()) {
-                skillsData.addXP(Skills.FISHING, XP_FOR_ITEM_FISHED.getOrDefault(fishedItem.getItem(), 0.0F));
-            }
-        });
+        if (!player.getLevel().isClientSide() && !player.isCreative() && !player.isSpectator()) {
+            player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
+                for (ItemStack fishedItem : event.getDrops()) {
+                    skillsData.addXP(Skills.FISHING, XP_FOR_ITEM_FISHED.getOrDefault(fishedItem.getItem(), 0.0F));
+                }
+            });
+        }
     }
 
     @SubscribeEvent
     public static void onBlockMined(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getState().getBlock();
-        if (!player.getLevel().isClientSide()) {
+        if (!player.getLevel().isClientSide() && !player.isCreative() && !player.isSpectator()) {
             if (player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
                 player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
                         thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE));
@@ -271,15 +279,15 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onEntityAttack(LivingAttackEvent event) {
-        if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL
+        if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide()
                 && !player.isCreative() && !player.isSpectator()) {
-            player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
-                    thirstData.addExhaustion(ThirstConstants.EXHAUSTION_ATTACK));
-        }
-        if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide()) {
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
                 skillsData.addXP(Skills.COMBAT, event.getAmount());
             });
+            if (player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+                player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
+                        thirstData.addExhaustion(ThirstConstants.EXHAUSTION_ATTACK));
+            }
         }
     }
 
