@@ -21,6 +21,7 @@ import java.util.Map;
 public class EquipmentData {
     private Map<ArmorSet, Integer> equippedCountForArmorSet;
     private final Map<ArmorSet, Boolean> isEffectActiveForArmorSet;
+
     private EnumMap<Totems, Boolean> equippedTotems;
 
     public EquipmentData() {

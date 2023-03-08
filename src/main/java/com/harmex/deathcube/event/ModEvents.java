@@ -13,13 +13,19 @@ import com.harmex.deathcube.util.capabilities.mana.ManaDataProvider;
 import com.harmex.deathcube.util.capabilities.skills.SkillsDataProvider;
 import com.harmex.deathcube.util.capabilities.thirst.ThirstConstants;
 import com.harmex.deathcube.util.capabilities.thirst.ThirstDataProvider;
+import com.harmex.deathcube.world.item.ModItems;
+import com.harmex.deathcube.world.item.custom.TotemOfResurrectionItem;
 import com.harmex.deathcube.world.item.custom.set.ArmorSet;
 import com.harmex.deathcube.world.item.custom.set.ArmorSetItem;
 import com.harmex.deathcube.world.skill.Skills;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
@@ -30,15 +36,14 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -46,16 +51,19 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 
 import java.text.DecimalFormat;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.harmex.deathcube.world.skill.SkillUtils.*;
 
 @Mod.EventBusSubscriber(modid = DeathCube.MODID)
 public class ModEvents {
-
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player player) {
@@ -86,6 +94,42 @@ public class ModEvents {
             });
         });
         originalPlayer.invalidateCaps();
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        Player player = event.getEntity();
+        if (!player.getLevel().isClientSide()) {
+            ItemStack originalTor = ItemStack.EMPTY;
+            List<SlotResult> originalTorSlots = CuriosApi.getCuriosHelper().findCurios(player, ModItems.TOTEM_OF_RESURRECTION.get());
+            if (originalTorSlots.size() > 0) {
+                originalTor = originalTorSlots.get(0).stack();
+            }
+            if (originalTor != ItemStack.EMPTY) {
+                CuriosApi.getCuriosHelper().setEquippedCurio(player, "totem", 0, originalTor);
+                if (originalTor.getItem() instanceof TotemOfResurrectionItem torItem) {
+                    if (originalTor.hasTag()) {
+                        if (originalTor.getTag() != null && originalTor.getTag().contains("deathcube.saved_dim") && originalTor.getTag().contains("deathcube.saved_pos")) {
+                            String savedDim = originalTor.getTag().getString("deathcube.saved_dim");
+                            int[] savedPos = originalTor.getTag().getIntArray("deathcube.saved_pos");
+
+                            ResourceLocation location = new ResourceLocation(savedDim);
+                            ResourceKey<Level> resourceKey = ResourceKey.create(Registries.DIMENSION, location);
+                            MinecraftServer minecraftServer = player.getLevel().getServer();
+
+
+                            assert minecraftServer != null;
+                            ServerLevel targetDim = minecraftServer.getLevel(resourceKey);
+
+                            if (targetDim != null && targetDim != player.getLevel()) {
+                                player.changeDimension(targetDim, torItem);
+                            }
+                            player.teleportTo(savedPos[0] + 0.5, savedPos[1], savedPos[2] + 0.5);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -238,7 +282,7 @@ public class ModEvents {
                         }
                         amount += attributeModifier.getAmount();
                     }
-                    ChatFormatting color = ChatFormatting.GRAY;
+                    ChatFormatting color = ChatFormatting.BLACK;
                     if (attribute == Attributes.MAX_HEALTH) {
                         color = ChatFormatting.RED;
                     } else if (attribute == Attributes.KNOCKBACK_RESISTANCE) {

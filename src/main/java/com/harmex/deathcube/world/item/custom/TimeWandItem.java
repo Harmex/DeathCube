@@ -104,6 +104,7 @@ public class TimeWandItem extends Item implements ITeleporter {
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
         Level level = pContext.getLevel();
         Player player = pContext.getPlayer();
+
         if (player == null) {
             return InteractionResult.PASS;
         }

@@ -5,6 +5,7 @@ import com.harmex.deathcube.world.entity.ModEntityTypes;
 import com.harmex.deathcube.world.item.custom.EnderBagItem;
 import com.harmex.deathcube.world.item.custom.FreshWaterBottleItem;
 import com.harmex.deathcube.world.item.custom.TimeWandItem;
+import com.harmex.deathcube.world.item.custom.TotemOfResurrectionItem;
 import com.harmex.deathcube.world.item.custom.apple.AppleItem;
 import com.harmex.deathcube.world.item.custom.apple.Apples;
 import com.harmex.deathcube.world.item.custom.set.ArmorSetItem;
@@ -81,7 +82,7 @@ public class ModItems {
     //region Totem
     public static final RegistryObject<Item> TOTEM_OF_RESURRECTION =
             ITEMS.register("totem_of_resurrection",
-                    () -> new TotemItem(Totems.RESURRECTION));
+                    () -> new TotemOfResurrectionItem(new Item.Properties().stacksTo(1).rarity(ModRarities.MYTHIC)));
     public static final RegistryObject<Item> TOTEM_OF_REGENERATION =
             ITEMS.register("totem_of_regeneration",
                     () -> new TotemItem(Totems.REGENERATION));
