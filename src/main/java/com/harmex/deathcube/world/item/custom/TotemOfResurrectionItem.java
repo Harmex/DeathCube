@@ -1,5 +1,7 @@
 package com.harmex.deathcube.world.item.custom;
 
+import com.harmex.deathcube.util.capabilities.equipment.EquipmentDataProvider;
+import com.harmex.deathcube.world.item.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,11 +17,16 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.ITeleporter;
 import org.jetbrains.annotations.Nullable;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class TotemOfResurrectionItem extends Item implements ITeleporter {
+public class TotemOfResurrectionItem extends Item implements ITeleporter, ICurioItem {
     public TotemOfResurrectionItem(Properties pProperties) {
         super(pProperties);
     }
@@ -69,6 +76,33 @@ public class TotemOfResurrectionItem extends Item implements ITeleporter {
                 pTooltipComponents.add(Component.literal(savedPos[0] + ", " + savedPos[1] + ", " + savedPos[2]
                         + " (" + savedDimLocation.getPath() + ")").withStyle(ChatFormatting.GRAY));
             }
+        }
+    }
+
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        if (slotContext.entity() instanceof Player player && slotContext.identifier().equals("totem")) {
+            updateFirstEquipped(player);
+        }
+    }
+
+    @Override
+    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        if (slotContext.entity() instanceof Player player && slotContext.identifier().equals("totem")) {
+            updateFirstEquipped(player);
+        }
+    }
+
+    private void updateFirstEquipped(Player pPlayer) {
+        if (!pPlayer.isDeadOrDying()) {
+            pPlayer.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
+                Optional<SlotResult> opt = CuriosApi.getCuriosHelper().findFirstCurio(pPlayer, ModItems.TOTEM_OF_RESURRECTION.get());
+                if (opt.isPresent()) {
+                    equipmentData.setEquippedTor(opt.get().stack());
+                } else {
+                    equipmentData.setEquippedTor(ItemStack.EMPTY);
+                }
+            });
         }
     }
 }

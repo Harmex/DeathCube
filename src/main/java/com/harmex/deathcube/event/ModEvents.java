@@ -56,7 +56,6 @@ import top.theillusivec4.curios.api.SlotResult;
 
 import java.text.DecimalFormat;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -83,6 +82,15 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void onPlayerDrops(LivingDropsEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
+                event.getDrops().removeIf(drop -> drop.getItem().equals(equipmentData.getEquippedTor()));
+            });
+        }
+    }
+
+    @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         Player originalPlayer = event.getOriginal();
         Player newPlayer = event.getEntity();
@@ -93,6 +101,15 @@ public class ModEvents {
                 ModMessages.sendToClient(new SkillsDataSyncS2CPacket(newStore.getSkillsLVL()), (ServerPlayer) event.getEntity());
             });
         });
+
+        if (event.isWasDeath() && !newPlayer.getLevel().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
+            originalPlayer.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(oldStore -> {
+                newPlayer.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(newStore -> {
+                    newStore.copyFrom(oldStore);
+                    ModMessages.sendToClient(new EquipmentDataSyncS2CPacket(newStore.getEquippedCountForArmorSet(), newStore.getEquippedTotems()), (ServerPlayer) event.getEntity());
+                });
+            });
+        }
         originalPlayer.invalidateCaps();
     }
 
@@ -100,10 +117,13 @@ public class ModEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         Player player = event.getEntity();
         if (!player.getLevel().isClientSide()) {
+            player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
+                CuriosApi.getCuriosHelper().setEquippedCurio(player, "totem", 0, equipmentData.getEquippedTor());
+            });
             ItemStack originalTor = ItemStack.EMPTY;
-            List<SlotResult> originalTorSlots = CuriosApi.getCuriosHelper().findCurios(player, ModItems.TOTEM_OF_RESURRECTION.get());
-            if (originalTorSlots.size() > 0) {
-                originalTor = originalTorSlots.get(0).stack();
+            Optional<SlotResult> opt = CuriosApi.getCuriosHelper().findFirstCurio(player, ModItems.TOTEM_OF_RESURRECTION.get());
+            if (opt.isPresent()) {
+                originalTor = opt.get().stack();
             }
             if (originalTor != ItemStack.EMPTY) {
                 CuriosApi.getCuriosHelper().setEquippedCurio(player, "totem", 0, originalTor);

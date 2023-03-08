@@ -24,6 +24,8 @@ public class EquipmentData {
 
     private EnumMap<Totems, Boolean> equippedTotems;
 
+    private ItemStack equippedTor;
+
     public EquipmentData() {
         equippedCountForArmorSet = new HashMap<>();
         isEffectActiveForArmorSet = new HashMap<>();
@@ -35,6 +37,8 @@ public class EquipmentData {
         for (Totem totem : Totems.values()) {
             equippedTotems.put(Totems.valueOf(totem.getName().toUpperCase()), false);
         }
+
+        equippedTor = ItemStack.EMPTY;
     }
 
     public void tick(Player pPlayer) {
@@ -69,6 +73,7 @@ public class EquipmentData {
     public void copyFrom(EquipmentData pSource) {
         equippedCountForArmorSet = pSource.equippedCountForArmorSet;
         equippedTotems = pSource.equippedTotems;
+        equippedTor = pSource.equippedTor;
     }
 
     public void loadNBTData(CompoundTag pNBT) {
@@ -84,6 +89,11 @@ public class EquipmentData {
         for (int i = 0; i < equippedTotemsListTag.size(); i++) {
             CompoundTag equippedTotemTag = equippedTotemsListTag.getCompound(i);
             equippedTotems.put(Totems.valueOf(equippedTotemTag.getString("Totem").toUpperCase()), true);
+        }
+
+        CompoundTag equippedTorTag = pNBT.getCompound("EquippedTor");
+        if (equippedTorTag.size() > 0) {
+            equippedTor = ItemStack.of(equippedTorTag);
         }
     }
 
@@ -108,6 +118,12 @@ public class EquipmentData {
             }
         }
         pNBT.put("EquippedTotems", equippedTotemsListTag);
+
+        CompoundTag equippedTorTag = new CompoundTag();
+        if (equippedTor != ItemStack.EMPTY) {
+            equippedTor.save(equippedTorTag);
+        }
+        pNBT.put("EquippedTor", equippedTorTag);
     }
 
     public Map<ArmorSet, Integer> getEquippedCountForArmorSet() {
@@ -140,5 +156,13 @@ public class EquipmentData {
 
     public boolean isTotemEquipped(Totem pTotem) {
         return equippedTotems.get(Totems.valueOf(pTotem.getName().toUpperCase()));
+    }
+
+    public ItemStack getEquippedTor() {
+        return equippedTor;
+    }
+
+    public void setEquippedTor(ItemStack equippedTor) {
+        this.equippedTor = equippedTor;
     }
 }
