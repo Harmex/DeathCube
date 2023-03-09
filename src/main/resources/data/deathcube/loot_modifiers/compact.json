@@ -1,12 +1,12 @@
 {
-  "type": "deathcube:smelter",
+  "type": "deathcube:compact",
   "conditions": [
     {
       "condition": "minecraft:match_tool",
       "predicate": {
         "enchantments": [
           {
-            "enchantment": "deathcube:smelter",
+            "enchantment": "deathcube:compact",
             "levels": {
               "min": 1
             }

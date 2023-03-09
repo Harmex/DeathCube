@@ -12,9 +12,13 @@ public class ModEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS =
             DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, DeathCube.MODID);
 
-    public static final RegistryObject<Enchantment> SMELTER =
-            ENCHANTMENTS.register("smelter",
+    public static final RegistryObject<Enchantment> SMELT =
+            ENCHANTMENTS.register("smelt",
                     () -> new SmeltEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
+
+    public static final RegistryObject<Enchantment> COMPACT =
+            ENCHANTMENTS.register("compact",
+                    () -> new CompactEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
 
     public static void register(IEventBus eventBus) {
         ENCHANTMENTS.register(eventBus);

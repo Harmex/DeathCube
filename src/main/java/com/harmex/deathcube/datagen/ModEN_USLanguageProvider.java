@@ -32,7 +32,8 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
 
         add("chat.deathcube.lvlup", "%s leveled Up! %s!");
 
-        addEnchantment("smelter", "Smelter");
+        addEnchantment("smelt", "Smelt");
+        addEnchantment("compact", "Compact");
 
         addSkill("combat", "Combat");
         addSkill("mining", "Mining");

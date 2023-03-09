@@ -16,11 +16,20 @@ public class LootModifierProvider extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        add("smelter", new SmelterEnchantmentModifier(
+        add("smelt", new SmeltEnchantmentModifier(
                 new LootItemCondition[] {
                         MatchTool.toolMatches(
                                 ItemPredicate.Builder.item().hasEnchantment(
-                                        new EnchantmentPredicate(ModEnchantments.SMELTER.get(), MinMaxBounds.Ints.atLeast(1))
+                                        new EnchantmentPredicate(ModEnchantments.SMELT.get(), MinMaxBounds.Ints.atLeast(1))
+                                )
+                        ).build()
+                }
+        ));
+        add("compact", new CompactEnchantmentModifier(
+                new LootItemCondition[] {
+                        MatchTool.toolMatches(
+                                ItemPredicate.Builder.item().hasEnchantment(
+                                        new EnchantmentPredicate(ModEnchantments.COMPACT.get(), MinMaxBounds.Ints.atLeast(1))
                                 )
                         ).build()
                 }

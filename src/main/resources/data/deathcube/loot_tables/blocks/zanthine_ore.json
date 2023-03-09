@@ -15,7 +15,7 @@
                   "predicate": {
                     "enchantments": [
                       {
-                        "enchantment": "deathcube:smelter",
+                        "enchantment": "deathcube:smelt",
                         "levels": {
                           "min": 1
                         }

@@ -1,6 +1,7 @@
 {
   "entries": [
-    "deathcube:smelter"
+    "deathcube:smelt",
+    "deathcube:compact"
   ],
   "replace": false
 }

@@ -17,10 +17,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class SmelterEnchantmentModifier extends LootModifier {
-    public static final Supplier<Codec<SmelterEnchantmentModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, SmelterEnchantmentModifier::new)));
+public class SmeltEnchantmentModifier extends LootModifier {
+    public static final Supplier<Codec<SmeltEnchantmentModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, SmeltEnchantmentModifier::new)));
 
-    protected SmelterEnchantmentModifier(LootItemCondition[] conditionsIn) {
+    protected SmeltEnchantmentModifier(LootItemCondition[] conditionsIn) {
         super(conditionsIn);
     }
 

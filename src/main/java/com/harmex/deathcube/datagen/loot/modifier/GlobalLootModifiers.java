@@ -12,8 +12,10 @@ public class GlobalLootModifiers {
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLM =
             DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, DeathCube.MODID);
 
-    public static final RegistryObject<Codec<SmelterEnchantmentModifier>> SMELTER = GLM.register("smelter",
-            SmelterEnchantmentModifier.CODEC);
+    public static final RegistryObject<Codec<SmeltEnchantmentModifier>> SMELT = GLM.register("smelt",
+            SmeltEnchantmentModifier.CODEC);
+    public static final RegistryObject<Codec<CompactEnchantmentModifier>> COMPACT = GLM.register("compact",
+            CompactEnchantmentModifier.CODEC);
 
     public static void register(IEventBus eventBus) {
         GLM.register(eventBus);

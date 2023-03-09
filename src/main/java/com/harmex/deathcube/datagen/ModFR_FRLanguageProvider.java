@@ -32,7 +32,8 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
 
         add("chat.deathcube.lvlup", "%s monte de niveau ! %s !");
 
-        addEnchantment("smelter", "Fondrie");
+        addEnchantment("smelt", "Fondrie");
+        addEnchantment("compact", "Compacte");
 
         addSkill("combat", "Combat");
         addSkill("mining", "Minage");
