@@ -1,6 +1,7 @@
 package com.harmex.deathcube.datagen.loot;
 
 import com.harmex.deathcube.world.item.ModItems;
+import com.harmex.deathcube.world.item.enchantment.ModEnchantments;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import com.harmex.deathcube.world.level.block.custom.GoldenCarrotBlock;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -8,82 +9,69 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ModBlockLootSubProvider extends BlockLootSubProvider {
     private static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
-    private static final LootItemCondition.Builder HAS_NO_SILK_TOUCH = HAS_SILK_TOUCH.invert();
-    private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
-    private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
-    private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
-    private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
-    private static final float[] NORMAL_LEAVES_FRUIT_CHANCES = new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F};
-    private static final float[] CHERRY_LEAVES_FRUIT_CHANCES = new float[]{0.5F, 0.55555557F, 0.625F, 0.8333334F, 1.0F};
+    private static final LootItemCondition.Builder HAS_SMELTER = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(ModEnchantments.SMELTER.get(), MinMaxBounds.Ints.atLeast(1))));
+    private static final Set<Item> EXPLOSION_RESISTANT = Stream.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.PIGLIN_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).map(ItemLike::asItem).collect(Collectors.toSet());
 
     public ModBlockLootSubProvider() {
-        super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags());
+        super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
     }
 
     @Override
     protected void generate() {
-        this.dropSelf(ModBlocks.ECHO_AMETHYST_BLOCK.get());
-        this.dropSelf(ModBlocks.UPGRADING_STATION.get());
-        this.dropSelf(ModBlocks.MATTER_MANIPULATOR.get());
-        this.dropSelf(ModBlocks.RESURRECTION_ALTAR.get());
+        dropSelf(ModBlocks.ECHO_AMETHYST_BLOCK.get());
+        dropSelf(ModBlocks.UPGRADING_STATION.get());
+        dropSelf(ModBlocks.MATTER_MANIPULATOR.get());
+        dropSelf(ModBlocks.RESURRECTION_ALTAR.get());
 
         LootItemCondition.Builder goldenCarrotsLootCondition =
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.GOLDEN_CARROTS.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GoldenCarrotBlock.AGE, 7));
-        this.add(ModBlocks.GOLDEN_CARROTS.get(),
+        add(ModBlocks.GOLDEN_CARROTS.get(),
                 applyExplosionDecay(ModBlocks.GOLDEN_CARROTS.get(), LootTable.lootTable()
                         .withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.GOLDEN_CARROT)))
                         .withPool(LootPool.lootPool().when(goldenCarrotsLootCondition).add(LootItem.lootTableItem(Items.GOLDEN_CARROT)
                                 .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
 
-        this.add(ModBlocks.ZANTHINE_ORE.get(), block ->
-                createOreDrop(block, ModItems.ZANTHINE.get())
-        );
-        this.add(ModBlocks.DEEPSLATE_ZANTHINE_ORE.get(), block ->
-                createOreDrop(block, ModItems.ZANTHINE.get())
-        );
+        add(ModBlocks.ZANTHINE_ORE.get(), block ->
+                createOreDrop(block, ModItems.ZANTHINE.get(), ModItems.ZANTHINE.get()));
+        add(ModBlocks.DEEPSLATE_ZANTHINE_ORE.get(), block ->
+                createOreDrop(block, ModItems.ZANTHINE.get(), ModItems.ZANTHINE.get()));
     }
 
-    protected LootTable.@NotNull Builder createSlabItemTable(@NotNull Block pBlock) {
-        return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pBlock).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(pBlock).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE)))))));
+    protected LootTable.Builder createOreDrop(Block pBlock, Item pItem, Item pSmeltedItem) {
+        return createOreDropDispatchTable(pBlock, pSmeltedItem, applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
 
-    protected LootTable.Builder createDoorTable(Block pDoorBlock) {
-        return this.createSinglePropConditionTable(pDoorBlock, DoorBlock.HALF, DoubleBlockHalf.LOWER);
-    }
-
-    protected <T extends Comparable<T> & StringRepresentable> LootTable.Builder createSinglePropConditionTable(Block pBlock, Property<T> pProperty, T pValue) {
-        return LootTable.lootTable().withPool(this.applyExplosionCondition(pBlock, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(pBlock).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(pBlock).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(pProperty, pValue))))));
+    protected static LootTable.Builder createOreDropDispatchTable(Block pBlock, Item pSmeltedItem, LootPoolEntryContainer.Builder<?> pBuilder) {
+        return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(pSmeltedItem).when(HAS_SMELTER).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)).otherwise(LootItem.lootTableItem(pBlock).when(HAS_SILK_TOUCH)).otherwise(pBuilder)));
     }
 
     @Override
-    protected @NotNull Iterable<Block> getKnownBlocks() {
+    protected Iterable<Block> getKnownBlocks() {
         return ModBlocks.BLOCKS.getEntries().stream().flatMap(RegistryObject::stream)::iterator;
     }
 }

@@ -32,6 +32,8 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
 
         add("chat.deathcube.lvlup", "%s monte de niveau ! %s !");
 
+        addEnchantment("smelter", "Fondrie");
+
         addSkill("combat", "Combat");
         addSkill("mining", "Minage");
         addSkill("farming", "Agriculture");
@@ -200,6 +202,9 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
     }
     private void addItemTooltip(String pId, String pName) {
         add("itemTooltip." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addEnchantment(String pId, String pName) {
+        add("enchantment." + DeathCube.MODID + "." + pId, pName);
     }
     private void addContainer(String pId, String pName) {
         add("container." + DeathCube.MODID + "." + pId, pName);

@@ -1,6 +1,7 @@
 package com.harmex.deathcube.datagen;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.datagen.loot.modifier.LootModifierProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -20,6 +21,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModRecipeProvider(output));
         generator.addProvider(event.includeServer(), new ModAdvancementProvider(output, event.getLookupProvider(), existingFileHelper));
         generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
+        generator.addProvider(event.includeServer(), new LootModifierProvider(output, DeathCube.MODID));
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
         //generator.addProvider(true, new ModBlockTagProvider(output, event.getLookupProvider(), existingFileHelper));

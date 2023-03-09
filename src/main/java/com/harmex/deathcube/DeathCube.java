@@ -2,6 +2,7 @@ package com.harmex.deathcube;
 
 import com.harmex.deathcube.config.DeathCubeClientConfigs;
 import com.harmex.deathcube.config.DeathCubeCommonConfigs;
+import com.harmex.deathcube.datagen.loot.modifier.GlobalLootModifiers;
 import com.harmex.deathcube.painting.ModPaintings;
 import com.harmex.deathcube.recipe.ModRecipes;
 import com.harmex.deathcube.world.effect.ModMobEffects;
@@ -9,6 +10,7 @@ import com.harmex.deathcube.world.entity.ModEntityTypes;
 import com.harmex.deathcube.world.entity.ai.attribute.ModAttributes;
 import com.harmex.deathcube.world.inventory.ModMenuTypes;
 import com.harmex.deathcube.world.item.ModItems;
+import com.harmex.deathcube.world.item.enchantment.ModEnchantments;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import com.harmex.deathcube.world.level.block.entity.ModBlockEntities;
 import com.mojang.logging.LogUtils;
@@ -35,7 +37,9 @@ public class DeathCube {
         ModPaintings.register(modEventBus);
         ModMobEffects.register(modEventBus);
         ModEntityTypes.register(modEventBus);
+        ModEnchantments.register(modEventBus);
         ModAttributes.register(modEventBus);
+        GlobalLootModifiers.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DeathCubeClientConfigs.SPEC, "deathcube-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DeathCubeCommonConfigs.SPEC, "deathcube-common.toml");

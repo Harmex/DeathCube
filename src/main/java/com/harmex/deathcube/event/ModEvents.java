@@ -20,6 +20,8 @@ import com.harmex.deathcube.world.item.custom.set.ArmorSetItem;
 import com.harmex.deathcube.world.skill.Skills;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -36,6 +38,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -52,6 +55,7 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
@@ -293,14 +297,14 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
-        ItemStack hoveredItem = event.getItemStack();
+        ItemStack hoveredStack = event.getItemStack();
         if (event.getEntity() != null && event.getEntity().level.isClientSide()) {
             // Show Attribute Modifiers (Armor, Attack Damage, etc.)
-            if (hoveredItem.getItem() instanceof ArmorItem
-                    || hoveredItem.getItem() instanceof TieredItem
-                    || hoveredItem.getItem() instanceof TridentItem) {
+            if (hoveredStack.getItem() instanceof ArmorItem
+                    || hoveredStack.getItem() instanceof TieredItem
+                    || hoveredStack.getItem() instanceof TridentItem) {
                 Multimap<Attribute, AttributeModifier> attributeModifiers =
-                        hoveredItem.getAttributeModifiers(LivingEntity.getEquipmentSlotForItem(hoveredItem));
+                        hoveredStack.getAttributeModifiers(LivingEntity.getEquipmentSlotForItem(hoveredStack));
                 for (Map.Entry<Attribute, Collection<AttributeModifier>> entry : attributeModifiers.asMap().entrySet()) {
                     Attribute attribute = entry.getKey();
                     float amount = 0;
@@ -341,7 +345,7 @@ public class ModEvents {
             }
 
             //Show the armor set if the item has one
-            if (hoveredItem.getItem() instanceof ArmorSetItem armorSetItem) {
+            if (hoveredStack.getItem() instanceof ArmorSetItem armorSetItem) {
                 if (ClientEquipmentData.getEquippedNumberForArmorSet() != null) {
                     ArmorSet armorSet = armorSetItem.getArmorSet();
                     int equippedCount = 0;
@@ -376,8 +380,8 @@ public class ModEvents {
             }
 
             // Show Enchantment List if the item is enchanted
-            if (!hoveredItem.getAllEnchantments().isEmpty()) {
-                for (Map.Entry<Enchantment, Integer> entry : hoveredItem.getAllEnchantments().entrySet()) {
+            if (!hoveredStack.getAllEnchantments().isEmpty()) {
+                for (Map.Entry<Enchantment, Integer> entry : hoveredStack.getAllEnchantments().entrySet()) {
                     ChatFormatting color = ChatFormatting.BLUE;
                     if (entry.getKey().isCurse()) {
                         color = ChatFormatting.RED;
@@ -393,11 +397,32 @@ public class ModEvents {
                 }
                 event.getToolTip().add(Component.empty());
             }
+            if (hoveredStack.getItem() instanceof EnchantedBookItem) {
+                ListTag enchantmentsTag = EnchantedBookItem.getEnchantments(hoveredStack);
+                for (int i = 0; i < enchantmentsTag.size(); i++) {
+                    CompoundTag enchantmentTag = enchantmentsTag.getCompound(i);
+                    Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(EnchantmentHelper.getEnchantmentId(enchantmentTag));
+                    int enchantmentLevel = enchantmentTag.getInt("lvl");
+                    ChatFormatting color = ChatFormatting.BLUE;
+                    assert enchantment != null;
+                    if (enchantment.isCurse()) {
+                        color = ChatFormatting.RED;
+                    } else if (enchantment.isTreasureOnly()) {
+                        color = ChatFormatting.GREEN;
+                    }
+                    MutableComponent enchantmentText = Component.literal("")
+                            .append(Component.translatable(enchantment.getDescriptionId())).withStyle(color);
+                    if (enchantmentLevel > 1) {
+                        enchantmentText.append(Component.literal(" " + enchantmentLevel));
+                    }
+                    event.getToolTip().add(enchantmentText);
+                }
+            }
 
             // Show Durability if the item can be damaged
-            if (hoveredItem.isDamageableItem()) {
-                int maxDurability = hoveredItem.getMaxDamage();
-                int durability = maxDurability - hoveredItem.getDamageValue();
+            if (hoveredStack.isDamageableItem()) {
+                int maxDurability = hoveredStack.getMaxDamage();
+                int durability = maxDurability - hoveredStack.getDamageValue();
                 float durabilityPercent = ((float) durability * 100 / maxDurability);
                 ChatFormatting color;
                 if (durabilityPercent >= 50) {
@@ -415,7 +440,7 @@ public class ModEvents {
             }
         }
 
-        Rarity rarity = hoveredItem.getRarity();
+        Rarity rarity = hoveredStack.getRarity();
         Component rarityComponent = Component.translatable(
                 "itemTooltip." + DeathCube.MODID + ".rarity." + rarity.name().toLowerCase())
                 .withStyle(rarity.getStyleModifier());
