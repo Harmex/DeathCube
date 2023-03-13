@@ -6,12 +6,14 @@ import com.harmex.deathcube.client.gui.screens.inventory.MatterManipulatorScreen
 import com.harmex.deathcube.client.gui.screens.inventory.ResurrectionAltarScreen;
 import com.harmex.deathcube.client.gui.screens.inventory.UpgradingStationScreen;
 import com.harmex.deathcube.client.model.*;
+import com.harmex.deathcube.client.renderer.blockentity.ResurrectionAltarRenderer;
 import com.harmex.deathcube.client.renderer.entity.*;
 import com.harmex.deathcube.world.entity.ModEntityTypes;
 import com.harmex.deathcube.world.inventory.ModMenuTypes;
 import com.harmex.deathcube.world.item.ModCreativeModeTabs;
 import com.harmex.deathcube.world.item.ModItems;
 import com.harmex.deathcube.world.level.block.ModBlocks;
+import com.harmex.deathcube.world.level.block.entity.ModBlockEntities;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -47,6 +49,8 @@ public class ClientModBusEvents {
         event.registerEntityRenderer(ModEntityTypes.GALTERIUS.get(), GalteriusRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.NAERVUS.get(), NaervusRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.ZANUZAL.get(), ZanuzalRenderer::new);
+
+        event.registerBlockEntityRenderer(ModBlockEntities.RESURRECTION_ALTAR_BLOCK_ENTITY.get(), ResurrectionAltarRenderer::new);
     }
 
     @SubscribeEvent
@@ -172,6 +176,10 @@ public class ClientModBusEvents {
             event.accept(ModItems.OBSIDIAN_CHESTPLATE);
             event.accept(ModItems.OBSIDIAN_LEGGINGS);
             event.accept(ModItems.OBSIDIAN_BOOTS);
+            event.accept(ModItems.GALTERIUS_HELMET);
+            event.accept(ModItems.GALTERIUS_CHESTPLATE);
+            event.accept(ModItems.GALTERIUS_LEGGINGS);
+            event.accept(ModItems.GALTERIUS_BOOTS);
         }
         if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_FOOD_AND_DRINKS_TAB) {
             event.accept(ModItems.FRESH_WATER_BOTTLE);

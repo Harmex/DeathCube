@@ -104,4 +104,17 @@ public class SkillUtils {
                     .put(Blocks.SEAGRASS, 5.0F)
                     .put(Blocks.TALL_SEAGRASS, 5.0F)
                     .build();
+
+    public static final ImmutableMap<Block, Float> XP_FOR_WOOD_CUT =
+            ImmutableMap.<Block, Float>builder()
+                    .put(Blocks.OAK_LOG, 5.0F)
+                    .put(Blocks.SPRUCE_LOG, 5.0F)
+                    .put(Blocks.BIRCH_LOG, 5.0F)
+                    .put(Blocks.JUNGLE_LOG, 5.0F)
+                    .put(Blocks.ACACIA_LOG, 5.0F)
+                    .put(Blocks.DARK_OAK_LOG, 5.0F)
+                    .put(Blocks.MANGROVE_LOG, 5.0F)
+                    .put(Blocks.CRIMSON_STEM, 7.5F)
+                    .put(Blocks.WARPED_STEM, 7.5F)
+                    .build();
 }

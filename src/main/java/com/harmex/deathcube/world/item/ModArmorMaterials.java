@@ -55,6 +55,9 @@ public enum ModArmorMaterials implements ArmorMaterial {
     ),
     OBSIDIAN("obsidian", 38, new int[]{4, 7, 9, 4}, 17, SoundEvents.ARMOR_EQUIP_NETHERITE,
             3.5F, 0.15F, () -> Ingredient.of(Items.OBSIDIAN)
+    ),
+    GALTERIUS("galterius", 20, new int[]{2, 5, 7, 2}, 20, SoundEvents.ARMOR_EQUIP_IRON,
+            0.0F, 0.0F, () -> Ingredient.of(Items.IRON_INGOT)
     );
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};

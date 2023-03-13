@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "all": "deathcube:block/echo_amethyst_block"
+    "bottom": "deathcube:block/echo_amethyst_block_bottom",
+    "side": "deathcube:block/echo_amethyst_block_side",
+    "top": "deathcube:block/echo_amethyst_block_top"
   }
 }

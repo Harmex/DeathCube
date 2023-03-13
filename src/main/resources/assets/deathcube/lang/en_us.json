@@ -76,6 +76,10 @@
   "item.deathcube.ender_bag": "Ender Bag",
   "item.deathcube.ender_dragon_scale": "Ender Dragon Scale",
   "item.deathcube.fresh_water_bottle": "Fresh Water Bottle",
+  "item.deathcube.galterius_boots": "Galterius's Boots",
+  "item.deathcube.galterius_chestplate": "Galterius's Chestplate",
+  "item.deathcube.galterius_helmet": "Galterius's Helmet",
+  "item.deathcube.galterius_leggings": "Galterius's Leggings",
   "item.deathcube.galterius_spawn_egg": "Galterius Spawn Egg",
   "item.deathcube.jungle_boots": "Jungle Boots",
   "item.deathcube.jungle_chestplate": "Jungle Chestplate",
@@ -146,6 +150,7 @@
   "itemTooltip.deathcube.set.dark_oak": "Dark Oak",
   "itemTooltip.deathcube.set.diamond": "Diamond",
   "itemTooltip.deathcube.set.emerald": "Emerald",
+  "itemTooltip.deathcube.set.galterius": "Galterius",
   "itemTooltip.deathcube.set.gold": "Gold",
   "itemTooltip.deathcube.set.iron": "Iron",
   "itemTooltip.deathcube.set.jungle": "Jungle",
@@ -160,5 +165,6 @@
   "skill.name.deathcube.combat": "Combat",
   "skill.name.deathcube.farming": "Farming",
   "skill.name.deathcube.fishing": "Fishing",
-  "skill.name.deathcube.mining": "Mining"
+  "skill.name.deathcube.mining": "Mining",
+  "skill.name.deathcube.woodcutting": "Woodcutting"
 }

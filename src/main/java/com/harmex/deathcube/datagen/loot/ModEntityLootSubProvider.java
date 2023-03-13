@@ -1,18 +1,18 @@
 package com.harmex.deathcube.datagen.loot;
 
 import com.harmex.deathcube.world.entity.ModEntityTypes;
+import com.harmex.deathcube.world.item.ModItems;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
+import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -33,18 +33,34 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
         this.add(ModEntityTypes.BORZADON.get(), LootTable.lootTable());
         this.add(ModEntityTypes.GALTERIUS.get(),
                 LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1.0F))
-                                .add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
-                                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
                         .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                                .add(LootItem.lootTableItem(Items.IRON_INGOT)).add(LootItem.lootTableItem(Items.CARROT))
-                                .add(LootItem.lootTableItem(Items.POTATO)
-                                        .apply(SmeltItemFunction.smelted()
-                                                .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE))))
-                                .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                                .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
+                                .add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 7.0F)))
+                                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 4.0F)))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(ModItems.GALTERIUS_HELMET.get())
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.ALL_DAMAGE_PROTECTION, ConstantValue.exactly(2)))
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.UNBREAKING, ConstantValue.exactly(1)))
+                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.25F, 0.05F))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(ModItems.GALTERIUS_CHESTPLATE.get())
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.ALL_DAMAGE_PROTECTION, ConstantValue.exactly(2)))
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.UNBREAKING, ConstantValue.exactly(1)))
+                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.25F, 0.05F))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(ModItems.GALTERIUS_LEGGINGS.get())
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.ALL_DAMAGE_PROTECTION, ConstantValue.exactly(2)))
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.UNBREAKING, ConstantValue.exactly(1)))
+                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.25F, 0.05F))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(ModItems.GALTERIUS_BOOTS.get())
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.ALL_DAMAGE_PROTECTION, ConstantValue.exactly(2)))
+                                        .apply(new SetEnchantmentsFunction.Builder().withEnchantment(Enchantments.UNBREAKING, ConstantValue.exactly(1)))
+                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.25F, 0.05F)))));
         this.add(ModEntityTypes.NAERVUS.get(), LootTable.lootTable());
         this.add(ModEntityTypes.ZANUZAL.get(), LootTable.lootTable());
     }

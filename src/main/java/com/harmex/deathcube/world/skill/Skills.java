@@ -1,12 +1,12 @@
 package com.harmex.deathcube.world.skill;
 
 import net.minecraft.network.chat.Style;
-import net.minecraft.util.StringRepresentable;
 
 import java.util.function.UnaryOperator;
 
-public enum Skills implements Skill, StringRepresentable {
+public enum Skills implements Skill {
     COMBAT("combat", 100, style -> style.withColor(0xAA2020)),
+    WOODCUTTING("woodcutting", 100, style -> style.withColor(0x987849)),
     MINING("mining", 100, style -> style.withColor(0x909090)),
     FARMING("farming", 100, style -> style.withColor(0xE1B235)),
     FISHING("fishing", 100, style -> style.withColor(0x00d2FF));
@@ -15,37 +15,24 @@ public enum Skills implements Skill, StringRepresentable {
 
 
     private final String name;
-    private final int maxLvl;
+    private final int maxLevel;
     private final UnaryOperator<Style> styleModifier;
-    private static final StringRepresentable.EnumCodec<Skills> CODEC = StringRepresentable.fromEnum(Skills::values);
-    Skills(String pName, int pMaxLvl, UnaryOperator<Style> pStyleModifier) {
+
+    Skills(String pName, int pMaxLevel, UnaryOperator<Style> pStyleModifier) {
         name = pName;
-        maxLvl = pMaxLvl;
+        maxLevel = pMaxLevel;
         styleModifier = pStyleModifier;
     }
 
-    public static Skill getByName(String pName) {
-        Skill skill = CODEC.byName(pName);
-        return skill != null ? skill : Skills.COMBAT;
-    }
-
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
-    public int getMaxLvl() {
-        return maxLvl;
+    public int getMaxLevel() {
+        return maxLevel;
     }
 
-    @Override
     public UnaryOperator<Style> getStyleModifier() {
         return styleModifier;
-    }
-
-    @Override
-    public String getSerializedName() {
-        return name;
     }
 }

@@ -6,8 +6,7 @@ import com.harmex.deathcube.util.capabilities.skills.ClientSkillsData;
 import com.harmex.deathcube.util.capabilities.thirst.ClientThirstData;
 import com.harmex.deathcube.util.capabilities.thirst.ThirstConstants;
 import com.harmex.deathcube.world.entity.ai.attribute.ModAttributes;
-import com.harmex.deathcube.world.skill.Skill;
-import com.harmex.deathcube.world.skill.SkillProperties;
+import com.harmex.deathcube.world.skill.SkillData;
 import com.harmex.deathcube.world.skill.Skills;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.Util;
@@ -341,27 +340,25 @@ public class ModGuiOverlay {
 
             Font font = gui.getFont();
 
-            List<Map.Entry<Skill, SkillProperties>> sortedList = new ArrayList<>(ClientSkillsData.getSkillsLVL().entrySet());
-            sortedList.sort((o1, o2) -> Float.compare(o1.getValue().getTotalXp(), o2.getValue().getTotalXp()));
+            List<Map.Entry<Skills, SkillData>> sortedList = new ArrayList<>(ClientSkillsData.getSkills().entrySet());
+            sortedList.sort((o1, o2) -> Float.compare(o1.getValue().getTotalExperience(), o2.getValue().getTotalExperience()));
 
-            for (Map.Entry<Skill, SkillProperties> entry : sortedList) {
-                float requiredXp = entry.getValue().getRequiredXp();
-                float currentXp = entry.getValue().getXp() / requiredXp;
-                float level = entry.getValue().getLvl() + currentXp;
+            for (Map.Entry<Skills, SkillData> skill : sortedList) {
+                float requiredXp = skill.getValue().getRequiredExperience();
+                float currentXp = skill.getValue().getExperience() / requiredXp;
+                float level = skill.getValue().getLevel() + currentXp;
                 if (level > 0) {
-                    if (entry.getKey() == Skills.COMBAT) {
+                    if (skill.getKey() == Skills.COMBAT) {
                         uOffset = 0;
-                    } else if (entry.getKey() == Skills.MINING) {
+                    } else if (skill.getKey() == Skills.MINING) {
                         uOffset = 16;
-                    } else if (entry.getKey() == Skills.FARMING) {
+                    } else if (skill.getKey() == Skills.FARMING) {
                         uOffset = 32;
-                    } else if (entry.getKey() == Skills.FISHING) {
+                    } else if (skill.getKey() == Skills.FISHING) {
                         uOffset = 48;
-                    }/* else if (entry.getKey() == Skills.ENCHANTING) {
+                    }else if (skill.getKey() == Skills.WOODCUTTING) {
                         uOffset = 64;
-                    } else if (entry.getKey() == Skills.MAGIC) {
-                        uOffset = 80;
-                    }*/
+                    }
                     GuiComponent.blit(poseStack, left - 3, top - 3, 0, 16, 72, 22, iconsTextureWidth, iconsTextureHeight);
                     GuiComponent.blit(poseStack, left, top, uOffset, vOffset, 16, 16, iconsTextureWidth, iconsTextureHeight);
                     top -= 21;
@@ -370,17 +367,17 @@ public class ModGuiOverlay {
 
             top = screenHeight - 24;
 
-            for (Map.Entry<Skill, SkillProperties> entry : sortedList) {
-                int color = Objects.requireNonNull(entry.getKey().getStyleModifier().apply(Style.EMPTY).getColor()).getValue();
-                float requiredXp = entry.getValue().getRequiredXp();
-                float currentXp = entry.getValue().getXp();
+            for (Map.Entry<Skills, SkillData> skill : sortedList) {
+                int color = Objects.requireNonNull(skill.getKey().getStyleModifier().apply(Style.EMPTY).getColor()).getValue();
+                float requiredXp = skill.getValue().getRequiredExperience();
+                float currentXp = skill.getValue().getExperience();
                 float xpPercentage = currentXp * 100 / requiredXp;
                 int xpBarSize = Mth.ceil(currentXp * 48 / requiredXp);
-                int level = entry.getValue().getLvl();
+                int level = skill.getValue().getLevel();
                 if (level + currentXp > 0) {
                     String xpPercentageText = new DecimalFormat("#.##").format(xpPercentage) + "%";
-                    font.drawShadow(poseStack, Component.literal(String.valueOf(level)).withStyle(entry.getKey().getStyleModifier()), left + 16 - (font.width(String.valueOf(level))), top + (16 - font.lineHeight), 0);
-                    font.drawShadow(poseStack, Component.literal(xpPercentageText).withStyle(entry.getKey().getStyleModifier()), left + 42 - (float) (font.width(xpPercentageText) / 2), top + (7 - (float) (font.lineHeight / 2)), 0);
+                    font.drawShadow(poseStack, Component.literal(String.valueOf(level)).withStyle(skill.getKey().getStyleModifier()), left + 16 - (font.width(String.valueOf(level))), top + (16 - font.lineHeight), 0);
+                    font.drawShadow(poseStack, Component.literal(xpPercentageText).withStyle(skill.getKey().getStyleModifier()), left + 42 - (float) (font.width(xpPercentageText) / 2), top + (7 - (float) (font.lineHeight / 2)), 0);
                     GuiComponent.fill(poseStack, left + 18, top + 13, left + 18 + xpBarSize, top + 16, color + 0xFF000000);
                     top -= 21;
                 }

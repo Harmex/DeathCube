@@ -36,6 +36,7 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         addEnchantment("compact", "Compact");
 
         addSkill("combat", "Combat");
+        addSkill("woodcutting", "Woodcutting");
         addSkill("mining", "Mining");
         addSkill("farming", "Farming");
         addSkill("fishing", "Fishing");
@@ -77,6 +78,7 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         addItemTooltip("set.diamond", "Diamond");
         addItemTooltip("set.obsidian", "Obsidian");
         addItemTooltip("set.netherite", "Netherite");
+        addItemTooltip("set.galterius", "Galterius");
 
         add(ModEntityTypes.AZRATHAL.get().getDescriptionId(), "Azrathal");
         add(ModEntityTypes.BORZADON.get().getDescriptionId(), "Borzadon");
@@ -193,6 +195,11 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
         add(ModItems.OBSIDIAN_AXE.get(), "Obsidian Axe");
         add(ModItems.OBSIDIAN_SHOVEL.get(), "Obsidian Shovel");
         add(ModItems.OBSIDIAN_HOE.get(), "Obsidian Hoe");
+
+        add(ModItems.GALTERIUS_HELMET.get(), "Galterius's Helmet");
+        add(ModItems.GALTERIUS_CHESTPLATE.get(), "Galterius's Chestplate");
+        add(ModItems.GALTERIUS_LEGGINGS.get(), "Galterius's Leggings");
+        add(ModItems.GALTERIUS_BOOTS.get(), "Galterius's Boots");
     }
 
     private void addCuriosSlot(String pId, String pName) {

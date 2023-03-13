@@ -46,7 +46,7 @@ public class ModBlocks {
     );
     public static final RegistryObject<Block> RESURRECTION_ALTAR = registerBlock("resurrection_altar",
             () -> new ResurrectionAltarBlock(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(9f).requiresCorrectToolForDrops()), Rarity.COMMON
+                    .strength(-1.0F, 3600000.0F).requiresCorrectToolForDrops()), Rarity.COMMON
     );
     public static final RegistryObject<Block> ZANTHINE_ORE = registerBlock("zanthine_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)

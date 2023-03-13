@@ -103,7 +103,8 @@ public class ModEvents {
         originalPlayer.getCapability(SkillsDataProvider.SKILLS).ifPresent(oldStore -> {
             newPlayer.getCapability(SkillsDataProvider.SKILLS).ifPresent(newStore -> {
                 newStore.copyFrom(oldStore);
-                ModMessages.sendToClient(new SkillsDataSyncS2CPacket(newStore.getSkillsLVL()), (ServerPlayer) event.getEntity());
+                newStore.updateAttributes(newPlayer);
+                ModMessages.sendToClient(new SkillsDataSyncS2CPacket(newStore.getSkills()), (ServerPlayer) event.getEntity());
             });
         });
 
@@ -183,7 +184,7 @@ public class ModEvents {
                 }
             });
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
-                ModMessages.sendToClient(new SkillsDataSyncS2CPacket(skillsData.getSkillsLVL()), ((ServerPlayer) player));
+                ModMessages.sendToClient(new SkillsDataSyncS2CPacket(skillsData.getSkills()), ((ServerPlayer) player));
                 skillsData.tick(player);
             });
         }
@@ -195,7 +196,7 @@ public class ModEvents {
         if (!player.getLevel().isClientSide() && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
                 for (ItemStack fishedItem : event.getDrops()) {
-                    skillsData.addXP(Skills.FISHING, XP_FOR_ITEM_FISHED.getOrDefault(fishedItem.getItem(), 0.0F));
+                    skillsData.addExperience(player, Skills.FISHING, XP_FOR_ITEM_FISHED.getOrDefault(fishedItem.getItem(), 0.0F));
                 }
             });
         }
@@ -212,13 +213,15 @@ public class ModEvents {
             }
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
                 if (XP_FOR_BLOCK_MINED.containsKey(block)) {
-                    skillsData.addXP(Skills.MINING, XP_FOR_BLOCK_MINED.get(block));
+                    skillsData.addExperience(player, Skills.MINING, XP_FOR_BLOCK_MINED.get(block));
                 } else if (XP_FOR_CROP_HARVESTED.containsKey(block)) {
                     if (!(block instanceof CropBlock cropBlock)) {
-                        skillsData.addXP(Skills.FARMING, XP_FOR_CROP_HARVESTED.get(block));
+                        skillsData.addExperience(player, Skills.FARMING, XP_FOR_CROP_HARVESTED.get(block));
                     } else if (cropBlock.isMaxAge(event.getState())) {
-                        skillsData.addXP(Skills.FARMING, XP_FOR_CROP_HARVESTED.get(cropBlock));
+                        skillsData.addExperience(player, Skills.FARMING, XP_FOR_CROP_HARVESTED.get(cropBlock));
                     }
+                } else if (XP_FOR_WOOD_CUT.containsKey(block)) {
+                    skillsData.addExperience(player, Skills.WOODCUTTING, XP_FOR_WOOD_CUT.get(block));
                 }
             });
         }
@@ -235,7 +238,7 @@ public class ModEvents {
                 player.getCapability(ManaDataProvider.PLAYER_MANA).ifPresent(manaData ->
                         ModMessages.sendToClient(new ManaDataSyncS2CPacket(manaData.getManaLevel()), player));
                 player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData ->
-                        ModMessages.sendToClient(new SkillsDataSyncS2CPacket(skillsData.getSkillsLVL()), player));
+                        ModMessages.sendToClient(new SkillsDataSyncS2CPacket(skillsData.getSkills()), player));
             }
         }
     }
@@ -286,7 +289,7 @@ public class ModEvents {
         if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide()
                 && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
-                skillsData.addXP(Skills.COMBAT, event.getAmount());
+                skillsData.addExperience(player, Skills.COMBAT, event.getAmount());
             });
             if (player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
                 player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->

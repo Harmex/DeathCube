@@ -1,21 +1,21 @@
 package com.harmex.deathcube.util.capabilities.skills;
 
-import com.harmex.deathcube.world.skill.Skill;
-import com.harmex.deathcube.world.skill.SkillProperties;
+import com.harmex.deathcube.world.skill.SkillData;
+import com.harmex.deathcube.world.skill.Skills;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Map;
+import java.util.EnumMap;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientSkillsData {
-    private static Map<Skill, SkillProperties> skillsLVL;
+    private static EnumMap<Skills, SkillData> skills;
 
-    public static void set(Map<Skill, SkillProperties> pSkillsLVL) {
-        skillsLVL = pSkillsLVL;
+    public static void set(EnumMap<Skills, SkillData> pSkillsLVL) {
+        skills = pSkillsLVL;
     }
 
-    public static Map<Skill, SkillProperties> getSkillsLVL() {
-        return skillsLVL;
+    public static EnumMap<Skills, SkillData> getSkills() {
+        return skills;
     }
 }

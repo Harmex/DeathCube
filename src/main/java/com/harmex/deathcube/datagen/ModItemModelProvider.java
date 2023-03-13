@@ -142,6 +142,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         handheldItem(ModItems.OBSIDIAN_SHOVEL.get());
         handheldItem(ModItems.OBSIDIAN_HOE.get());
         //endregion
+
+        //region Boss Sets
+        basicItem(ModItems.GALTERIUS_HELMET.get());
+        basicItem(ModItems.GALTERIUS_CHESTPLATE.get());
+        basicItem(ModItems.GALTERIUS_LEGGINGS.get());
+        basicItem(ModItems.GALTERIUS_BOOTS.get());
+        //endregion
     }
 
     private ItemModelBuilder handheldItem(Item item) {
@@ -163,16 +170,6 @@ public class ModItemModelProvider extends ItemModelProvider {
                 .parent(new ModelFile.UncheckedModelFile("item/template_spawn_egg"));
     }
 
-    private ItemModelBuilder plantItem(Block block) {
-        return plantItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)));
-    }
-
-    public ItemModelBuilder plantItem(ResourceLocation block) {
-        return getBuilder(block.getPath())
-                .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                .texture("layer0", new ResourceLocation(block.getNamespace(), "block/" + block.getPath()));
-    }
-
     private ItemModelBuilder blockItem(Block block) {
         return blockItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)));
     }
@@ -180,32 +177,5 @@ public class ModItemModelProvider extends ItemModelProvider {
     public ItemModelBuilder blockItem(ResourceLocation block) {
         return getBuilder(block.getPath())
                 .parent(new ModelFile.UncheckedModelFile(block.getNamespace() + ":block/" + block.getPath()));
-    }
-
-    private ItemModelBuilder fenceItem(Block block) {
-        return fenceItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)));
-    }
-
-    public ItemModelBuilder fenceItem(ResourceLocation block) {
-        return getBuilder(block.getPath())
-                .parent(new ModelFile.UncheckedModelFile(block.getNamespace() + ":block/" + block.getPath() + "_inventory"));
-    }
-
-    private ItemModelBuilder buttonItem(Block block) {
-        return buttonItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)));
-    }
-
-    public ItemModelBuilder buttonItem(ResourceLocation block) {
-        return getBuilder(block.getPath())
-                .parent(new ModelFile.UncheckedModelFile(block.getNamespace() + ":block/" + block.getPath() + "_inventory"));
-    }
-
-    private ItemModelBuilder trapdoorItem(Block block) {
-        return trapdoorItem(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)));
-    }
-
-    public ItemModelBuilder trapdoorItem(ResourceLocation block) {
-        return getBuilder(block.getPath())
-                .parent(new ModelFile.UncheckedModelFile(block.getNamespace() + ":block/" + block.getPath() + "_bottom"));
     }
 }

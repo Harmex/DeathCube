@@ -7,7 +7,9 @@ import java.util.function.UnaryOperator;
 public interface Skill {
     String getName();
 
-    int getMaxLvl();
+    int getMaxLevel();
 
     UnaryOperator<Style> getStyleModifier();
+
+
 }

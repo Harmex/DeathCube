@@ -36,6 +36,7 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         addEnchantment("compact", "Compacte");
 
         addSkill("combat", "Combat");
+        addSkill("woodcutting", "Bûcheronnage");
         addSkill("mining", "Minage");
         addSkill("farming", "Agriculture");
         addSkill("fishing", "Pêche");
@@ -193,6 +194,11 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
         add(ModItems.OBSIDIAN_AXE.get(), "Hache en obsidienne");
         add(ModItems.OBSIDIAN_SHOVEL.get(), "Pelle en obsidienne");
         add(ModItems.OBSIDIAN_HOE.get(), "Houe en obsidienne");
+
+        add(ModItems.GALTERIUS_HELMET.get(), "Casque de Galterius");
+        add(ModItems.GALTERIUS_CHESTPLATE.get(), "Plastron de Galterius");
+        add(ModItems.GALTERIUS_LEGGINGS.get(), "Jambières de Galterius");
+        add(ModItems.GALTERIUS_BOOTS.get(), "Bottes de Galterius");
     }
 
     private void addCuriosSlot(String pId, String pName) {

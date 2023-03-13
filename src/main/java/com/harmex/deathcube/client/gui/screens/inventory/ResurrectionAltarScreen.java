@@ -20,6 +20,8 @@ public class ResurrectionAltarScreen extends AbstractContainerScreen<Resurrectio
 
     public ResurrectionAltarScreen(ResurrectionAltarMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
+        imageWidth = 32;
+        imageHeight = 32;
     }
 
     @Override
@@ -31,6 +33,11 @@ public class ResurrectionAltarScreen extends AbstractContainerScreen<Resurrectio
         int y = (height - imageHeight) / 2;
 
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
+    }
+
+    @Override
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+
     }
 
     @Override

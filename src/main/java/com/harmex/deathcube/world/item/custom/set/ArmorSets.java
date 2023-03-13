@@ -34,7 +34,8 @@ public enum ArmorSets implements ArmorSet, StringRepresentable {
     EMERALD("emerald", ModArmorMaterials.EMERALD, MobEffects.HERO_OF_THE_VILLAGE, 0, ModRarities.RARE, style -> style.withColor(0x00CB63)),
     DIAMOND("diamond", ArmorMaterials.DIAMOND, null, 0, ModRarities.RARE, style -> style.withColor(0x20C5B5)),
     OBSIDIAN("obsidian", ModArmorMaterials.OBSIDIAN, MobEffects.FIRE_RESISTANCE, 0, ModRarities.RARE, style -> style.withColor(0x6B4798)),
-    NETHERITE("netherite", ArmorMaterials.NETHERITE, null, 0, ModRarities.EPIC, style -> style.withColor(0x766A76));
+    NETHERITE("netherite", ArmorMaterials.NETHERITE, null, 0, ModRarities.EPIC, style -> style.withColor(0x766A76)),
+    GALTERIUS("galterius", ModArmorMaterials.GALTERIUS, null, 0, ModRarities.EPIC, style -> style.withColor(0x969696));
 
     private final String name;
     private final ArmorMaterial armorMaterial;

@@ -76,6 +76,10 @@
   "item.deathcube.ender_bag": "Sac de l'Ender",
   "item.deathcube.ender_dragon_scale": "Écaille d'Ender Dragon",
   "item.deathcube.fresh_water_bottle": "Fiole d'eau potable",
+  "item.deathcube.galterius_boots": "Bottes de Galterius",
+  "item.deathcube.galterius_chestplate": "Plastron de Galterius",
+  "item.deathcube.galterius_helmet": "Casque de Galterius",
+  "item.deathcube.galterius_leggings": "Jambières de Galterius",
   "item.deathcube.galterius_spawn_egg": "Oeuf d'apparition de Galterius",
   "item.deathcube.jungle_boots": "Bottes en acajou",
   "item.deathcube.jungle_chestplate": "Plastron en acajou",
@@ -160,5 +164,6 @@
   "skill.name.deathcube.combat": "Combat",
   "skill.name.deathcube.farming": "Agriculture",
   "skill.name.deathcube.fishing": "Pêche",
-  "skill.name.deathcube.mining": "Minage"
+  "skill.name.deathcube.mining": "Minage",
+  "skill.name.deathcube.woodcutting": "Bûcheronnage"
 }

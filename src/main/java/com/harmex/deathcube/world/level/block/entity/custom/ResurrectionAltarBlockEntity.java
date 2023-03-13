@@ -1,18 +1,17 @@
 package com.harmex.deathcube.world.level.block.entity.custom;
 
 import com.harmex.deathcube.world.inventory.ResurrectionAltarMenu;
+import com.harmex.deathcube.world.item.ModItems;
 import com.harmex.deathcube.world.level.block.entity.ModBlockEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -22,8 +21,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler inventory = new ItemStackHandler(1) {
@@ -37,11 +34,11 @@ public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuPro
 
     public ResurrectionAltarBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.RESURRECTION_ALTAR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-    }
+        ItemStack infiniteTor = new ItemStack(ModItems.TOTEM_OF_RESURRECTION.get());
+        infiniteTor.setHoverName(Component.translatable("item.deathcube.totem_of_resurrection")
+                .withStyle(ChatFormatting.OBFUSCATED, ChatFormatting.BOLD));
 
-    @SuppressWarnings("unused")
-    public static void tick(Level level, BlockPos blockPos, BlockState blockState, ResurrectionAltarBlockEntity e) {
-
+        inventory.setStackInSlot(0, infiniteTor);
     }
 
     @Override
@@ -56,7 +53,7 @@ public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuPro
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
         return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, inventoryHandlerLazyOptional);
     }
 
@@ -82,14 +79,5 @@ public class ResurrectionAltarBlockEntity extends BlockEntity implements MenuPro
     public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
         inventory.deserializeNBT(pTag.getCompound("inventory"));
-    }
-
-    public void drops() {
-        SimpleContainer inventory = new SimpleContainer(this.inventory.getSlots());
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            inventory.setItem(i, this.inventory.getStackInSlot(i));
-        }
-
-        Containers.dropContents(Objects.requireNonNull(this.level), this.worldPosition, inventory);
     }
 }

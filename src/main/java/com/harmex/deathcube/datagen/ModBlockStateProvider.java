@@ -20,7 +20,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        simpleBlock(ModBlocks.ECHO_AMETHYST_BLOCK.get());
+        verticalBlock(ModBlocks.ECHO_AMETHYST_BLOCK.get());
         simpleBlock(ModBlocks.UPGRADING_STATION.get());
         simpleBlock(ModBlocks.MATTER_MANIPULATOR.get());
         simpleBlock(ModBlocks.RESURRECTION_ALTAR.get());
@@ -30,13 +30,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
 
-    private ModelFile flowerPotCross(Block block, Block plant) {
-        return flowerPotCross(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)),
-                Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(plant)));
+    private ModelFile verticalBlock(Block pBlock) {
+        return verticalBlock(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(pBlock)));
     }
 
-    public ModelFile flowerPotCross(ResourceLocation block, ResourceLocation plant) {
-        return models().withExistingParent(block.getPath(), "flower_pot_cross").renderType("cutout")
-                .texture("plant", new ResourceLocation(block.getNamespace(), "block/" + plant.getPath()));
+    public ModelFile verticalBlock(ResourceLocation block) {
+        return models().withExistingParent(block.getPath(), "cube_bottom_top")
+                .texture("top", new ResourceLocation(block.getNamespace(), "block/" + block.getPath() + "_top"))
+                .texture("side", new ResourceLocation(block.getNamespace(), "block/" + block.getPath() + "_side"))
+                .texture("bottom", new ResourceLocation(block.getNamespace(), "block/" + block.getPath() + "_bottom"));
     }
 }

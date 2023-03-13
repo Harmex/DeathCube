@@ -43,7 +43,7 @@ public class ModBusEvents {
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> new SlotTypeMessage.Builder("totem")
                         .icon(new ResourceLocation(DeathCube.MODID, "slot/totem"))
-                        .size(2)
+                        .size(1)
                         .build());
     }
 

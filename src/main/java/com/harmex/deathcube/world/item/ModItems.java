@@ -327,6 +327,16 @@ public class ModItems {
             () -> new HoeItem(ModTiers.OBSIDIAN, -3, 0.0f, new Item.Properties()
                     .rarity(ModRarities.RARE)));
     //endregion
+    //region Boss Armors
+    public static final RegistryObject<Item> GALTERIUS_HELMET = ITEMS.register("galterius_helmet",
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> GALTERIUS_CHESTPLATE = ITEMS.register("galterius_chestplate",
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.CHEST));
+    public static final RegistryObject<Item> GALTERIUS_LEGGINGS = ITEMS.register("galterius_leggings",
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.LEGS));
+    public static final RegistryObject<Item> GALTERIUS_BOOTS = ITEMS.register("galterius_boots",
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.FEET));
+    //endregion
     //region Wands
     public static final RegistryObject<Item> TIME_WAND =
             ITEMS.register("time_wand", TimeWandItem::new);
