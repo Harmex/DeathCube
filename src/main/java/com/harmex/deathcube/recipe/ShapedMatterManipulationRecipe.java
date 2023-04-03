@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.harmex.deathcube.DeathCube;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -72,7 +73,7 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ItemStack getResultItem() {
+    public @NotNull ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         ItemStack resultWithTag = this.result.copy();
         resultWithTag.setTag(extraItemTag);
         return resultWithTag;
@@ -121,6 +122,11 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
         return false;
     }
 
+    @Override
+    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
+        return result.copy();
+    }
+
     private boolean matches(Container pContainer, int pWidth, int pHeight, boolean pMirrored) {
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 3; ++j) {
@@ -152,11 +158,6 @@ public class ShapedMatterManipulationRecipe implements Recipe<SimpleContainer> {
         }
 
         return this.extraItem.getItem().equals(pContainer.getItem(9).getItem());
-    }
-
-    @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer pContainer) {
-        return this.result.copy();
     }
 
     static NonNullList<Ingredient> dissolvePattern(String[] pPattern, Map<String, Ingredient> pKeys, int pPatternWidth, int pPatternHeight) {

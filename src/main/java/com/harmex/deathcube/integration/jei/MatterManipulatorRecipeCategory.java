@@ -20,6 +20,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -111,9 +112,14 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
                         .map(ingredient -> List.of(ingredient.getItems()))
                                 .toList();
 
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level == null) {
+            throw new NullPointerException("level must not be null.");
+        }
+
         craftingGridHelper.createAndSetInputs(builder, inputs, recipe.getWidth(), recipe.getHeight());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 73, 19).addItemStack(recipe.getExtraItem());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 127, 19).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 127, 19).addItemStack(recipe.getResultItem(level.registryAccess()));
     }
 }

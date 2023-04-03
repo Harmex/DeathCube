@@ -70,7 +70,7 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
         ItemStack item = pBlockEntity.inventory.getStackInSlot(0);
         SimpleContainer container = new SimpleContainer(item);
 
-        ItemStack result = pBlockEntity.quickCheck.getRecipeFor(container, pLevel).map(upgradingStationRecipe -> upgradingStationRecipe.assemble(container)).orElse(ItemStack.EMPTY);
+        ItemStack result = pBlockEntity.quickCheck.getRecipeFor(container, pLevel).map(upgradingStationRecipe -> upgradingStationRecipe.assemble(container, pLevel.registryAccess())).orElse(ItemStack.EMPTY);
 
 
         if (result.isEmpty()) {

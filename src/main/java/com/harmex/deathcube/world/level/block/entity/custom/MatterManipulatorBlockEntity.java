@@ -97,11 +97,11 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
 
         Optional<ShapedMatterManipulationRecipe> match = Objects.requireNonNull(level).getRecipeManager().getRecipeFor(ShapedMatterManipulationRecipe.Type.INSTANCE, inventory, level);
 
-        if (match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem())) {
+        if (match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem(level.registryAccess()))) {
             pBlockEntity.manipulationTimeTotal = match.get().getManipulationTime();
         }
 
-        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem());
+        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().getResultItem(level.registryAccess()));
     }
 
     private static void craftItem(MatterManipulatorBlockEntity pBlockEntity) {
@@ -126,7 +126,7 @@ public class MatterManipulatorBlockEntity extends BlockEntity implements MenuPro
                 pBlockEntity.inventory.extractItem(i, itemCount.getOrDefault(pBlockEntity.inventory.getStackInSlot(i).getItem(), 1), false);
             }
 
-            pBlockEntity.inventory.insertItem(10, match.get().getResultItem(), false);
+            pBlockEntity.inventory.insertItem(10, match.get().getResultItem(level.registryAccess()), false);
 
             pBlockEntity.resetProgress();
         }

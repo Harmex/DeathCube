@@ -130,105 +130,105 @@ public class ModItems {
     //region Log Armors
     //Oak
     public static final RegistryObject<Item> OAK_HELMET = ITEMS.register("oak_helmet",
-            () -> new ArmorSetItem(ArmorSets.OAK, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.OAK, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> OAK_CHESTPLATE = ITEMS.register("oak_chestplate",
-            () -> new ArmorSetItem(ArmorSets.OAK, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.OAK, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> OAK_LEGGINGS = ITEMS.register("oak_leggings",
-            () -> new ArmorSetItem(ArmorSets.OAK, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.OAK, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> OAK_BOOTS = ITEMS.register("oak_boots",
-            () -> new ArmorSetItem(ArmorSets.OAK, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.OAK, ArmorItem.Type.BOOTS));
     //Spruce
     public static final RegistryObject<Item> SPRUCE_HELMET = ITEMS.register("spruce_helmet",
-            () -> new ArmorSetItem(ArmorSets.SPRUCE, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.SPRUCE, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> SPRUCE_CHESTPLATE = ITEMS.register("spruce_chestplate",
-            () -> new ArmorSetItem(ArmorSets.SPRUCE, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.SPRUCE, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> SPRUCE_LEGGINGS = ITEMS.register("spruce_leggings",
-            () -> new ArmorSetItem(ArmorSets.SPRUCE, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.SPRUCE, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> SPRUCE_BOOTS = ITEMS.register("spruce_boots",
-            () -> new ArmorSetItem(ArmorSets.SPRUCE, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.SPRUCE, ArmorItem.Type.BOOTS));
     //Birch
     public static final RegistryObject<Item> BIRCH_HELMET = ITEMS.register("birch_helmet",
-            () -> new ArmorSetItem(ArmorSets.BIRCH, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.BIRCH, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> BIRCH_CHESTPLATE = ITEMS.register("birch_chestplate",
-            () -> new ArmorSetItem(ArmorSets.BIRCH, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.BIRCH, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> BIRCH_LEGGINGS = ITEMS.register("birch_leggings",
-            () -> new ArmorSetItem(ArmorSets.BIRCH, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.BIRCH, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> BIRCH_BOOTS = ITEMS.register("birch_boots",
-            () -> new ArmorSetItem(ArmorSets.BIRCH, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.BIRCH, ArmorItem.Type.BOOTS));
     //Jungle
     public static final RegistryObject<Item> JUNGLE_HELMET = ITEMS.register("jungle_helmet",
-            () -> new ArmorSetItem(ArmorSets.JUNGLE, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.JUNGLE, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> JUNGLE_CHESTPLATE = ITEMS.register("jungle_chestplate",
-            () -> new ArmorSetItem(ArmorSets.JUNGLE, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.JUNGLE, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> JUNGLE_LEGGINGS = ITEMS.register("jungle_leggings",
-            () -> new ArmorSetItem(ArmorSets.JUNGLE, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.JUNGLE, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> JUNGLE_BOOTS = ITEMS.register("jungle_boots",
-            () -> new ArmorSetItem(ArmorSets.JUNGLE, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.JUNGLE, ArmorItem.Type.BOOTS));
     //Acacia
     public static final RegistryObject<Item> ACACIA_HELMET = ITEMS.register("acacia_helmet",
-            () -> new ArmorSetItem(ArmorSets.ACACIA, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.ACACIA, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> ACACIA_CHESTPLATE = ITEMS.register("acacia_chestplate",
-            () -> new ArmorSetItem(ArmorSets.ACACIA, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.ACACIA, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> ACACIA_LEGGINGS = ITEMS.register("acacia_leggings",
-            () -> new ArmorSetItem(ArmorSets.ACACIA, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.ACACIA, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> ACACIA_BOOTS = ITEMS.register("acacia_boots",
-            () -> new ArmorSetItem(ArmorSets.ACACIA, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.ACACIA, ArmorItem.Type.BOOTS));
     //Dark Oak
     public static final RegistryObject<Item> DARK_OAK_HELMET = ITEMS.register("dark_oak_helmet",
-            () -> new ArmorSetItem(ArmorSets.DARK_OAK, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.DARK_OAK, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> DARK_OAK_CHESTPLATE = ITEMS.register("dark_oak_chestplate",
-            () -> new ArmorSetItem(ArmorSets.DARK_OAK, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.DARK_OAK, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> DARK_OAK_LEGGINGS = ITEMS.register("dark_oak_leggings",
-            () -> new ArmorSetItem(ArmorSets.DARK_OAK, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.DARK_OAK, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> DARK_OAK_BOOTS = ITEMS.register("dark_oak_boots",
-            () -> new ArmorSetItem(ArmorSets.DARK_OAK, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.DARK_OAK, ArmorItem.Type.BOOTS));
     //Mangrove
     public static final RegistryObject<Item> MANGROVE_HELMET = ITEMS.register("mangrove_helmet",
-            () -> new ArmorSetItem(ArmorSets.MANGROVE, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.MANGROVE, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> MANGROVE_CHESTPLATE = ITEMS.register("mangrove_chestplate",
-            () -> new ArmorSetItem(ArmorSets.MANGROVE, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.MANGROVE, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> MANGROVE_LEGGINGS = ITEMS.register("mangrove_leggings",
-            () -> new ArmorSetItem(ArmorSets.MANGROVE, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.MANGROVE, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> MANGROVE_BOOTS = ITEMS.register("mangrove_boots",
-            () -> new ArmorSetItem(ArmorSets.MANGROVE, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.MANGROVE, ArmorItem.Type.BOOTS));
     //Cherry
     public static final RegistryObject<Item> CHERRY_HELMET = ITEMS.register("cherry_helmet",
-            () -> new ArmorSetItem(ArmorSets.CHERRY, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.CHERRY, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> CHERRY_CHESTPLATE = ITEMS.register("cherry_chestplate",
-            () -> new ArmorSetItem(ArmorSets.CHERRY, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.CHERRY, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> CHERRY_LEGGINGS = ITEMS.register("cherry_leggings",
-            () -> new ArmorSetItem(ArmorSets.CHERRY, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.CHERRY, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> CHERRY_BOOTS = ITEMS.register("cherry_boots",
-            () -> new ArmorSetItem(ArmorSets.CHERRY, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.CHERRY, ArmorItem.Type.BOOTS));
     //Crimson
     public static final RegistryObject<Item> CRIMSON_HELMET = ITEMS.register("crimson_helmet",
-            () -> new ArmorSetItem(ArmorSets.CRIMSON, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.CRIMSON, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> CRIMSON_CHESTPLATE = ITEMS.register("crimson_chestplate",
-            () -> new ArmorSetItem(ArmorSets.CRIMSON, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.CRIMSON, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> CRIMSON_LEGGINGS = ITEMS.register("crimson_leggings",
-            () -> new ArmorSetItem(ArmorSets.CRIMSON, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.CRIMSON, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> CRIMSON_BOOTS = ITEMS.register("crimson_boots",
-            () -> new ArmorSetItem(ArmorSets.CRIMSON, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.CRIMSON, ArmorItem.Type.BOOTS));
     //Warped
     public static final RegistryObject<Item> WARPED_HELMET = ITEMS.register("warped_helmet",
-            () -> new ArmorSetItem(ArmorSets.WARPED, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.WARPED, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> WARPED_CHESTPLATE = ITEMS.register("warped_chestplate",
-            () -> new ArmorSetItem(ArmorSets.WARPED, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.WARPED, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> WARPED_LEGGINGS = ITEMS.register("warped_leggings",
-            () -> new ArmorSetItem(ArmorSets.WARPED, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.WARPED, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> WARPED_BOOTS = ITEMS.register("warped_boots",
-            () -> new ArmorSetItem(ArmorSets.WARPED, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.WARPED, ArmorItem.Type.BOOTS));
     //endregion
     //region Bone
     //Bone Armor
     public static final RegistryObject<Item> BONE_HELMET = ITEMS.register("bone_helmet",
-            () -> new ArmorSetItem(ArmorSets.BONE, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.BONE, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> BONE_CHESTPLATE = ITEMS.register("bone_chestplate",
-            () -> new ArmorSetItem(ArmorSets.BONE, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.BONE, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> BONE_LEGGINGS = ITEMS.register("bone_leggings",
-            () -> new ArmorSetItem(ArmorSets.BONE, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.BONE, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> BONE_BOOTS = ITEMS.register("bone_boots",
-            () -> new ArmorSetItem(ArmorSets.BONE, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.BONE, ArmorItem.Type.BOOTS));
     //Bone Tools
     public static final RegistryObject<Item> BONE_SWORD = ITEMS.register("bone_sword",
             () -> new SwordItem(ModTiers.BONE, 3, -2.4f, new Item.Properties()
@@ -249,13 +249,13 @@ public class ModItems {
     //region Copper
     //Copper Armor
     public static final RegistryObject<Item> COPPER_HELMET = ITEMS.register("copper_helmet",
-            () -> new ArmorSetItem(ArmorSets.COPPER, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.COPPER, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> COPPER_CHESTPLATE = ITEMS.register("copper_chestplate",
-            () -> new ArmorSetItem(ArmorSets.COPPER, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.COPPER, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> COPPER_LEGGINGS = ITEMS.register("copper_leggings",
-            () -> new ArmorSetItem(ArmorSets.COPPER, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.COPPER, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
-            () -> new ArmorSetItem(ArmorSets.COPPER, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.COPPER, ArmorItem.Type.BOOTS));
     //Copper Tools
     public static final RegistryObject<Item> COPPER_SWORD = ITEMS.register("copper_sword",
                     () -> new SwordItem(ModTiers.COPPER, 3, -2.4f, new Item.Properties()
@@ -276,13 +276,13 @@ public class ModItems {
     //region Emerald
     //Emerald Armor
     public static final RegistryObject<Item> EMERALD_HELMET = ITEMS.register("emerald_helmet",
-            () -> new ArmorSetItem(ArmorSets.EMERALD, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.EMERALD, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> EMERALD_CHESTPLATE = ITEMS.register("emerald_chestplate",
-            () -> new ArmorSetItem(ArmorSets.EMERALD, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.EMERALD, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> EMERALD_LEGGINGS = ITEMS.register("emerald_leggings",
-            () -> new ArmorSetItem(ArmorSets.EMERALD, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.EMERALD, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> EMERALD_BOOTS = ITEMS.register("emerald_boots",
-            () -> new ArmorSetItem(ArmorSets.EMERALD, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.EMERALD, ArmorItem.Type.BOOTS));
     //Emerald Tools
     public static final RegistryObject<Item> EMERALD_SWORD = ITEMS.register("emerald_sword",
             () -> new SwordItem(ModTiers.EMERALD, 3, -2.4f, new Item.Properties()
@@ -303,13 +303,13 @@ public class ModItems {
     //region Obsidian
     //Obsidian Armor
     public static final RegistryObject<Item> OBSIDIAN_HELMET = ITEMS.register("obsidian_helmet",
-            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> OBSIDIAN_CHESTPLATE = ITEMS.register("obsidian_chestplate",
-            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> OBSIDIAN_LEGGINGS = ITEMS.register("obsidian_leggings",
-            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> OBSIDIAN_BOOTS = ITEMS.register("obsidian_boots",
-            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.OBSIDIAN, ArmorItem.Type.BOOTS));
     //Obsidian Tools
     public static final RegistryObject<Item> OBSIDIAN_SWORD = ITEMS.register("obsidian_sword",
             () -> new SwordItem(ModTiers.OBSIDIAN, 3, -2.4f, new Item.Properties()
@@ -329,13 +329,13 @@ public class ModItems {
     //endregion
     //region Boss Armors
     public static final RegistryObject<Item> GALTERIUS_HELMET = ITEMS.register("galterius_helmet",
-            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.HEAD));
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> GALTERIUS_CHESTPLATE = ITEMS.register("galterius_chestplate",
-            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.CHEST));
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> GALTERIUS_LEGGINGS = ITEMS.register("galterius_leggings",
-            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.LEGS));
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> GALTERIUS_BOOTS = ITEMS.register("galterius_boots",
-            () -> new ArmorSetItem(ArmorSets.GALTERIUS, EquipmentSlot.FEET));
+            () -> new ArmorSetItem(ArmorSets.GALTERIUS, ArmorItem.Type.BOOTS));
     //endregion
     //region Wands
     public static final RegistryObject<Item> TIME_WAND =

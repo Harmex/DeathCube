@@ -5,15 +5,15 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = '1.19.3-0.0.0.1'
-group = 'com.harmex.deathcube'
-archivesBaseName = 'deathcube'
+version = "${mc_version}-0.0.0.1"
+group = "com.harmex.${mod_id}"
+archivesBaseName = "${mod_id}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: 'parchment', version: '2023.02.26-1.19.3'
+    mappings channel: 'parchment', version: '1.19.3-2023.03.12-1.19.4'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -136,12 +136,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "deathcube",
-                "Specification-Vendor"    : "deathcubesareus",
+                "Specification-Title"     : "${mod_id}",
+                "Specification-Vendor"    : "${mod_id}",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "deathcubesareus",
+                "Implementation-Vendor"   : "${mod_id}",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

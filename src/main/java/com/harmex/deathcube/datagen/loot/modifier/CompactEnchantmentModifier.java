@@ -81,10 +81,12 @@ public class CompactEnchantmentModifier extends LootModifier {
             craftingContainer2x2.setItem(i, stack);
         }
 
-        Optional<ItemStack> result3x3 = context.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftingContainer3x3, context.getLevel())
-                .map(CraftingRecipe::getResultItem);
-        Optional<ItemStack> result2x2 = context.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftingContainer2x2, context.getLevel())
-                .map(CraftingRecipe::getResultItem);
+        Optional<ItemStack> result3x3 = context.getLevel().getRecipeManager()
+                .getRecipeFor(RecipeType.CRAFTING, craftingContainer3x3, context.getLevel()).map(craftingRecipe ->
+                        craftingRecipe.assemble(craftingContainer3x3, context.getLevel().registryAccess()));
+        Optional<ItemStack> result2x2 = context.getLevel().getRecipeManager()
+                .getRecipeFor(RecipeType.CRAFTING, craftingContainer2x2, context.getLevel()).map(craftingRecipe ->
+                        craftingRecipe.assemble(craftingContainer2x2, context.getLevel().registryAccess()));
 
         if (result3x3.isPresent()) {
             return result3x3.filter(itemStack -> !itemStack.isEmpty())

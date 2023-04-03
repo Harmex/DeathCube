@@ -6,6 +6,7 @@ import com.google.gson.JsonParseException;
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -57,7 +58,7 @@ public class UpgradingStationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer) {
+    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
         ItemStack result = this.result.copy();
         CompoundTag baseTag = pContainer.getItem(0).getTag();
         if (baseTag != null) {
@@ -81,7 +82,7 @@ public class UpgradingStationRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return this.result;
     }
 

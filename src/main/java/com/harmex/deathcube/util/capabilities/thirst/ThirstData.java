@@ -1,8 +1,11 @@
 package com.harmex.deathcube.util.capabilities.thirst;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.phys.Vec3;
@@ -76,7 +79,7 @@ public class ThirstData {
             tickTimer++;
             if (tickTimer >= 80) {
                 if (pPlayer.getHealth() > 10.0F || difficulty == Difficulty.HARD || pPlayer.getHealth() > 1.0F && difficulty == Difficulty.NORMAL) {
-                    pPlayer.hurt(DamageSource.STARVE, 1.0F);
+                    pPlayer.hurt(pPlayer.damageSources().starve(), 1.0F);
                 }
 
                 tickTimer = 0;

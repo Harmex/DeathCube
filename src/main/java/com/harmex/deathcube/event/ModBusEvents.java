@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -71,58 +72,58 @@ public class ModBusEvents {
                     ));
 
             itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_helmet"),
-                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.HEAD));
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, ArmorItem.Type.HELMET));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_chestplate"),
-                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.CHEST));
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, ArmorItem.Type.CHESTPLATE));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_leggings"),
-                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.LEGS));
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, ArmorItem.Type.LEGGINGS));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "leather_boots"),
-                    new DyeableArmorSetItem(ArmorSets.LEATHER, EquipmentSlot.FEET));
+                    new DyeableArmorSetItem(ArmorSets.LEATHER, ArmorItem.Type.BOOTS));
 
             itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_helmet"),
-                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.HEAD));
+                    new ArmorSetItem(ArmorSets.CHAIN, ArmorItem.Type.HELMET));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_chestplate"),
-                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.CHEST));
+                    new ArmorSetItem(ArmorSets.CHAIN, ArmorItem.Type.CHESTPLATE));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_leggings"),
-                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.LEGS));
+                    new ArmorSetItem(ArmorSets.CHAIN, ArmorItem.Type.LEGGINGS));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "chainmail_boots"),
-                    new ArmorSetItem(ArmorSets.CHAIN, EquipmentSlot.FEET));
+                    new ArmorSetItem(ArmorSets.CHAIN, ArmorItem.Type.BOOTS));
 
             itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_helmet"),
-                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.HEAD));
+                    new ArmorSetItem(ArmorSets.IRON, ArmorItem.Type.HELMET));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_chestplate"),
-                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.CHEST));
+                    new ArmorSetItem(ArmorSets.IRON, ArmorItem.Type.CHESTPLATE));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_leggings"),
-                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.LEGS));
+                    new ArmorSetItem(ArmorSets.IRON, ArmorItem.Type.LEGGINGS));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "iron_boots"),
-                    new ArmorSetItem(ArmorSets.IRON, EquipmentSlot.FEET));
+                    new ArmorSetItem(ArmorSets.IRON, ArmorItem.Type.BOOTS));
 
             itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_helmet"),
-                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.HEAD));
+                    new ArmorSetItem(ArmorSets.GOLD, ArmorItem.Type.HELMET));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_chestplate"),
-                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.CHEST));
+                    new ArmorSetItem(ArmorSets.GOLD, ArmorItem.Type.CHESTPLATE));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_leggings"),
-                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.LEGS));
+                    new ArmorSetItem(ArmorSets.GOLD, ArmorItem.Type.LEGGINGS));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "golden_boots"),
-                    new ArmorSetItem(ArmorSets.GOLD, EquipmentSlot.FEET));
+                    new ArmorSetItem(ArmorSets.GOLD, ArmorItem.Type.BOOTS));
 
             itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_helmet"),
-                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.HEAD));
+                    new ArmorSetItem(ArmorSets.DIAMOND, ArmorItem.Type.HELMET));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_chestplate"),
-                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.CHEST));
+                    new ArmorSetItem(ArmorSets.DIAMOND, ArmorItem.Type.CHESTPLATE));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_leggings"),
-                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.LEGS));
+                    new ArmorSetItem(ArmorSets.DIAMOND, ArmorItem.Type.LEGGINGS));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "diamond_boots"),
-                    new ArmorSetItem(ArmorSets.DIAMOND, EquipmentSlot.FEET));
+                    new ArmorSetItem(ArmorSets.DIAMOND, ArmorItem.Type.BOOTS));
 
             itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_helmet"),
-                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.HEAD));
+                    new ArmorSetItem(ArmorSets.NETHERITE, ArmorItem.Type.HELMET));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_chestplate"),
-                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.CHEST));
+                    new ArmorSetItem(ArmorSets.NETHERITE, ArmorItem.Type.CHESTPLATE));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_leggings"),
-                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.LEGS));
+                    new ArmorSetItem(ArmorSets.NETHERITE, ArmorItem.Type.LEGGINGS));
             itemRegisterHelper.register(new ResourceLocation("minecraft", "netherite_boots"),
-                    new ArmorSetItem(ArmorSets.NETHERITE, EquipmentSlot.FEET));
+                    new ArmorSetItem(ArmorSets.NETHERITE, ArmorItem.Type.BOOTS));
         });
     }
 

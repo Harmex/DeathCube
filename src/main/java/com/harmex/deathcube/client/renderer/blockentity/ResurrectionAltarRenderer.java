@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class ResurrectionAltarRenderer implements BlockEntityRenderer<ResurrectionAltarBlockEntity> {
@@ -28,7 +29,7 @@ public class ResurrectionAltarRenderer implements BlockEntityRenderer<Resurrecti
         pPoseStack.scale(0.5F, 0.25F, 0.5F);
         pPoseStack.mulPose(Axis.XP.rotationDegrees(-90));
 
-        itemRenderer.renderStatic(totem, ItemTransforms.TransformType.GUI, pPackedLight, OverlayTexture.NO_OVERLAY, pPoseStack, pBufferSource, 1);
+        itemRenderer.renderGuiItem(pPoseStack, totem, 0, 0);
         pPoseStack.popPose();
     }
 }
