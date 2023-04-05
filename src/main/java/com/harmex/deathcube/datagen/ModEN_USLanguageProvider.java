@@ -32,6 +32,9 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
 
         add("chat.deathcube.lvlup", "%s leveled Up! %s!");
 
+        addKeyCategory("deathcube", "DeathCube");
+        addKeyBind("toggleSkillHud", "Toggle Skill HUD");
+
         addEnchantment("smelt", "Smelt");
         addEnchantment("compact", "Compact");
 
@@ -222,5 +225,11 @@ public class ModEN_USLanguageProvider extends LanguageProvider {
     }
     private void addSkill(String pId, String pName) {
         add("skill.name." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addKeyBind(String pId, String pName) {
+        add("key." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addKeyCategory(String pId, String pName) {
+        add("key.categories." + DeathCube.MODID + "." + pId, pName);
     }
 }

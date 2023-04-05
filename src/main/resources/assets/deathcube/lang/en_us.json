@@ -162,6 +162,8 @@
   "itemTooltip.deathcube.set.spruce": "Spruce",
   "itemTooltip.deathcube.set.stone": "Stone",
   "itemTooltip.deathcube.set.warped": "Warped",
+  "key.categories.deathcube.deathcube": "DeathCube",
+  "key.deathcube.toggleSkillHud": "Toggle Skill HUD",
   "skill.name.deathcube.combat": "Combat",
   "skill.name.deathcube.farming": "Farming",
   "skill.name.deathcube.fishing": "Fishing",

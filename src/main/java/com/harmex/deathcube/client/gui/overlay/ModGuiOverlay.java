@@ -45,6 +45,7 @@ public class ModGuiOverlay {
     private static final int iconsTextureWidth = 256;
     private static final int iconsTextureHeight = 256;
 
+    public static boolean isSkillVisible = true;
     private static int lastHealth;
     private static long healthBlinkTime;
     private static long lastHealthTime;
@@ -324,13 +325,13 @@ public class ModGuiOverlay {
             }
         }
     };
-    public static final IGuiOverlay EXPERIENCE_BAR = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay SKILLS_LEVELS = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
         Minecraft minecraft = gui.getMinecraft();
         Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
-        if (gui.shouldDrawSurvivalElements()) {
+        if (gui.shouldDrawSurvivalElements() && isSkillVisible) {
             assert player != null;
             gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
-            minecraft.getProfiler().push("experience_bar");
+            minecraft.getProfiler().push("skills_levels");
             RenderSystem.enableBlend();
 
             int left = screenWidth - 77;

@@ -32,6 +32,9 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
 
         add("chat.deathcube.lvlup", "%s monte de niveau ! %s !");
 
+        addKeyCategory("deathcube", "DeathCube");
+        addKeyBind("toggleSkillHud", "Activer l'HUD des compétences");
+
         addEnchantment("smelt", "Fondrie");
         addEnchantment("compact", "Compacte");
 
@@ -221,5 +224,11 @@ public class ModFR_FRLanguageProvider extends LanguageProvider {
     }
     private void addSkill(String pId, String pName) {
         add("skill.name." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addKeyBind(String pId, String pName) {
+        add("key." + DeathCube.MODID + "." + pId, pName);
+    }
+    private void addKeyCategory(String pId, String pName) {
+        add("key.categories." + DeathCube.MODID + "." + pId, pName);
     }
 }

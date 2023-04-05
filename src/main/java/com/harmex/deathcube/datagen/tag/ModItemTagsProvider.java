@@ -1,10 +1,9 @@
-package com.harmex.deathcube.datagen;
+package com.harmex.deathcube.datagen.tag;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.util.ModTags;
 import com.harmex.deathcube.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
@@ -17,10 +16,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModItemTagProvider extends ItemTagsProvider {
+public class ModItemTagsProvider extends ItemTagsProvider {
 
-    public ModItemTagProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> pTagLookup, @Nullable ExistingFileHelper existingFileHelper) {
-        super(pOutput, pLookupProvider, pTagLookup, DeathCube.MODID, existingFileHelper);
+    public ModItemTagsProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> pTagLookup, @Nullable ExistingFileHelper pExistingFileHelper) {
+        super(pOutput, pLookupProvider, pTagLookup, DeathCube.MODID, pExistingFileHelper);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ResurrectionAltarRenderer implements BlockEntityRenderer<Resurrecti
         pPoseStack.scale(0.5F, 0.25F, 0.5F);
         pPoseStack.mulPose(Axis.XP.rotationDegrees(-90));
 
-        itemRenderer.renderGuiItem(pPoseStack, totem, 0, 0);
+        itemRenderer.renderStatic(totem, ItemDisplayContext.FIXED, pPackedLight, pPackedOverlay, pPoseStack, pBufferSource, pBlockEntity.getLevel(), 0);
         pPoseStack.popPose();
     }
 }

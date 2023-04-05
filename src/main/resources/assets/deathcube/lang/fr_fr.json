@@ -161,6 +161,8 @@
   "itemTooltip.deathcube.set.spruce": "Sapin",
   "itemTooltip.deathcube.set.stone": "Roche",
   "itemTooltip.deathcube.set.warped": "Biscornu",
+  "key.categories.deathcube.deathcube": "DeathCube",
+  "key.deathcube.toggleSkillHud": "Activer l'HUD des compétences",
   "skill.name.deathcube.combat": "Combat",
   "skill.name.deathcube.farming": "Agriculture",
   "skill.name.deathcube.fishing": "Pêche",
