@@ -2,17 +2,14 @@ package com.harmex.deathcube.world.item;
 
 import com.harmex.deathcube.DeathCube;
 import com.harmex.deathcube.world.entity.ModEntityTypes;
-import com.harmex.deathcube.world.item.custom.EnderBagItem;
-import com.harmex.deathcube.world.item.custom.FreshWaterBottleItem;
-import com.harmex.deathcube.world.item.custom.TimeWandItem;
-import com.harmex.deathcube.world.item.custom.TotemOfResurrectionItem;
+import com.harmex.deathcube.world.item.custom.*;
 import com.harmex.deathcube.world.item.custom.apple.AppleItem;
 import com.harmex.deathcube.world.item.custom.apple.Apples;
 import com.harmex.deathcube.world.item.custom.set.ArmorSetItem;
 import com.harmex.deathcube.world.item.custom.set.ArmorSets;
 import com.harmex.deathcube.world.item.custom.totem.TotemItem;
 import com.harmex.deathcube.world.item.custom.totem.Totems;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -25,6 +22,12 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, DeathCube.MODID);
 
+
+    public static final RegistryObject<Item> GALTERIUS_LOOT_BAG =
+            ITEMS.register("galterius_loot_bag",
+                    () -> new BossLootBagItem(new Item.Properties(),
+                            new ResourceLocation(DeathCube.MODID, "loot_bags/galterius")
+                    ));
     //region Foods
     public static final RegistryObject<Item> FRESH_WATER_BOTTLE =
             ITEMS.register("fresh_water_bottle", FreshWaterBottleItem::new);

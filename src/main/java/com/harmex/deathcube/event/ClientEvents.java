@@ -259,6 +259,7 @@ public class ClientEvents {
                 event.accept(ModItems.GALTERIUS_CHESTPLATE);
                 event.accept(ModItems.GALTERIUS_LEGGINGS);
                 event.accept(ModItems.GALTERIUS_BOOTS);
+                event.accept(ModItems.GALTERIUS_LOOT_BAG);
             }
             if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_FOOD_AND_DRINKS_TAB) {
                 event.accept(ModItems.FRESH_WATER_BOTTLE);

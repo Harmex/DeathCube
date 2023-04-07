@@ -4,6 +4,7 @@ import com.harmex.deathcube.util.capabilities.skills.SkillsDataProvider;
 import com.harmex.deathcube.world.skill.Skills;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -102,7 +103,7 @@ public class SkillCommand {
         );
     }
 
-    private static int addExperience(CommandSourceStack pSource, Skills pSkill, Collection<? extends ServerPlayer> pTargets, float pAmount) {
+    private static int addExperience(CommandSourceStack pSource, Skills pSkill, Collection<? extends ServerPlayer> pTargets, float pAmount) throws CommandSyntaxException {
         for (ServerPlayer player : pTargets) {
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData ->
                     skillsData.addExperience(player, pSkill, pAmount));
