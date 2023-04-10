@@ -23,7 +23,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         verticalBlock(ModBlocks.ECHO_AMETHYST_BLOCK.get());
         simpleBlock(ModBlocks.UPGRADING_STATION.get());
         simpleBlock(ModBlocks.MATTER_MANIPULATOR.get());
-        simpleBlock(ModBlocks.RESURRECTION_ALTAR.get());
 
         simpleBlock(ModBlocks.ZANTHINE_ORE.get());
         simpleBlock(ModBlocks.DEEPSLATE_ZANTHINE_ORE.get());

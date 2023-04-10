@@ -1,6 +1,7 @@
 package com.harmex.deathcube.datagen.loot;
 
 import com.harmex.deathcube.DeathCube;
+import com.harmex.deathcube.world.item.ModItems;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -9,6 +10,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -21,6 +24,21 @@ public class ModChestLootSubProvider implements LootTableSubProvider {
 
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> p_124363_) {
+        p_124363_.accept(new ResourceLocation(DeathCube.MODID, "loot_bags/galterius"), LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_HELMET.get()))
+                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_CHESTPLATE.get()))
+                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_LEGGINGS.get()))
+                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_BOOTS.get()))
+                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
+        );
+
         p_124363_.accept(WARRIOR_DUNGEON_SECRET, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 3.0F))
                         .add(LootItem.lootTableItem(Items.SADDLE).setWeight(20))

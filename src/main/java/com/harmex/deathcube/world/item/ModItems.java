@@ -25,8 +25,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> GALTERIUS_LOOT_BAG =
             ITEMS.register("galterius_loot_bag",
-                    () -> new BossLootBagItem(new Item.Properties(),
-                            new ResourceLocation(DeathCube.MODID, "loot_bags/galterius")
+                    () -> new BossLootBagItem(new Item.Properties(), "galterius"
                     ));
     //region Foods
     public static final RegistryObject<Item> FRESH_WATER_BOTTLE =
