@@ -120,8 +120,8 @@ public class ModEvents {
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         Player player = event.getEntity();
-        if (!player.getLevel().isClientSide()) {
-            if (!player.getLevel().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
+        if (!player.level().isClientSide()) {
+            if (!player.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
                 player.getCapability(EquipmentDataProvider.EQUIPMENT).ifPresent(equipmentData -> {
                     CuriosApi.getCuriosHelper().setEquippedCurio(player, "totem", 0, equipmentData.getEquippedTor());
                 });
@@ -141,13 +141,13 @@ public class ModEvents {
 
                             ResourceLocation location = new ResourceLocation(savedDim);
                             ResourceKey<Level> resourceKey = ResourceKey.create(Registries.DIMENSION, location);
-                            MinecraftServer minecraftServer = player.getLevel().getServer();
+                            MinecraftServer minecraftServer = player.level().getServer();
 
 
                             assert minecraftServer != null;
                             ServerLevel targetDim = minecraftServer.getLevel(resourceKey);
 
-                            if (targetDim != null && targetDim != player.getLevel()) {
+                            if (targetDim != null && targetDim != player.level()) {
                                 player.changeDimension(targetDim, torItem);
                             }
                             player.teleportTo(savedPos[0] + 0.5, savedPos[1], savedPos[2] + 0.5);
@@ -193,7 +193,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onPlayerFish(ItemFishedEvent event) {
         Player player = event.getEntity();
-        if (!player.getLevel().isClientSide() && !player.isCreative() && !player.isSpectator()) {
+        if (!player.level().isClientSide() && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
                 for (ItemStack fishedItem : event.getDrops()) {
                     skillsData.addExperience(player, Skills.FISHING, XP_FOR_ITEM_FISHED.getOrDefault(fishedItem.getItem(), 0.0F));
@@ -206,8 +206,8 @@ public class ModEvents {
     public static void onBlockMined(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getState().getBlock();
-        if (!player.getLevel().isClientSide() && !player.isCreative() && !player.isSpectator()) {
-            if (player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+        if (!player.level().isClientSide() && !player.isCreative() && !player.isSpectator()) {
+            if (player.level().getDifficulty() != Difficulty.PEACEFUL) {
                 player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
                         thirstData.addExhaustion(ThirstConstants.EXHAUSTION_MINE));
             }
@@ -266,7 +266,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
-        if (event.getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide() && player.level().getDifficulty() != Difficulty.PEACEFUL
                 && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData -> {
                 if (player.isSprinting()) thirstData.addExhaustion(ThirstConstants.EXHAUSTION_SPRINT_JUMP);
@@ -277,7 +277,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
-        if (event.getEntity() instanceof Player player && !player.getLevel().isClientSide() && player.getLevel().getDifficulty() != Difficulty.PEACEFUL
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide() && player.level().getDifficulty() != Difficulty.PEACEFUL
                 && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
                     thirstData.addExhaustion(ThirstConstants.EXHAUSTION_DAMAGE));
@@ -286,12 +286,12 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onEntityAttack(LivingAttackEvent event) {
-        if (event.getSource().getEntity() instanceof Player player && !player.getLevel().isClientSide()
+        if (event.getSource().getEntity() instanceof Player player && !player.level().isClientSide()
                 && !player.isCreative() && !player.isSpectator()) {
             player.getCapability(SkillsDataProvider.SKILLS).ifPresent(skillsData -> {
                 skillsData.addExperience(player, Skills.COMBAT, event.getAmount());
             });
-            if (player.getLevel().getDifficulty() != Difficulty.PEACEFUL) {
+            if (player.level().getDifficulty() != Difficulty.PEACEFUL) {
                 player.getCapability(ThirstDataProvider.PLAYER_THIRST).ifPresent(thirstData ->
                         thirstData.addExhaustion(ThirstConstants.EXHAUSTION_ATTACK));
             }
@@ -301,7 +301,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack hoveredStack = event.getItemStack();
-        if (event.getEntity() != null && event.getEntity().level.isClientSide()) {
+        if (event.getEntity() != null && event.getEntity().level().isClientSide()) {
             // Show Attribute Modifiers (Armor, Attack Damage, etc.)
             if (hoveredStack.getItem() instanceof ArmorItem
                     || hoveredStack.getItem() instanceof TieredItem

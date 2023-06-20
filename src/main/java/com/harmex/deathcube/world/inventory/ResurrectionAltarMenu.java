@@ -22,14 +22,14 @@ public class ResurrectionAltarMenu extends AbstractContainerMenu {
     private final Level level;
 
     public ResurrectionAltarMenu(int pContainerId, Inventory inventory, FriendlyByteBuf extraData) {
-        this(pContainerId, inventory, Objects.requireNonNull(inventory.player.level.getBlockEntity(extraData.readBlockPos())));
+        this(pContainerId, inventory, Objects.requireNonNull(inventory.player.level().getBlockEntity(extraData.readBlockPos())));
     }
 
     public ResurrectionAltarMenu(int pContainerId, Inventory inventory, BlockEntity blockEntity) {
         super(ModMenuTypes.RESURRECTION_ALTAR_MENU.get(), pContainerId);
         checkContainerSize(inventory, 1);
         this.blockEntity = ((ResurrectionAltarBlockEntity) blockEntity);
-        this.level = inventory.player.level;
+        this.level = inventory.player.level();
 
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {

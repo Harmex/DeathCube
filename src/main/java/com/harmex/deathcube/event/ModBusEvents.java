@@ -15,7 +15,6 @@ import com.harmex.deathcube.world.item.custom.set.ArmorSets;
 import com.harmex.deathcube.world.level.block.ModBlocks;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;

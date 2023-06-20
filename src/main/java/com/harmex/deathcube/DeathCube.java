@@ -9,6 +9,7 @@ import com.harmex.deathcube.world.effect.ModMobEffects;
 import com.harmex.deathcube.world.entity.ModEntityTypes;
 import com.harmex.deathcube.world.entity.ai.attribute.ModAttributes;
 import com.harmex.deathcube.world.inventory.ModMenuTypes;
+import com.harmex.deathcube.world.item.ModCreativeModeTabs;
 import com.harmex.deathcube.world.item.ModItems;
 import com.harmex.deathcube.world.item.enchantment.ModEnchantments;
 import com.harmex.deathcube.world.level.block.ModBlocks;
@@ -31,6 +32,7 @@ public class DeathCube {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);

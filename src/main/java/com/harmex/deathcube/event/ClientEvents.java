@@ -27,7 +27,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -148,26 +148,26 @@ public class ClientEvents {
         }
 
         @SubscribeEvent
-        public static void addCreativeModeTabs(CreativeModeTabEvent.BuildContents event) {
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_BUILDING_BLOCKS_TAB) {
+        public static void addCreativeModeTabs(BuildCreativeModeTabContentsEvent event) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_BUILDING_BLOCKS_TAB.get()) {
                 event.accept(ModBlocks.ECHO_AMETHYST_BLOCK);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_COLORED_BLOCKS_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_COLORED_BLOCKS_TAB.get()) {
                 event.accept(ModBlocks.ECHO_AMETHYST_BLOCK);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_NATURAL_BLOCKS_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_NATURAL_BLOCKS_TAB.get()) {
                 event.accept(ModBlocks.ZANTHINE_ORE);
                 event.accept(ModBlocks.DEEPSLATE_ZANTHINE_ORE);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_FUNCTIONAL_BLOCKS_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_FUNCTIONAL_BLOCKS_TAB.get()) {
                 event.accept(ModBlocks.UPGRADING_STATION);
                 event.accept(ModBlocks.MATTER_MANIPULATOR);
                 event.accept(ModBlocks.RESURRECTION_ALTAR);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_REDSTONE_BLOCKS_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_REDSTONE_BLOCKS_TAB.get()) {
                 event.accept(Blocks.REDSTONE_BLOCK);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_TOOLS_AND_UTILITIES_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_TOOLS_AND_UTILITIES_TAB.get()) {
                 event.accept(ModItems.BONE_SHOVEL);
                 event.accept(ModItems.BONE_PICKAXE);
                 event.accept(ModItems.BONE_AXE);
@@ -190,7 +190,7 @@ public class ClientEvents {
                 event.accept(ModItems.TOTEM_OF_REGENERATION);
                 event.accept(ModItems.TOTEM_OF_RESISTANCE);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_COMBAT_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_COMBAT_TAB.get()) {
                 event.accept(ModItems.BONE_SWORD);
                 event.accept(ModItems.COPPER_SWORD);
                 event.accept(ModItems.EMERALD_SWORD);
@@ -261,21 +261,21 @@ public class ClientEvents {
                 event.accept(ModItems.GALTERIUS_BOOTS);
                 event.accept(ModItems.GALTERIUS_LOOT_BAG);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_FOOD_AND_DRINKS_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_FOOD_AND_DRINKS_TAB.get()) {
                 event.accept(ModItems.FRESH_WATER_BOTTLE);
                 event.accept(ModItems.TIME_GEM_APPLE);
                 event.accept(ModItems.DIAMOND_APPLE);
                 event.accept(ModItems.NETHERITE_APPLE);
                 event.accept(ModItems.BEDROCK_APPLE);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_INGREDIENTS_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_INGREDIENTS_TAB.get()) {
                 event.accept(ModItems.ZANTHINE);
                 event.accept(ModItems.ECHO_AMETHYST_SHARD);
                 event.accept(ModItems.ECHO_AMETHYST_INGOT);
                 event.accept(ModItems.ENDER_DRAGON_SCALE);
                 event.accept(ModItems.WARDEN_HEART);
             }
-            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_SPAWN_EGGS_TAB) {
+            if (event.getTab() == ModCreativeModeTabs.DEATHCUBE_SPAWN_EGGS_TAB.get()) {
                 event.accept(ModItems.GALTERIUS_SPAWN_EGG);
                 event.accept(ModItems.ZANUZAL_SPAWN_EGG);
                 event.accept(ModItems.NAERVUS_SPAWN_EGG);

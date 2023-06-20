@@ -25,18 +25,14 @@ public class ModChestLootSubProvider implements LootTableSubProvider {
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> p_124363_) {
         p_124363_.accept(new ResourceLocation(DeathCube.MODID, "loot_bags/galterius"), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
-                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_HELMET.get()))
-                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
-                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_CHESTPLATE.get()))
-                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
-                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_LEGGINGS.get()))
-                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.5F))
-                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_BOOTS.get()))
-                        .when(LootItemRandomChanceCondition.randomChance(0.5F)))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_HELMET.get())))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_CHESTPLATE.get())))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_LEGGINGS.get())))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(ModItems.GALTERIUS_BOOTS.get())))
         );
 
         p_124363_.accept(WARRIOR_DUNGEON_SECRET, LootTable.lootTable()

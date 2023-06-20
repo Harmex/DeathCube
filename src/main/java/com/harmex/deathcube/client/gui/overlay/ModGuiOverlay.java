@@ -12,7 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
@@ -25,8 +25,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.awt.*;
@@ -36,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@OnlyIn(Dist.CLIENT)
 public class ModGuiOverlay {
     private static final ResourceLocation BARS_LOCATION = new ResourceLocation(DeathCube.MODID, "textures/gui/bars.png");
     private static final int barsTextureWidth = 256;
@@ -51,9 +48,9 @@ public class ModGuiOverlay {
     private static long lastHealthTime;
     private static final RandomSource random = RandomSource.create();
 
-    public static final IGuiOverlay PLAYER_HEALTH = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay PLAYER_HEALTH = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         if (!gui.getMinecraft().options.hideGui && gui.shouldDrawSurvivalElements()) {
-            gui.setupOverlayRenderState(true, false, BARS_LOCATION);
+            gui.setupOverlayRenderState(true, false);
             gui.getMinecraft().getProfiler().push("health");
             RenderSystem.enableBlend();
 
@@ -90,7 +87,7 @@ public class ModGuiOverlay {
             gui.leftHeight += 14;
 
             Color textColor = new Color(128, 9, 9);
-            int uOffset = player.level.getLevelData().isHardcore() ? 81 : 0;
+            int uOffset = player.level().getLevelData().isHardcore() ? 81 : 0;
             int vOffset = 52;
             if (highlight) {
                 vOffset = 65;
@@ -121,9 +118,9 @@ public class ModGuiOverlay {
             int thirtyPercent = Mth.ceil((maxHealth * 30 / 100) * 79 / maxHealth);
             int absorptionBarSize = Mth.ceil(absorption * 79 / maxHealth);
 
-            GuiComponent.blit(poseStack, left, top, uOffset, highlight ? 13 : healthBarSize >= thirtyPercent ? 0 : 26, 81, 13, barsTextureWidth, barsTextureHeight);
-            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, vOffset + 1, healthBarSize, 11, barsTextureWidth, barsTextureHeight);
-            GuiComponent.blit(poseStack, left + 1, top + 1, uOffset + 1, 130 + 1, absorptionBarSize, 11, barsTextureWidth, barsTextureHeight);
+            guiGraphics.blit(BARS_LOCATION, left, top, uOffset, highlight ? 13 : healthBarSize >= thirtyPercent ? 0 : 26, 81, 13, barsTextureWidth, barsTextureHeight);
+            guiGraphics.blit(BARS_LOCATION, left + 1, top + 1, uOffset + 1, vOffset + 1, healthBarSize, 11, barsTextureWidth, barsTextureHeight);
+            guiGraphics.blit(BARS_LOCATION, left + 1, top + 1, uOffset + 1, 130 + 1, absorptionBarSize, 11, barsTextureWidth, barsTextureHeight);
 
             String healthText = String.valueOf(Mth.ceil(health + absorption));
             String maxHealthText = String.valueOf(Mth.ceil(maxHealth));
@@ -134,18 +131,18 @@ public class ModGuiOverlay {
 
             Font guiFont = gui.getFont();
 
-            guiFont.draw(poseStack, healthText, left + 38 - guiFont.width(healthText) - guiFont.width("/") + 2, top + 2, textColor.getRGB());
-            guiFont.draw(poseStack, "/", left + 38, top + 2, textColor.getRGB());
-            guiFont.draw(poseStack, maxHealthText, left + 38 + (guiFont.width("/") * 2) - 2, top + 2, textColor.getRGB());
+            guiGraphics.drawString(guiFont, healthText, left + 38 - guiFont.width(healthText) - guiFont.width("/") + 2, top + 2, textColor.getRGB());
+            guiGraphics.drawString(guiFont, "/", left + 38, top + 2, textColor.getRGB());
+            guiGraphics.drawString(guiFont, maxHealthText, left + 38 + (guiFont.width("/") * 2) - 2, top + 2, textColor.getRGB());
 
 
             RenderSystem.disableBlend();
             gui.getMinecraft().getProfiler().pop();
         }
     };
-    public static final IGuiOverlay ARMOR_LEVEL = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay ARMOR_LEVEL = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         if (!gui.getMinecraft().options.hideGui && gui.shouldDrawSurvivalElements()) {
-            gui.setupOverlayRenderState(true, false, BARS_LOCATION);
+            gui.setupOverlayRenderState(true, false);
             gui.getMinecraft().getProfiler().push("armor");
             RenderSystem.enableBlend();
 
@@ -165,7 +162,7 @@ public class ModGuiOverlay {
             int uOffset = 162;
 
             if (armorLevel > 0) {
-                GuiComponent.blit(poseStack, left, top, uOffset, 0, 81, 6, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left, top, uOffset, 0, 81, 6, barsTextureWidth, barsTextureHeight);
 
                 while (armorBarLevel > armorBarSize) {
                     armorBarLevel -= armorBarSize;
@@ -178,10 +175,10 @@ public class ModGuiOverlay {
                         vOffset = prevVOffset + 6 * i;
 
                     }
-                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarSize, 6, barsTextureWidth, barsTextureHeight);
-                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, vOffset, armorBarLevel, 6, barsTextureWidth, barsTextureHeight);
+                    guiGraphics.blit(BARS_LOCATION, left + 1, top, uOffset + 1, prevVOffset, armorBarSize, 6, barsTextureWidth, barsTextureHeight);
+                    guiGraphics.blit(BARS_LOCATION, left + 1, top, uOffset + 1, vOffset, armorBarLevel, 6, barsTextureWidth, barsTextureHeight);
                 } else {
-                    GuiComponent.blit(poseStack, left + 1, top, uOffset + 1, prevVOffset, armorBarLevel, 6, barsTextureWidth, barsTextureHeight);
+                    guiGraphics.blit(BARS_LOCATION, left + 1, top, uOffset + 1, prevVOffset, armorBarLevel, 6, barsTextureWidth, barsTextureHeight);
                 }
             }
 
@@ -189,13 +186,13 @@ public class ModGuiOverlay {
             gui.getMinecraft().getProfiler().pop();
         }
     };
-    public static final IGuiOverlay PLAYER_MANA = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay PLAYER_MANA = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Minecraft minecraft = gui.getMinecraft();
         Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
             if (!(player.getVehicle() instanceof LivingEntity) && !minecraft.options.hideGui) {
-                gui.setupOverlayRenderState(true, false, BARS_LOCATION);
+                gui.setupOverlayRenderState(true, false);
 
                 RenderSystem.enableBlend();
 
@@ -213,7 +210,7 @@ public class ModGuiOverlay {
                 int thirtyPercent = Mth.ceil((maxMana * 30 / 100) * 79 / maxMana);
                 Color textColor = new Color(89, 50, 102);
 
-                int uOffset = player.level.getLevelData().isHardcore() ? 81 : 0;
+                int uOffset = player.level().getLevelData().isHardcore() ? 81 : 0;
                 int vOffsetContainer = 0;
                 int vOffsetMana = 157;
 
@@ -221,28 +218,28 @@ public class ModGuiOverlay {
                     vOffsetContainer = 13;
                 }
 
-                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 13, barsTextureWidth, barsTextureHeight);
-                GuiComponent.blit(poseStack, left + 80 - manaBarSize, top + 1, uOffset + 80 - manaBarSize, vOffsetMana, manaBarSize, 11, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left, top, uOffset, vOffsetContainer, 81, 13, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left + 80 - manaBarSize, top + 1, uOffset + 80 - manaBarSize, vOffsetMana, manaBarSize, 11, barsTextureWidth, barsTextureHeight);
 
                 String manaText = String.valueOf(Mth.ceil(manaLevel));
                 String maxManaText = String.valueOf(Mth.ceil(maxMana));
                 Font guiFont = gui.getFont();
-                guiFont.draw(poseStack, manaText, left + 38 - guiFont.width(manaText) - guiFont.width("/") + 2, top + 2, textColor.getRGB());
-                guiFont.draw(poseStack, "/", left + 38, top + 2, textColor.getRGB());
-                guiFont.draw(poseStack, maxManaText, left + 38 + (guiFont.width("/") * 2) - 2, top + 2, textColor.getRGB());
+                guiGraphics.drawString(guiFont, manaText, left + 38 - guiFont.width(manaText) - guiFont.width("/") + 2, top + 2, textColor.getRGB());
+                guiGraphics.drawString(guiFont, "/", left + 38, top + 2, textColor.getRGB());
+                guiGraphics.drawString(guiFont, maxManaText, left + 38 + (guiFont.width("/") * 2) - 2, top + 2, textColor.getRGB());
 
                 RenderSystem.disableBlend();
                 minecraft.getProfiler().pop();
             }
         }
     };
-    public static final IGuiOverlay FOOD_LEVEL = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay FOOD_LEVEL = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Minecraft minecraft = gui.getMinecraft();
         Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
             if (!(player.getVehicle() instanceof LivingEntity) && !minecraft.options.hideGui) {
-                gui.setupOverlayRenderState(true, false, BARS_LOCATION);
+                gui.setupOverlayRenderState(true, false);
 
                 RenderSystem.enableBlend();
 
@@ -272,22 +269,22 @@ public class ModGuiOverlay {
                     vOffsetContainer = 12;
                 }
 
-                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, barsTextureWidth, barsTextureHeight);
-                GuiComponent.blit(poseStack, left + 81 - foodSaturationLevel, top, uOffset + 81 - foodSaturationLevel, vOffsetSaturation, foodSaturationLevel, 6, barsTextureWidth, barsTextureHeight);
-                GuiComponent.blit(poseStack, left + 80 - foodLevel, top, uOffset + 80 - foodLevel, vOffsetFood, foodLevel, 6, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left, top, uOffset, vOffsetContainer, 81, 6, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left + 81 - foodSaturationLevel, top, uOffset + 81 - foodSaturationLevel, vOffsetSaturation, foodSaturationLevel, 6, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left + 80 - foodLevel, top, uOffset + 80 - foodLevel, vOffsetFood, foodLevel, 6, barsTextureWidth, barsTextureHeight);
 
                 RenderSystem.disableBlend();
                 minecraft.getProfiler().pop();
             }
         }
     };
-    public static final IGuiOverlay THIRST_LEVEL = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay THIRST_LEVEL = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Minecraft minecraft = gui.getMinecraft();
         Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
         if (gui.shouldDrawSurvivalElements()) {
             assert player != null;
             if (!(player.getVehicle() instanceof LivingEntity) && !minecraft.options.hideGui) {
-                gui.setupOverlayRenderState(true, false, BARS_LOCATION);
+                gui.setupOverlayRenderState(true, false);
 
                 RenderSystem.enableBlend();
 
@@ -316,21 +313,21 @@ public class ModGuiOverlay {
                     vOffsetContainer = 12;
                 }
 
-                GuiComponent.blit(poseStack, left, top, uOffset, vOffsetContainer, 81, 6, barsTextureWidth, barsTextureHeight);
-                GuiComponent.blit(poseStack, left + 81 - thirstSaturationLevel, top, uOffset + 81 - thirstSaturationLevel, vOffsetSaturation, thirstSaturationLevel, 6, barsTextureWidth, barsTextureHeight);
-                GuiComponent.blit(poseStack, left + 80 - thirstLevel, top, uOffset + 80 - thirstLevel, vOffsetThirst, thirstLevel, 6, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left, top, uOffset, vOffsetContainer, 81, 6, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left + 81 - thirstSaturationLevel, top, uOffset + 81 - thirstSaturationLevel, vOffsetSaturation, thirstSaturationLevel, 6, barsTextureWidth, barsTextureHeight);
+                guiGraphics.blit(BARS_LOCATION, left + 80 - thirstLevel, top, uOffset + 80 - thirstLevel, vOffsetThirst, thirstLevel, 6, barsTextureWidth, barsTextureHeight);
 
                 RenderSystem.disableBlend();
                 minecraft.getProfiler().pop();
             }
         }
     };
-    public static final IGuiOverlay SKILLS_LEVELS = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+    public static final IGuiOverlay SKILLS_LEVELS = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Minecraft minecraft = gui.getMinecraft();
         Player player = !(minecraft.getCameraEntity() instanceof Player) ? null : (Player) minecraft.getCameraEntity();
         if (gui.shouldDrawSurvivalElements() && isSkillVisible) {
             assert player != null;
-            gui.setupOverlayRenderState(true, false, ICONS_LOCATION);
+            gui.setupOverlayRenderState(true, false);
             minecraft.getProfiler().push("skills_levels");
             RenderSystem.enableBlend();
 
@@ -360,8 +357,8 @@ public class ModGuiOverlay {
                     }else if (skill.getKey() == Skills.WOODCUTTING) {
                         uOffset = 64;
                     }
-                    GuiComponent.blit(poseStack, left - 3, top - 3, 0, 16, 72, 22, iconsTextureWidth, iconsTextureHeight);
-                    GuiComponent.blit(poseStack, left, top, uOffset, vOffset, 16, 16, iconsTextureWidth, iconsTextureHeight);
+                    guiGraphics.blit(ICONS_LOCATION, left - 3, top - 3, 0, 16, 72, 22, iconsTextureWidth, iconsTextureHeight);
+                    guiGraphics.blit(ICONS_LOCATION, left, top, uOffset, vOffset, 16, 16, iconsTextureWidth, iconsTextureHeight);
                     top -= 21;
                 }
             }
@@ -377,9 +374,9 @@ public class ModGuiOverlay {
                 int level = skill.getValue().getLevel();
                 if (level + currentXp > 0) {
                     String xpPercentageText = new DecimalFormat("#.##").format(xpPercentage) + "%";
-                    font.drawShadow(poseStack, Component.literal(String.valueOf(level)).withStyle(skill.getKey().getStyleModifier()), left + 16 - (font.width(String.valueOf(level))), top + (16 - font.lineHeight), 0);
-                    font.drawShadow(poseStack, Component.literal(xpPercentageText).withStyle(skill.getKey().getStyleModifier()), left + 42 - (float) (font.width(xpPercentageText) / 2), top + (7 - (float) (font.lineHeight / 2)), 0);
-                    GuiComponent.fill(poseStack, left + 18, top + 13, left + 18 + xpBarSize, top + 16, color + 0xFF000000);
+                    guiGraphics.drawString(font, Component.literal(String.valueOf(level)).withStyle(skill.getKey().getStyleModifier()), left + 16 - (font.width(String.valueOf(level))), top + (16 - font.lineHeight), 0);
+                    //font.drawShadow(poseStack, Component.literal(xpPercentageText).withStyle(skill.getKey().getStyleModifier()), left + 42 - (float) (font.width(xpPercentageText) / 2), top + (7 - (float) (font.lineHeight / 2)), 0);
+                    guiGraphics.fill(left + 18, top + 13, left + 18 + xpBarSize, top + 16, color + 0xFF000000);
                     top -= 21;
                 }
             }

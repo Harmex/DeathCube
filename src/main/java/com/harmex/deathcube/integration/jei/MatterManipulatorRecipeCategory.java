@@ -20,6 +20,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -87,14 +88,14 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
     }
 
     @Override
-    public void draw(@NotNull ShapedMatterManipulationRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
+    public void draw(ShapedMatterManipulationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         IDrawableAnimated arrow = getArrow(recipe);
-        arrow.draw(stack, 95, 19);
+        arrow.draw(guiGraphics, 95, 19);
 
-        drawManipulationTime(recipe, stack, 45);
+        drawManipulationTime(recipe, guiGraphics, 45);
     }
 
-    protected void drawManipulationTime(ShapedMatterManipulationRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawManipulationTime(ShapedMatterManipulationRecipe recipe, GuiGraphics poseStack, int y) {
         int manipulationTime = recipe.getManipulationTime();
         if (manipulationTime > 0) {
             int manipulationTimeSeconds = manipulationTime / 20;
@@ -102,7 +103,7 @@ public class MatterManipulatorRecipeCategory implements IRecipeCategory<ShapedMa
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
+            poseStack.drawString(fontRenderer, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
         }
     }
 

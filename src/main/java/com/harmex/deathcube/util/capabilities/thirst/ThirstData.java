@@ -30,9 +30,9 @@ public class ThirstData {
     }
 
     public void tick(Player pPlayer) {
-        Difficulty difficulty = pPlayer.level.getDifficulty();
+        Difficulty difficulty = pPlayer.level().getDifficulty();
 
-        if (difficulty == Difficulty.PEACEFUL && pPlayer.level.getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION)) {
+        if (difficulty == Difficulty.PEACEFUL && pPlayer.level().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION)) {
             if (tickTimer % 10 == 0) {
                 if (needsWater()) setThirstLevel(thirstLevel + 1);
                 if (needsSaturation()) setSaturationLevel(saturationLevel + 1.0F);
@@ -54,7 +54,7 @@ public class ThirstData {
                         if (moveDistHorizontal > 0) {
                             addExhaustion(EXHAUSTION_SWIM * (float) moveDistHorizontal * 0.01F);
                         }
-                    } else if (pPlayer.isOnGround()) {
+                    } else if (pPlayer.onGround()) {
                         if (moveDistHorizontal > 0) {
                             if (pPlayer.isSprinting()) {
                                 addExhaustion(EXHAUSTION_SPRINT * (float) moveDistHorizontal * 0.01F);

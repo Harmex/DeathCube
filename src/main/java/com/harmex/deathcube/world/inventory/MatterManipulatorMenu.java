@@ -20,14 +20,14 @@ public class MatterManipulatorMenu extends AbstractContainerMenu {
     private final int containerSize = 11;
 
     public MatterManipulatorMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pExtraData) {
-        this(pContainerId, pInventory, pInventory.player.level.getBlockEntity(pExtraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, pInventory, pInventory.player.level().getBlockEntity(pExtraData.readBlockPos()), new SimpleContainerData(2));
     }
 
     public MatterManipulatorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pDataAccess) {
         super(ModMenuTypes.MATTER_MANIPULATOR_MENU.get(), pContainerId);
         checkContainerSize(pInventory, 11);
         this.blockEntity = ((MatterManipulatorBlockEntity) pBlockEntity);
-        this.level = pInventory.player.level;
+        this.level = pInventory.player.level();
         this.dataAccess = pDataAccess;
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {

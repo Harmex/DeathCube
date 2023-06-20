@@ -7,6 +7,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -52,7 +53,7 @@ public class CompactEnchantmentModifier extends LootModifier {
     }
 
     private static ItemStack compact(ItemStack stack, LootContext context) {
-        CraftingContainer craftingContainer3x3 = new CraftingContainer(new AbstractContainerMenu(null, -1) {
+        CraftingContainer craftingContainer3x3 = new TransientCraftingContainer(new AbstractContainerMenu(null, -1) {
             @Override
             public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
                 return ItemStack.EMPTY;
@@ -66,7 +67,7 @@ public class CompactEnchantmentModifier extends LootModifier {
         for (int i = 0; i < 9; i++) {
             craftingContainer3x3.setItem(i, stack);
         }
-        CraftingContainer craftingContainer2x2 = new CraftingContainer(new AbstractContainerMenu(null, -1) {
+        CraftingContainer craftingContainer2x2 = new TransientCraftingContainer(new AbstractContainerMenu(null, -1) {
             @Override
             public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
                 return ItemStack.EMPTY;

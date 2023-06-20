@@ -110,9 +110,15 @@ public class SkillCommand {
         }
 
         if (pTargets.size() == 1) {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.experience.success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.experience.success.single", pAmount, pTargets.iterator().next().getDisplayName())
+                    , true
+            );
         } else {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.experience.success.multiple", pAmount, pTargets.size()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.experience.success.multiple", pAmount, pTargets.size())
+                    , true
+            );
         }
 
         return pTargets.size();
@@ -126,9 +132,15 @@ public class SkillCommand {
         }
 
         if (pTargets.size() == 1) {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.level.success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.level.success.single", pAmount, pTargets.iterator().next().getDisplayName())
+                    , true
+            );
         } else {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.level.success.multiple", pAmount, pTargets.size()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.level.success.multiple", pAmount, pTargets.size())
+                    , true
+            );
         }
 
         return pTargets.size();
@@ -142,9 +154,15 @@ public class SkillCommand {
         }
 
         if (pTargets.size() == 1) {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.level.success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.level.success.single", pAmount, pTargets.iterator().next().getDisplayName())
+                    , true
+            );
         } else {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.level.success.multiple", pAmount, pTargets.size()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.level.success.multiple", pAmount, pTargets.size())
+                    , true
+            );
         }
 
         return pTargets.size();
@@ -158,9 +176,15 @@ public class SkillCommand {
         }
 
         if (pTargets.size() == 1) {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.level.success.single", pAmount, pTargets.iterator().next().getDisplayName()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.level.success.single", pAmount, pTargets.iterator().next().getDisplayName())
+                    , true
+            );
         } else {
-            pSource.sendSuccess(Component.translatable("commands.deathcube.skill.add.level.success.multiple", pAmount, pTargets.size()), true);
+            pSource.sendSuccess(() ->
+                    Component.translatable("commands.deathcube.skill.add.level.success.multiple", pAmount, pTargets.size())
+                    , true
+            );
         }
 
         return pTargets.size();

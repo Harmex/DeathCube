@@ -15,8 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -28,28 +27,29 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, DeathCube.MODID);
 
     public static final RegistryObject<Block> ECHO_AMETHYST_BLOCK = registerBlock("echo_amethyst_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_PURPLE)
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
                     .strength(5F, 1200F)
                     .requiresCorrectToolForDrops()), ModRarities.EPIC
     );
     public static final RegistryObject<Block> GOLDEN_CARROTS = registerBlockWithoutBlockItem("golden_carrots",
-            () -> new GoldenCarrotBlock(BlockBehaviour.Properties.of(Material.PLANT)
+            () -> new GoldenCarrotBlock(BlockBehaviour.Properties.of()
                     .noCollission().randomTicks().instabreak().sound(SoundType.CROP))
     );
     public static final RegistryObject<Block> UPGRADING_STATION = registerBlock("upgrading_station",
-            () -> new UpgradingStationBlock(BlockBehaviour.Properties.of(Material.METAL)
+            () -> new UpgradingStationBlock(BlockBehaviour.Properties.of()
                     .strength(9f).requiresCorrectToolForDrops()), ModRarities.EPIC
     );
     public static final RegistryObject<Block> MATTER_MANIPULATOR = registerBlock("matter_manipulator",
-            () -> new MatterManipulatorBlock(BlockBehaviour.Properties.of(Material.METAL)
+            () -> new MatterManipulatorBlock(BlockBehaviour.Properties.of()
                     .strength(9f).requiresCorrectToolForDrops()), ModRarities.EPIC
     );
     public static final RegistryObject<Block> RESURRECTION_ALTAR = registerBlock("resurrection_altar",
-            () -> new ResurrectionAltarBlock(BlockBehaviour.Properties.of(Material.METAL)
+            () -> new ResurrectionAltarBlock(BlockBehaviour.Properties.of()
                     .strength(-1.0F, 3600000.0F).requiresCorrectToolForDrops()), Rarity.COMMON
     );
     public static final RegistryObject<Block> ZANTHINE_ORE = registerBlock("zanthine_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
                     .strength(3F, 3F).requiresCorrectToolForDrops(),
                     UniformInt.of(5, 7)), Rarity.COMMON
     );

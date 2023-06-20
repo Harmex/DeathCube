@@ -133,6 +133,6 @@ public class UpgradingStationBlockEntity extends BlockEntity implements MenuProv
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new UpgradingStationMenu(pContainerId, pPlayerInventory, this, ContainerLevelAccess.create(pPlayer.level, this.getBlockPos()), this.dataAccess);
+        return new UpgradingStationMenu(pContainerId, pPlayerInventory, this, ContainerLevelAccess.create(pPlayer.level(), this.getBlockPos()), this.dataAccess);
     }
 }

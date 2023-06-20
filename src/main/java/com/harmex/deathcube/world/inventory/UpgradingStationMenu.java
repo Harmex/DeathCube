@@ -21,7 +21,7 @@ public class UpgradingStationMenu extends AbstractContainerMenu {
 
     public UpgradingStationMenu(int pContainerId, Inventory pPlayerInventory, FriendlyByteBuf pExtraData) {
         this(pContainerId, pPlayerInventory,
-                Objects.requireNonNull(pPlayerInventory.player.level.getBlockEntity(pExtraData.readBlockPos())),
+                Objects.requireNonNull(pPlayerInventory.player.level().getBlockEntity(pExtraData.readBlockPos())),
                 ContainerLevelAccess.NULL,
                 new SimpleContainerData(1));
     }

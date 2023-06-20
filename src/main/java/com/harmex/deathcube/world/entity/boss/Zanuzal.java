@@ -74,18 +74,18 @@ public class Zanuzal extends FlyingMob implements Enemy {
     @Override
     public void tick() {
         super.tick();
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             float f = Mth.cos((float)(this.getUniqueFlapTickOffset() + this.tickCount) * 7.448451F * ((float)Math.PI / 180F) + (float)Math.PI);
             float f1 = Mth.cos((float)(this.getUniqueFlapTickOffset() + this.tickCount + 1) * 7.448451F * ((float)Math.PI / 180F) + (float)Math.PI);
             if (f > 0.0F && f1 <= 0.0F) {
-                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
+                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
 
             float f2 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * (1.3F + 0.21F);
             float f3 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * (1.3F + 0.21F);
             float f4 = (0.3F + f * 0.45F) * (0.2F + 1.0F);
-            this.level.addParticle(ParticleTypes.MYCELIUM, this.getX() + (double)f2, this.getY() + (double)f4, this.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
-            this.level.addParticle(ParticleTypes.MYCELIUM, this.getX() - (double)f2, this.getY() + (double)f4, this.getZ() - (double)f3, 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(ParticleTypes.MYCELIUM, this.getX() + (double)f2, this.getY() + (double)f4, this.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(ParticleTypes.MYCELIUM, this.getX() - (double)f2, this.getY() + (double)f4, this.getZ() - (double)f3, 0.0D, 0.0D, 0.0D);
         }
 
     }
@@ -146,7 +146,7 @@ public class Zanuzal extends FlyingMob implements Enemy {
                 --this.nextScanTick;
             } else {
                 this.nextScanTick = reducedTickDelay(60);
-                List<Player> list = Zanuzal.this.level.getNearbyPlayers(this.attackTargeting, Zanuzal.this, Zanuzal.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
+                List<Player> list = Zanuzal.this.level().getNearbyPlayers(this.attackTargeting, Zanuzal.this, Zanuzal.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
 
@@ -196,7 +196,7 @@ public class Zanuzal extends FlyingMob implements Enemy {
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
         public void stop() {
-            Zanuzal.this.anchorPoint = Zanuzal.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, Zanuzal.this.anchorPoint).above(10 + Zanuzal.this.random.nextInt(20));
+            Zanuzal.this.anchorPoint = Zanuzal.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, Zanuzal.this.anchorPoint).above(10 + Zanuzal.this.random.nextInt(20));
         }
 
         /**
@@ -217,8 +217,8 @@ public class Zanuzal extends FlyingMob implements Enemy {
 
         private void setAnchorAboveTarget() {
             Zanuzal.this.anchorPoint = Objects.requireNonNull(Zanuzal.this.getTarget()).blockPosition().above(20 + Zanuzal.this.random.nextInt(20));
-            if (Zanuzal.this.anchorPoint.getY() < Zanuzal.this.level.getSeaLevel()) {
-                Zanuzal.this.anchorPoint = new BlockPos(Zanuzal.this.anchorPoint.getX(), Zanuzal.this.level.getSeaLevel() + 1, Zanuzal.this.anchorPoint.getZ());
+            if (Zanuzal.this.anchorPoint.getY() < Zanuzal.this.level().getSeaLevel()) {
+                Zanuzal.this.anchorPoint = new BlockPos(Zanuzal.this.anchorPoint.getX(), Zanuzal.this.level().getSeaLevel() + 1, Zanuzal.this.anchorPoint.getZ());
             }
 
         }
@@ -287,12 +287,12 @@ public class Zanuzal extends FlyingMob implements Enemy {
                 this.selectNext();
             }
 
-            if (Zanuzal.this.moveTargetPoint.y < Zanuzal.this.getY() && !Zanuzal.this.level.isEmptyBlock(Zanuzal.this.blockPosition().below(1))) {
+            if (Zanuzal.this.moveTargetPoint.y < Zanuzal.this.getY() && !Zanuzal.this.level().isEmptyBlock(Zanuzal.this.blockPosition().below(1))) {
                 this.height = Math.max(1.0F, this.height);
                 this.selectNext();
             }
 
-            if (Zanuzal.this.moveTargetPoint.y > Zanuzal.this.getY() && !Zanuzal.this.level.isEmptyBlock(Zanuzal.this.blockPosition().above(1))) {
+            if (Zanuzal.this.moveTargetPoint.y > Zanuzal.this.getY() && !Zanuzal.this.level().isEmptyBlock(Zanuzal.this.blockPosition().above(1))) {
                 this.height = Math.min(-1.0F, this.height);
                 this.selectNext();
             }
@@ -414,7 +414,7 @@ public class Zanuzal extends FlyingMob implements Enemy {
                 } else {
                     if (Zanuzal.this.tickCount > this.catSearchTick) {
                         this.catSearchTick = Zanuzal.this.tickCount + 20;
-                        List<Cat> list = Zanuzal.this.level.getEntitiesOfClass(Cat.class, Zanuzal.this.getBoundingBox().inflate(16.0D), EntitySelector.ENTITY_STILL_ALIVE);
+                        List<Cat> list = Zanuzal.this.level().getEntitiesOfClass(Cat.class, Zanuzal.this.getBoundingBox().inflate(16.0D), EntitySelector.ENTITY_STILL_ALIVE);
 
                         for(Cat cat : list) {
                             cat.hiss();
@@ -453,7 +453,7 @@ public class Zanuzal extends FlyingMob implements Enemy {
                     Zanuzal.this.doHurtTarget(livingentity);
                     Zanuzal.this.attackPhase = Zanuzal.AttackPhase.CIRCLE;
                     if (!Zanuzal.this.isSilent()) {
-                        Zanuzal.this.level.levelEvent(1039, Zanuzal.this.blockPosition(), 0);
+                        Zanuzal.this.level().levelEvent(1039, Zanuzal.this.blockPosition(), 0);
                     }
                 } else if (Zanuzal.this.horizontalCollision || Zanuzal.this.hurtTime > 0) {
                     Zanuzal.this.attackPhase = Zanuzal.AttackPhase.CIRCLE;
